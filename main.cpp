@@ -5,6 +5,17 @@ Project 5: Part 1 / 4
  Create a branch named Part1
 
  Destructors
+
+ If you didn't do Project3, write 3 UDTs below (where it asks for Copied UDTs) that have: 
+        member functions,
+        member variables, 
+        constructors that initialize the members. 
+        for() or while() loops that modify member variables
+        
+ Define your implementations of all functions OUTSIDE of the class. 
+ Then do instruction 2)
+ 
+ If you DID do Project 3, do instruction 1)
  
  1) Copy a few of your user-defined types (the ones with constructors and for()/while() loops from Project 3) here
  2) add destructors
