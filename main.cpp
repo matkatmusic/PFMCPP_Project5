@@ -47,8 +47,8 @@ struct Animal
     Animal();
     ~Animal();
     void howManyToes();
-    void setNumLegs(int numLegs);
-    void setNumToesOnFoot(int numToesOnFoot);
+    void setNumLegs(int nL);
+    void setNumToesOnFoot(int nTOF);
 
 private:
     int totalToes;
@@ -66,8 +66,8 @@ struct Car
     Car();
     ~Car();
     void distanceTraveled();
-    void setDriving(bool driving);
-    void setPetrol(float petrol);
+    void setDriving(bool d);
+    void setPetrol(float p);
 
 private:
     bool driving;
@@ -85,7 +85,7 @@ struct Multiply
     Multiply();
     ~Multiply();
     void multipleOf(int num);
-    void setMaxMultiple(int maxMultiple);
+    void setMaxMultiple(int mM);
 
 private:
     int maxMultiple;
@@ -147,14 +147,14 @@ void Animal::howManyToes()
     }
 }
 
-void Animal::setNumLegs(int numLegs)
+void Animal::setNumLegs(int nL)
 {
-    this->numLegs = numLegs;
+    numLegs = nL;
 }
 
-void Animal::setNumToesOnFoot(int numToesOnFoot)
+void Animal::setNumToesOnFoot(int nTOF)
 {
-    this->numToesOnFoot = numToesOnFoot; 
+    numToesOnFoot = nTOF; 
 }
 
 ///////////////////////////////////////////////////////////
@@ -184,14 +184,14 @@ void Car::distanceTraveled()
 
 }
 
-void Car::setDriving(bool driving)
+void Car::setDriving(bool d)
 {
-    this->driving = driving;
+    driving = d;
 }
 
-void Car::setPetrol(float petrol)
+void Car::setPetrol(float p)
 {
-    this->petrol = petrol;
+    petrol = p;
 }
 
 ///////////////////////////////////////////////////////////
@@ -216,9 +216,9 @@ void Multiply::multipleOf(int num)
 
 }
 
-void Multiply::setMaxMultiple(int maxMultiple)
+void Multiply::setMaxMultiple(int mM)
 {
-    this->maxMultiple = maxMultiple;
+    maxMultiple = mM;
 }
 
 ///////////////////////////////////////////////////////////
