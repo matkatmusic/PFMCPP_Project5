@@ -137,12 +137,12 @@ void Animal::howManyToes()
     for(int i = 1; i<=numLegs;i++)
     {
         totalToes = i*numToesOnFoot;
-        std::cout<<"foot: "<<i<<" Toe count: "<<totalToes<<std::endl; 
+        std::cout << "foot: " << i << " Toe count: " << totalToes << std::endl; 
     }
 
     if(totalToes==0)
     {
-        std::cout<<"The pobble who had no Toes!"<<std::endl;
+        std::cout << "The pobble who had no Toes!" << std::endl;
         isItAPobble = true;
     }
 }
@@ -166,14 +166,14 @@ Car::Car():driving(false), petrol(8.0f), miles(0)
 
 Car::~Car()
 {
-    std::cout<<"Destroy Car" << std::endl;
+    std::cout << "Destroy Car" << std::endl;
 }
 
 void Car::distanceTraveled()
 {
     while (driving)
     {
-        std::cout<<"miles travelled: "<< miles << " petrol left: " << petrol << std::endl;
+        std::cout << "miles travelled: " << miles << " petrol left: " << petrol << std::endl;
         miles++;
         petrol -= 0.5f;
         if(petrol <= 0.0f)
@@ -203,7 +203,7 @@ Multiply::Multiply(): maxMultiple(12), result(0)
 
 Multiply::~Multiply()
 {
-    std::cout<<"Destroy Multiply" << std::endl;
+    std::cout << "Destroy Multiply" << std::endl;
 }
 
 void Multiply::multipleOf(int num)
