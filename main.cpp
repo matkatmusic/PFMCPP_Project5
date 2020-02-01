@@ -44,42 +44,11 @@ Project 5: Part 1 / 4
 
 struct Animal
 {
-    Animal():totalToes(0), numLegs(0), numToesOnFoot(0), isItAPobble(false){}
-
-    void howManyToes()
-    {
-        for(int i = 0; i<=numLegs;++i)
-        {
-            totalToes = i*numToesOnFoot;
-            std::cout<<"foot: "<<i<<" Toe count: "<<totalToes<<std::endl; 
-        }
-
-        if(totalToes==0)
-        {
-            std::cout<<"The pobble who had no Toes!"<<std::endl;
-            isItAPobble = true;
-        }
-    }
-
-    void setNumLegs(int numLegs)
-    {
-        this->numLegs = numLegs;
-    }
-
-    int getNumLegs()
-    {
-        return numLegs;
-    }
-
-    void setNumToesOnFoot(int numToesOnFoot)
-    {
-        this->numToesOnFoot = numToesOnFoot; 
-    }
-
-    int getNumToesOnFoot()
-    {
-        return numToesOnFoot;
-    }
+    Animal();
+    ~Animal();
+    void howManyToes();
+    void setNumLegs(int numLegs);
+    void setNumToesOnFoot(int numToesOnFoot);
 
 private:
     int totalToes;
@@ -94,31 +63,11 @@ private:
 
 struct Car
 {
-    Car():driving(false), petrol(8.0f), miles(0){}
-    void distanceTraveled()
-    {
-        while (driving)
-        {
-            std::cout<<"miles travelled: "<< miles << " petrol left: " << petrol << std::endl;
-            miles++;
-            petrol -= 0.5f;
-            if(petrol <= 0.0f)
-            {
-                break;
-            }
-        }
-
-    }
-
-    void setDriving(bool driving)
-    {
-        this->driving = driving;
-    }
-
-    void setPetrol(float petrol)
-    {
-        this->petrol = petrol;
-    }
+    Car();
+    ~Car();
+    void distanceTraveled();
+    void setDriving(bool driving);
+    void setPetrol(float petrol);
 
 private:
     bool driving;
@@ -133,22 +82,10 @@ private:
 
 struct Multiply
 {
-    Multiply(): maxMultiple(12), result(0) {}
-     
-    void multipleOf(int num)
-    {
-        for(int i = 0; i<=maxMultiple;i++)
-        {
-        result = num * i;
-        std::cout<< num << " times " << i << " equals " << result << std::endl; 
-        }
-
-    }
-
-    void setMaxMultiple(int maxMultiple)
-    {
-        this->maxMultiple = maxMultiple;
-    }
+    Multiply();
+    ~Multiply();
+    void multipleOf(int num);
+    void setMaxMultiple(int maxMultiple);
 
 private:
     int maxMultiple;
@@ -159,9 +96,156 @@ private:
  new UDT 4:
  */
 
+struct MyLife
+{
+    MyLife();
+    ~MyLife();
+private:
+    Animal pet;
+    Car ford;
+    Multiply homeWork;
+};
+
 /*
  new UDT 5:
  */
+
+struct YourLife
+{
+    YourLife();
+    ~YourLife();
+private:
+    Animal pet;
+    Car ford;
+    Multiply homeWork;
+};
+
+
+///////////////////////////////////////////////////////////
+Animal::Animal():totalToes(0), numLegs(0), numToesOnFoot(0), isItAPobble(false)
+{
+
+}
+
+Animal::~Animal()
+{
+    std::cout << "Destroy Animal" << std::endl;
+}
+
+void Animal::howManyToes()
+{
+    for(int i = 1; i<=numLegs;i++)
+    {
+        totalToes = i*numToesOnFoot;
+        std::cout<<"foot: "<<i<<" Toe count: "<<totalToes<<std::endl; 
+    }
+
+    if(totalToes==0)
+    {
+        std::cout<<"The pobble who had no Toes!"<<std::endl;
+        isItAPobble = true;
+    }
+}
+
+void Animal::setNumLegs(int numLegs)
+{
+    this->numLegs = numLegs;
+}
+
+void Animal::setNumToesOnFoot(int numToesOnFoot)
+{
+    this->numToesOnFoot = numToesOnFoot; 
+}
+
+///////////////////////////////////////////////////////////
+
+Car::Car():driving(false), petrol(8.0f), miles(0)
+{
+
+}
+
+Car::~Car()
+{
+    std::cout<<"Destroy Car" << std::endl;
+}
+
+void Car::distanceTraveled()
+{
+    while (driving)
+    {
+        std::cout<<"miles travelled: "<< miles << " petrol left: " << petrol << std::endl;
+        miles++;
+        petrol -= 0.5f;
+        if(petrol <= 0.0f)
+        {
+            break;
+        }
+    }
+
+}
+
+void Car::setDriving(bool driving)
+{
+    this->driving = driving;
+}
+
+void Car::setPetrol(float petrol)
+{
+    this->petrol = petrol;
+}
+
+///////////////////////////////////////////////////////////
+
+Multiply::Multiply(): maxMultiple(12), result(0) 
+{
+
+}
+
+Multiply::~Multiply()
+{
+    std::cout<<"Destroy Multiply" << std::endl;
+}
+
+void Multiply::multipleOf(int num)
+{
+    for(int i = 0; i<=maxMultiple;i++)
+    {
+    result = num * i;
+    std::cout<< num << " times " << i << " equals " << result << std::endl; 
+    }
+
+}
+
+void Multiply::setMaxMultiple(int maxMultiple)
+{
+    this->maxMultiple = maxMultiple;
+}
+
+///////////////////////////////////////////////////////////
+
+MyLife::MyLife()
+{
+
+}
+
+MyLife::~MyLife()
+{
+    pet.howManyToes();
+}
+
+///////////////////////////////////////////////////////////
+
+YourLife::YourLife()
+{
+
+}
+
+YourLife::~YourLife()
+{
+    pet.setNumLegs(4);
+    pet.setNumToesOnFoot(5);
+    pet.howManyToes();
+}
 
 
 int main()
@@ -177,7 +261,10 @@ int main()
     // c.distanceTraveled();
     // std::cout << "good to go!" << std::endl;
 
-    Multiply m;
-    m.setMaxMultiple(20);
-    m.multipleOf(8);
+    // Multiply m;
+    // m.setMaxMultiple(20);
+    // m.multipleOf(8);
+
+    MyLife me;
+    YourLife you;
 }
