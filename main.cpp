@@ -37,18 +37,123 @@ Project 5: Part 1 / 4
 
  Wait for my code review.
  */
-
+#include <iostream>
 /*
  copied UDT 1:
  */
+
+struct Animal
+{
+    Animal():totalToes(0), numLegs(0), numToesOnFoot(0), isItAPobble(false){}
+
+    void howManyToes()
+    {
+        for(int i = 0; i<=numLegs;++i)
+        {
+            totalToes = i*numToesOnFoot;
+            std::cout<<"foot: "<<i<<" Toe count: "<<totalToes<<std::endl; 
+        }
+
+        if(totalToes==0)
+        {
+            std::cout<<"The pobble who had no Toes!"<<std::endl;
+            isItAPobble = true;
+        }
+    }
+
+    void setNumLegs(int numLegs)
+    {
+        this->numLegs = numLegs;
+    }
+
+    int getNumLegs()
+    {
+        return numLegs;
+    }
+
+    void setNumToesOnFoot(int numToesOnFoot)
+    {
+        this->numToesOnFoot = numToesOnFoot; 
+    }
+
+    int getNumToesOnFoot()
+    {
+        return numToesOnFoot;
+    }
+
+private:
+    int totalToes;
+    int numLegs; 
+    int numToesOnFoot;
+    bool isItAPobble = false;
+};
 
 /*
  copied UDT 2:
  */
 
+struct Car
+{
+    Car():driving(false), petrol(8.0f), miles(0){}
+    void distanceTraveled()
+    {
+        while (driving)
+        {
+            std::cout<<"miles travelled: "<< miles << " petrol left: " << petrol << std::endl;
+            miles++;
+            petrol -= 0.5f;
+            if(petrol <= 0.0f)
+            {
+                break;
+            }
+        }
+
+    }
+
+    void setDriving(bool driving)
+    {
+        this->driving = driving;
+    }
+
+    void setPetrol(float petrol)
+    {
+        this->petrol = petrol;
+    }
+
+private:
+    bool driving;
+    float petrol;
+    int miles;
+};
+
+
 /*
  copied UDT 3:
  */
+
+struct Multiply
+{
+    Multiply(): maxMultiple(12), result(0) {}
+     
+    void multipleOf(int num)
+    {
+        for(int i = 0; i<=maxMultiple;i++)
+        {
+        result = num * i;
+        std::cout<< num << " times " << i << " equals " << result << std::endl; 
+        }
+
+    }
+
+    void setMaxMultiple(int maxMultiple)
+    {
+        this->maxMultiple = maxMultiple;
+    }
+
+private:
+    int maxMultiple;
+    int result;
+};
 
 /*
  new UDT 4:
@@ -58,8 +163,21 @@ Project 5: Part 1 / 4
  new UDT 5:
  */
 
-#include <iostream>
+
 int main()
 {
-    std::cout << "good to go!" << std::endl;
+    // Animal a;
+    // a.setNumLegs(8);
+    // a.setNumToesOnFoot(4);
+    // a.howManyToes();
+
+    // Car c;
+    // c.setPetrol(10.5f);
+    // c.setDriving(true);
+    // c.distanceTraveled();
+    // std::cout << "good to go!" << std::endl;
+
+    Multiply m;
+    m.setMaxMultiple(20);
+    m.multipleOf(8);
 }
