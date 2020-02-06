@@ -128,17 +128,25 @@ struct Human
     int numberOfViolations, numberOfCars, numberOfPets;
     std::string name;
     bool licenseIsValid, hasBike;
+    std::vector<Pet> pets;
 
-    Human(std::string humanName) : numberOfViolations(0), numberOfCars(0), numberOfPets(0), name(humanName), licenseIsValid(false), hasBike(false)
+    Human(std::string humanName) : numberOfViolations(0), numberOfCars(0), numberOfPets(0), name(humanName), licenseIsValid(false), hasBike(false), pets({})
     { 
         std::cout << "A human is created, hello " << name << std::endl;
-
     }
 
     ~Human()
     {
         std::cout << "A human is destroyed, RIP " << name << std::endl;
     }
+
+    void adoptPet(Pet pet)
+    {
+        numberOfPets ++;
+        pets.push_back(pet);
+        std::cout << name << " has adopted " << pet.name << std::endl;
+    }
+
     bool isDriverAllowedToDrive();
     std::string isPetHungry(Pet ourPet)
     {
@@ -203,7 +211,7 @@ struct Sequencer
         if(playForward)
         {
             std::cout << "playing forward:: ";
-            for( auto& n : notes )
+            for(auto& n : notes)
             {   
                 std::cout << n << " "; 
                 synth.noteOn();
@@ -214,7 +222,7 @@ struct Sequencer
         if(playReverse)
         {
             std::cout << "playing reverse:: ";
-            for( auto n = notes.rbegin(); n != notes.rend(); ++n)
+            for(auto n = notes.rbegin(); n != notes.rend(); ++n)
             {   
                 std::cout << *n << " "; 
                 synth.noteOn();
@@ -249,15 +257,15 @@ struct Composition
     Composition(std::vector<Synthesizer> synthesizers, std::vector<Sequencer> sequencers) : synths(synthesizers), seqs(sequencers)
     {
         std::cout << "A composition is created featuring:" << std::endl;
-        for(auto& synth : synthesizers)
+        for(auto& synthesizer : synthesizers)
         {   
-            std::cout << synth.synthName << std::endl; 
+            std::cout << synthesizer.synthName << std::endl; 
         }
     }
 
     void addCommand(std::string synth, std::string command, std::string sequencer)
     {
-        for( auto& seq : seqs)
+        for(auto& seq : seqs)
         {
             if(seq.name == sequencer)
             {
@@ -284,12 +292,28 @@ struct Composition
  new UDT 5:
  */
 
+struct Adoption
+{
+    Human adopter;
+    Pet adoptee;
+
+    Adoption(Human human, Pet pet) : adopter(human), adoptee(pet) {
+        adopter.adoptPet(pet);
+    }
+
+    ~Adoption()
+    {
+        std::cout << "Adoption is complete." << std::endl;
+    }
+
+};
+
 #include <iostream>
 int main()
 {
-//     std::cout << "good to go!" << std::endl;
-//     Pet zuul("cat", "Zuul");
-//     Human jason("Jason");
+    Pet zuul("cat", "Zuul");
+    Human jason("Jason");
+    std::cout << "---" << std::endl;
     Synthesizer moog("Mother32"), korg("Sigma");
     Sequencer mc202("MC202"), msq8("SQD-1");
     mc202.recordNote(99);
@@ -297,4 +321,6 @@ int main()
     mc202.recordNote(77);
     Composition newSong({moog, korg}, {mc202});
     newSong.addCommand("Mother32", "plays", "MC202");
+    std::cout << "---" << std::endl;
+    Adoption adoptionEvent(jason, zuul);
 }
