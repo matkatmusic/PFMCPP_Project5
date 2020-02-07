@@ -1,24 +1,21 @@
 /*
-Project 5: Part 1 / 4
- video Chapter 2 - Part 12
+Project 5: Part 2 / 4
+ video: Chapter 3 Part 1
 
- Create a branch named Part1
+Create a branch named Part2
 
- Destructors
+ The 'this' keyword
  
- 1) Copy a few of your user-defined types (the ones with constructors and for()/while() loops from Project 3) here
- 2) add destructors
-        make the destructors do something like print out the name of the class.
-
-	If you already did Chapter2 part 10 on Coliru and don't have a Project3, just grab some UDTs from your Coliru Ch2P10 submission. 
+ 1) For any std::cout statements you had in main() that accessed member variables of your types or printed out the results of your member function calls,
+        a) write a member function that prints the same thing out, but uses the proper techniques inside the member functions to access the same member variables/functions.
+        b) be explicit with your use of 'this->' in those member functions so we see how you're accessing/calling those member variables and functions *inside*
  
- 3) add 2 new UDTs that use only the types you copied above.
- 4) Add destructors to these 2 new types that do stuff.  
-        maybe print out the name of the class being destructed, or call a member function of one of the members.  be creative
+ 2) if you didn't have any std::cout statements in main() that accessed member variables:
+         write some.
+         then do 1a) & 1b)
  
- 5) Instantiate your 2 UDT's from step 4) in the main() function at the bottom.
  
- 6) After you finish, click the [run] button.  Clear up any errors or warnings as best you can.
+ 3) After you finish, click the [run] button.  Clear up any errors or warnings as best you can.
  
  Commit your changes by clicking on the Source Control panel on the left, entering a message, and click [Commit and push].
  
@@ -26,6 +23,31 @@ Project 5: Part 1 / 4
 
  Wait for my code review.
  */
+
+/*
+ example:
+ */
+#include <iostream>
+namespace Example
+{
+    struct MyFoo
+    {
+        MyFoo() { std::cout << "creating MyFoo" << std::endl; }
+        ~MyFoo() { std::cout << "destroying MyFoo" << std::endl; }
+        void memberFunc() { std::cout << "MyFoo returnValue(): " << this->returnValue() << " and MyFoo memberVariable: " << this->memberVariable << std::endl; }  //3)
+        int returnValue() { return 3; }
+        float memberVariable = 3.14f;
+    };
+    int main()
+    {
+        MyFoo mf;
+        std::cout << "mf returnValue(): " << mf.returnValue() << " and mf memberVariable: " << mf.memberVariable << std::endl;  //3)
+        mf.memberFunc();
+        return 0;
+    }
+}
+
+
 
 /*
  copied UDT 1:
@@ -311,6 +333,7 @@ struct Adoption
 #include <iostream>
 int main()
 {
+    Example::main();
     Pet zuul("cat", "Zuul");
     Human jason("Jason");
     std::cout << "---" << std::endl;
