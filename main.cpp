@@ -34,7 +34,10 @@ namespace Example
     {
         MyFoo() { std::cout << "creating MyFoo" << std::endl; }
         ~MyFoo() { std::cout << "destroying MyFoo" << std::endl; }
-        void memberFunc() { std::cout << "MyFoo returnValue(): " << this->returnValue() << " and MyFoo memberVariable: " << this->memberVariable << std::endl; }  //3)
+        void memberFunc() { 
+            std::cout << "MyFoo returnValue(): " << this->returnValue() << " and MyFoo memberVariable: " << this->memberVariable << std::endl; 
+        }  //3)
+
         int returnValue() { return 3; }
         float memberVariable = 3.14f;
     };
@@ -69,12 +72,12 @@ struct Pet
         if(petType == "cat")
         {
             std::cout << "meow" << std::endl;
-            isCat = true;
+            this->isCat = true;
         }
         else if (petType == "dog")
         {
             std::cout << "woof" << std::endl;
-            isDog = false;
+            this->isDog = false;
         }
         else {
             //handle other pet types
@@ -83,60 +86,60 @@ struct Pet
 
     ~Pet()
     {
-        std::cout << "A pet is destroyed, RIP " << name << std::endl;
+        std::cout << "A pet is destroyed, RIP " << this->name << std::endl;
     }
 
     void feed()
     {
         std::cout << "nom" << std::endl;
-        isPetHungry = false;
-        isPetHappy = true;
+        this->isPetHungry = false;
+        this->isPetHappy = true;
     }
 
     void walk(int howLong)
     {   
         if(isPetHungry == false)
         {
-            std::cout << "walking " << name << " for " << howLong << " minutes " << std::endl;
+            std::cout << "walking " << this->name << " for " << howLong << " minutes " << std::endl;
             while(howLong > 0)
             {
                 std::cout << ".";
                 howLong --;
-                foodLevel = foodLevel - 0.25;
+                this->foodLevel = this->foodLevel - 0.25;
 
-                if(foodLevel < 5 and foodLevel > 1)
+                if(this->foodLevel < 5 and this->foodLevel > 1)
                 {
-                    std::cout << name << " is getting hungry!!" << std::endl;
+                    std::cout << this->name << " is getting hungry!!" << std::endl;
                 }
 
                 if(foodLevel < 1)
                 {
-                    std::cout << name << " is too hungry to walk, time to eat!" << std::endl;
+                    std::cout << this->name << " is too hungry to walk, time to eat!" << std::endl;
                     howLong = 0;
-                    isPetHungry = true;
+                    this->isPetHungry = true;
                 }
             }
             std::cout << std::endl;
         }
         else 
         {
-            std::cout << name << " is hungry, let's eat first! " << std::endl;
+            std::cout << this->name << " is hungry, let's eat first! " << std::endl;
         }
         
-        std::cout << "Done walking " << name << std::endl;
-        isPetHappy = true;
+        std::cout << "Done walking " << this->name << std::endl;
+        this->isPetHappy = true;
     }
 
     void status()
     {
-        std::cout << name;
-        isPetHungry ?  std::cout << " is" : std::cout << " is not";
+        std::cout << this->name;
+        this->isPetHungry ?  std::cout << " is" : std::cout << " is not";
         std::cout << " hungry" << std::endl;
         
-        std::cout << "food level: " << foodLevel << std::endl;
+        std::cout << "food level: " << this->foodLevel << std::endl;
 
-        std::cout << name;
-        isPetHappy ?  std::cout << " is" : std::cout << " is not";
+        std::cout << this->name;
+        this->isPetHappy ?  std::cout << " is" : std::cout << " is not";
         std::cout << " happy" << std::endl;
     }
 };
@@ -164,9 +167,9 @@ struct Human
 
     void adoptPet(Pet pet)
     {
-        numberOfPets ++;
-        pets.push_back(pet);
-        std::cout << name << " has adopted " << pet.name << std::endl;
+        this->numberOfPets ++;
+        this->pets.push_back(pet);
+        std::cout << this->name << " has adopted " << pet.name << std::endl;
     }
 
     bool isDriverAllowedToDrive();
@@ -201,16 +204,16 @@ struct Synthesizer
     }
     void noteOn()
     {
-        if(notesOn < polyphony) 
+        if(this->notesOn < this->polyphony) 
         {
             std::cout << " -note on- ";
-            ++ notesOn;
+            ++ this->notesOn;
         }
     }
     void noteOff()
     {
         std::cout << " -note off- ";
-        -- notesOn;
+        -- this->notesOn;
     }
 };
 
@@ -230,10 +233,10 @@ struct Sequencer
 
     void playBack(Synthesizer synth)
     {
-        if(playForward)
+        if(this->playForward)
         {
             std::cout << "playing forward:: ";
-            for(auto& n : notes)
+            for(auto& n : this->notes)
             {   
                 std::cout << n << " "; 
                 synth.noteOn();
@@ -241,10 +244,10 @@ struct Sequencer
             }
         }
 
-        if(playReverse)
+        if(this->playReverse)
         {
             std::cout << "playing reverse:: ";
-            for(auto n = notes.rbegin(); n != notes.rend(); ++n)
+            for(auto n = this->notes.rbegin(); n != this->notes.rend(); ++n)
             {   
                 std::cout << *n << " "; 
                 synth.noteOn();
@@ -256,14 +259,14 @@ struct Sequencer
 
     void setForwardPlayback()
     {
-        playForward = true;
-        playReverse = false;
+        this->playForward = true;
+        this->playReverse = false;
     }
 
     void setReversePlayback()
     {
-        playForward = false;
-        playReverse = true;
+        this->playForward = false;
+        this->playReverse = true;
     }
 };
 
@@ -287,11 +290,11 @@ struct Composition
 
     void addCommand(std::string synth, std::string command, std::string sequencer)
     {
-        for(auto& seq : seqs)
+        for(auto& seq : this->seqs)
         {
             if(seq.name == sequencer)
             {
-                for(auto& s : synths)
+                for(auto& s : this->synths)
                 {   
                     if(s.synthName == synth)
                     {
@@ -336,14 +339,15 @@ int main()
     Example::main();
     Pet zuul("cat", "Zuul");
     Human jason("Jason");
+    jason.adoptPet(zuul);
+    std::cout << "Jason has: " << jason.numberOfPets << " pet(s)." << std::endl;
     std::cout << "---" << std::endl;
     Synthesizer moog("Mother32"), korg("Sigma");
+    std::cout << "Moog's polyphony: " << moog.polyphony << std::endl;
     Sequencer mc202("MC202"), msq8("SQD-1");
     mc202.recordNote(99);
     mc202.recordNote(24);
     mc202.recordNote(77);
     Composition newSong({moog, korg}, {mc202});
     newSong.addCommand("Mother32", "plays", "MC202");
-    std::cout << "---" << std::endl;
-    Adoption adoptionEvent(jason, zuul);
 }
