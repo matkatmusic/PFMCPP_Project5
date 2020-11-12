@@ -153,9 +153,9 @@ Distortion::Distortion()
 Distortion::~Distortion()
 {
     std::cout << "Distortion switched off" << std::endl;
-    for (float shriek = brightness; shriek > 0.1f; shriek *= 0.75)
+    for (float shriek = brightness; shriek > 0.01f; shriek *= 0.75f)
     {
-        for (int i = int(shriek * 100); i > 0; i -= 1)
+        for (int i = int(shriek * 30); i > 0; i -= 1)
         {
             std::cout << "+-";
         }
@@ -222,7 +222,7 @@ struct PatternGenerator
         void stop();
     };
 
-    void getRhythm(RhythmicRules rhythms); 
+    // void getRhythm(RhythmicRules rhythms); 
     void calculateNote(HarmonicSet harmonies);
     Pattern generatePattern();
 };
@@ -245,11 +245,11 @@ PatternGenerator::Pattern::Pattern()
     patternName = "triads";
 }
 
-void PatternGenerator::getRhythm(RhythmicRules rhythms)
-{
-    RhythmicRules::Meter meter;
-    rhythms.outputRhythm(meter);
-}
+// void PatternGenerator::getRhythm(RhythmicRules rhythms)
+// {
+//     RhythmicRules::Meter meter;
+//     rhythms.outputRhythm(meter);
+// }
 
 void PatternGenerator::calculateNote(HarmonicSet harmonies)
 {
@@ -290,5 +290,6 @@ void PatternGenerator::Pattern::stop()
 #include <iostream>
 int main()
 {
+    Distortion distorition;
     std::cout << "good to go!" << std::endl;
 }
