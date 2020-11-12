@@ -45,6 +45,8 @@ send me a DM to check your pull request
  Wait for my code review.
  */
 
+#include <iostream>
+
 /*
  copied UDT 1:
  */
@@ -53,6 +55,7 @@ struct HarmonicSet
 {
     HarmonicSet(float bass, float gen);
     HarmonicSet();
+    ~HarmonicSet();
 
     float bassFrequency, genFrequency;
 
@@ -73,6 +76,11 @@ HarmonicSet::HarmonicSet()
 {
     bassFrequency = 110;
     genFrequency = 220;
+}
+
+HarmonicSet::~HarmonicSet()
+{
+    std::cout << "Destructor of Harmonic Set with bass " << bassFrequency << " and gen " << genFrequency << std::endl;
 }
 
 void HarmonicSet::playSet(float minFrequency, float maxFrequency)
@@ -117,9 +125,159 @@ void HarmonicSet::playFiltered(float minFrequency, float maxFrequency, int genRu
  copied UDT 2:
  */
 
+struct Distortion
+{
+    Distortion();
+    ~Distortion();
+
+    float brightness;
+    int numEchoes;
+    float roughness;
+    int vinylTap;
+
+    void processInput();
+
+    float calculateBrightness(float roomSize, float hiPass, float loPass);
+
+    bool toggleBypass(bool bypass = false);
+};
+
+Distortion::Distortion()
+{
+    brightness = 0.5f;
+    numEchoes = 3;
+    roughness = 0.8f;
+    vinylTap = 11;
+}
+
+Distortion::~Distortion()
+{
+    std::cout << "Distortion switched off" << std::endl;
+    for (float shriek = brightness; shriek > 0.1f; shriek *= 0.75)
+    {
+        for (int i = int(shriek * 100); i > 0; i -= 1)
+        {
+            std::cout << "+-";
+        }
+        std::cout << std::endl;
+    }
+}
+
+void Distortion::processInput()
+{
+    std::cout << "DISTORRTIIOOOOON"<< std::endl;
+    for (int n = numEchoes; n > 0; n -= 1)
+    {
+        std::cout << "DISTORRTI";
+        for (int m = n; m > 0; m -= 1)
+        {
+            std::cout << "O";
+        }
+        std::cout << "N" << std::endl;
+    }
+}
+
+float Distortion::calculateBrightness(float roomSize, float hiPass, float loPass)
+{
+    if (roomSize < loPass)
+    {
+        return loPass;
+    }
+    if (roomSize > hiPass)
+    {
+        return hiPass;
+    }
+    return roomSize;
+}
+
+bool Distortion::toggleBypass(bool bypass)
+{
+    return !bypass;
+}
+
 /*
  copied UDT 3:
  */
+
+struct PatternGenerator
+{
+    PatternGenerator();
+    float rootedness;
+    float repetitionPercentage;
+    int stepSize;
+    float variability;
+    float fractalDimension;
+
+    struct Pattern
+    {
+        Pattern();
+        bool repeat; 
+        int numberOfNotes;  
+        int startingMIDI;  
+        bool isArpeggio;    
+        std::string patternName;
+
+        void play();
+        void reverse();
+        void stop();
+    };
+
+    void getRhythm(RhythmicRules rhythms); 
+    void calculateNote(HarmonicSet harmonies);
+    Pattern generatePattern();
+};
+
+PatternGenerator::PatternGenerator()
+{
+    rootedness = 1.0f;
+    repetitionPercentage = 0.15f;
+    stepSize = 2;
+    variability = 1.0f;
+    fractalDimension = 1.618f;
+}
+
+PatternGenerator::Pattern::Pattern()
+{
+    repeat = false; 
+    numberOfNotes = 5;  
+    startingMIDI = 69;  
+    isArpeggio = true;    
+    patternName = "triads";
+}
+
+void PatternGenerator::getRhythm(RhythmicRules rhythms)
+{
+    RhythmicRules::Meter meter;
+    rhythms.outputRhythm(meter);
+}
+
+void PatternGenerator::calculateNote(HarmonicSet harmonies)
+{
+    harmonies.calculateHarmonicity();
+}
+    
+PatternGenerator::Pattern PatternGenerator::generatePattern()
+{
+    PatternGenerator::Pattern newPattern;
+    std::cout << "new pattern: 12345" << std::endl;
+    return newPattern;
+}
+
+void PatternGenerator::Pattern::play()
+{
+    std::cout << patternName << std::endl;
+}
+
+void PatternGenerator::Pattern::reverse()
+{
+
+}
+
+void PatternGenerator::Pattern::stop()
+{
+
+}
+
 
 /*
  new UDT 4:
