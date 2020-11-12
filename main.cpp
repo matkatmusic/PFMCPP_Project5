@@ -49,6 +49,70 @@ send me a DM to check your pull request
  copied UDT 1:
  */
 
+struct HarmonicSet
+{
+    HarmonicSet(float bass, float gen);
+    HarmonicSet();
+
+    float bassFrequency, genFrequency;
+
+    void playSet(float minFrequency, float maxFrequency);
+
+    float calculateHarmonicity();
+
+    void playFiltered(float minFrequency, float maxFrequency, int genRule);
+};
+
+HarmonicSet::HarmonicSet(float bass, float gen)
+{
+    bassFrequency = bass;
+    genFrequency = gen;
+}
+
+HarmonicSet::HarmonicSet()
+{
+    bassFrequency = 110;
+    genFrequency = 220;
+}
+
+void HarmonicSet::playSet(float minFrequency, float maxFrequency)
+{
+    std::cout << "Harmonic set of bass " << bassFrequency << " and generator " << genFrequency << std::endl;
+    float outputNote = (bassFrequency + genFrequency);
+    float previous = genFrequency;
+    while (outputNote < maxFrequency) 
+    {
+        if (minFrequency < outputNote)
+        {
+            std::cout << outputNote << " ";
+        }
+        float current = outputNote;
+        outputNote += previous;
+        previous = current;
+    }
+    std::cout << std::endl;
+}
+
+
+float HarmonicSet::calculateHarmonicity()
+{
+    return bassFrequency + genFrequency;
+}
+
+void HarmonicSet::playFiltered(float minFrequency, float maxFrequency, int genRule)
+{
+    float outputNote = (bassFrequency + genFrequency); 
+    genRule += 1; 
+    if (minFrequency < outputNote)
+    {
+        if (maxFrequency > outputNote)
+        {
+            std::cout << outputNote << std::endl;
+        }
+    }
+}
+
+
 /*
  copied UDT 2:
  */
