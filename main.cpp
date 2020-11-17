@@ -53,8 +53,14 @@ send me a DM to check your pull request
 
 struct HarmonicSet
 {
-    HarmonicSet(float bass, float gen);
-    HarmonicSet();
+    HarmonicSet(float bass = 110.f, float gen = 220.f) : 
+        bassFrequency(bass), 
+        genFrequency(gen), 
+        current(gen), 
+        previous(bass)
+    {
+        reset();
+    }
     ~HarmonicSet();
 
     float bassFrequency, genFrequency;
@@ -69,21 +75,6 @@ struct HarmonicSet
 
     void playFiltered(float minFrequency, float maxFrequency, int genRule);
 };
-
-HarmonicSet::HarmonicSet(float bass, float gen)
-{
-    bassFrequency = bass;
-    genFrequency = gen;
-    current = gen;
-    previous = bass;
-}
-
-HarmonicSet::HarmonicSet()
-{
-    bassFrequency = 110.f;
-    genFrequency = 220.f;
-    reset();
-}
 
 HarmonicSet::~HarmonicSet()
 {
