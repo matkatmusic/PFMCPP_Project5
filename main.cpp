@@ -58,10 +58,13 @@ struct HarmonicSet
     ~HarmonicSet();
 
     float bassFrequency, genFrequency;
+    float current, previous;
 
     void playSet(float minFrequency, float maxFrequency);
 
     float calculateHarmonicity();
+    float next();
+    float prev();
 
     void playFiltered(float minFrequency, float maxFrequency, int genRule);
 };
@@ -70,12 +73,16 @@ HarmonicSet::HarmonicSet(float bass, float gen)
 {
     bassFrequency = bass;
     genFrequency = gen;
+    current = gen;
+    previous = bass;
 }
 
 HarmonicSet::HarmonicSet()
 {
-    bassFrequency = 110;
-    genFrequency = 220;
+    bassFrequency = 110.f;
+    genFrequency = 220.f;
+    current = genFrequency;
+    previous = bassFrequency;
 }
 
 HarmonicSet::~HarmonicSet()
@@ -83,20 +90,34 @@ HarmonicSet::~HarmonicSet()
     std::cout << "Destructor of Harmonic Set with bass " << bassFrequency << " and gen " << genFrequency << std::endl;
 }
 
+float HarmonicSet::next() {
+    float temp = current;
+    current = previous + current;
+    previous = temp;
+    return current;
+}
+
+float HarmonicSet::prev() {
+    float temp = previous;
+    previous = current - previous;
+    current = temp; 
+    return current;
+}
+
 void HarmonicSet::playSet(float minFrequency, float maxFrequency)
 {
     std::cout << "Harmonic set of bass " << bassFrequency << " and generator " << genFrequency << std::endl;
     float outputNote = (bassFrequency + genFrequency);
-    float previous = genFrequency;
+    float prev = genFrequency;
     while (outputNote < maxFrequency) 
     {
         if (minFrequency < outputNote)
         {
             std::cout << outputNote << " ";
         }
-        float current = outputNote;
-        outputNote += previous;
-        previous = current;
+        float curr = outputNote;
+        outputNote += prev;
+        previous = curr;
     }
     std::cout << std::endl;
 }
@@ -153,7 +174,7 @@ Distortion::Distortion()
 Distortion::~Distortion()
 {
     std::cout << "Distortion switched off" << std::endl;
-    for (float shriek = brightness; shriek > 0.01f; shriek *= 0.75f)
+    for (float shriek = brightness; shriek > 0.03f; shriek *= 0.75f)
     {
         for (int i = int(shriek * 30); i > 0; i -= 1)
         {
@@ -202,6 +223,7 @@ bool Distortion::toggleBypass(bool bypass)
 struct PatternGenerator
 {
     PatternGenerator();
+    ~PatternGenerator();
     float rootedness;
     float repetitionPercentage;
     int stepSize;
@@ -211,13 +233,14 @@ struct PatternGenerator
     struct Pattern
     {
         Pattern();
+        // ~Pattern();
         bool repeat; 
         int numberOfNotes;  
-        int startingMIDI;  
+        int startingNote;  
         bool isArpeggio;    
         std::string patternName;
 
-        void play();
+        void printName();
         void reverse();
         void stop();
     };
@@ -236,14 +259,24 @@ PatternGenerator::PatternGenerator()
     fractalDimension = 1.618f;
 }
 
+PatternGenerator::~PatternGenerator()
+{
+    std::cout << "pattern generator destructor" << std::endl;
+}
+
 PatternGenerator::Pattern::Pattern()
 {
-    repeat = false; 
+    repeat = true; 
     numberOfNotes = 5;  
-    startingMIDI = 69;  
+    startingNote = 1;  
     isArpeggio = true;    
     patternName = "triads";
 }
+
+// PatternGenerator::Pattern::~Pattern()
+// {
+//     std::cout << "pattern destructor" << std::endl;
+// }
 
 // void PatternGenerator::getRhythm(RhythmicRules rhythms)
 // {
@@ -259,11 +292,10 @@ void PatternGenerator::calculateNote(HarmonicSet harmonies)
 PatternGenerator::Pattern PatternGenerator::generatePattern()
 {
     PatternGenerator::Pattern newPattern;
-    std::cout << "new pattern: 12345" << std::endl;
     return newPattern;
 }
 
-void PatternGenerator::Pattern::play()
+void PatternGenerator::Pattern::printName()
 {
     std::cout << patternName << std::endl;
 }
@@ -283,6 +315,11 @@ void PatternGenerator::Pattern::stop()
  new UDT 4:
  */
 
+struct PatternPlayer 
+{
+
+};
+
 /*
  new UDT 5:
  */
@@ -290,6 +327,41 @@ void PatternGenerator::Pattern::stop()
 #include <iostream>
 int main()
 {
+
+    HarmonicSet hs;
+    std::cout << hs.bassFrequency << std::endl;
+    std::cout << hs.genFrequency << std::endl;
+    std::cout << hs.next() << " ^";
+    std::cout << hs.next() << " ^";
+    std::cout << hs.next() << " ^";
+    std::cout << hs.next() << " v";
+    std::cout << hs.prev() << " ^";
+    std::cout << hs.next() << " v";
+    std::cout << hs.prev() << " v";
+    std::cout << hs.prev() << std::endl;
+
+    std::cout << "current: " << hs.current << std::endl;
+    std::cout << "previous: " << hs.previous << std::endl;
+
+    HarmonicSet hs2(130.f, 450.f);
+    std::cout << hs2.bassFrequency << std::endl;
+    std::cout << hs2.genFrequency << std::endl;
+    std::cout << hs2.next() << " ^";
+    std::cout << hs2.next() << " ^";
+    std::cout << hs2.next() << " ^";
+    std::cout << hs2.next() << " v";
+    std::cout << hs2.prev() << " ^";
+    std::cout << hs2.next() << " v";
+    std::cout << hs2.prev() << " v";
+    std::cout << hs2.prev() << std::endl;
+
+    std::cout << "current: " << hs2.current << std::endl;
+    std::cout << "previous: " << hs2.previous << std::endl;
+
+
+
     Distortion distorition;
+
+
     std::cout << "good to go!" << std::endl;
 }
