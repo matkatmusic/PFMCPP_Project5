@@ -117,16 +117,16 @@ void HarmonicSet::playSet(float minFrequency, float maxFrequency)
 {
     std::cout << "Harmonic set of bass " << bassFrequency << " and generator " << genFrequency << std::endl;
     float outputNote = (bassFrequency + genFrequency);
-    float prev = genFrequency;
+    previous = genFrequency;
     while (outputNote < maxFrequency) 
     {
         if (minFrequency < outputNote)
         {
             std::cout << outputNote << " ";
         }
-        float curr = outputNote;
-        outputNote += prev;
-        previous = curr;
+        current = outputNote;
+        outputNote += previous;
+        previous = current;
     }
     std::cout << std::endl;
 }
@@ -284,7 +284,7 @@ PatternGenerator::Pattern::Pattern()
     numberOfNotes = 5;  
     startingNote = 1;  
     isArpeggio = true;    
-    patternName = "triads";
+    patternName = "spectra";
 }
 
 void PatternGenerator::calculateNote(HarmonicSet harmonies)
@@ -325,12 +325,14 @@ struct PatternPlayer
     ~PatternPlayer();
 
     PatternGenerator patternGenerator;
+    PatternGenerator::Pattern pattern = patternGenerator.generatePattern();
     HarmonicSet harmonicSet;
-    Distortion distorion;
+    Distortion distortion;
 
     int currentNote = 1;
 
     void printDescription();
+    void matchNote(int i);
     void play();
 };
 
@@ -357,8 +359,59 @@ void PatternPlayer::printDescription ()
     std::cout << "Harmonic set: " << harmonicSet.bassFrequency << " and " << harmonicSet.genFrequency << std::endl;
 }
 
+void PatternPlayer::matchNote(int i) {
+    if (i < currentNote) 
+    {
+        harmonicSet.prev();
+        currentNote -= 1;
+        std::cout << "matchNote rewind to " << currentNote << std::endl;
+        matchNote(i);
+    }
+    else if (i > currentNote) 
+    {
+        harmonicSet.next();
+        currentNote += 1;
+        std::cout << "matchNote forward to " << currentNote << std::endl;
+        matchNote(i);
+    }
+}
+
 void PatternPlayer::play() {
 
+    pattern.printName();
+
+    matchNote(pattern.startingNote);
+    int endingNote = pattern.startingNote + pattern.numberOfNotes;
+
+    for (int i = pattern.startingNote; i < endingNote; i++) 
+    {
+        std::cout << harmonicSet.next() << " ";
+        currentNote += 1;
+        for (int j = 0; j < distortion.numEchoes; j++)
+        {
+            std::cout << "*";
+        }
+    }
+
+    if (pattern.repeat)
+    {
+        std::cout << std::endl;
+        std::cout << pattern.startingNote << " and " << currentNote << std::endl;
+        matchNote(pattern.startingNote);
+
+        for (int i = pattern.startingNote; i < endingNote; i++) 
+        {
+            std::cout << harmonicSet.next() << " ";
+            currentNote += 1;
+            for (int j = 0; j < distortion.numEchoes; j++)
+            {
+                std::cout << "#";
+            }
+        }
+    }
+
+    std::cout << std::endl;
+    
 }
 
 /*
@@ -428,11 +481,43 @@ int main()
     Distortion distorition;
 
     PatternPlayer pp;
+    pp.play();
 
     PatternPlayer pp2(440.f, 442.f);
+    pp2.distortion.numEchoes = 5;
+    pp2.pattern.patternName = "pattern 2";
+    pp2.pattern.startingNote = 6;
+    pp2.pattern.numberOfNotes = 7;
+    pp2.play();
 
     NoiseMaker nm;
     nm.makeSomeNoise();
+
+    std::cout << "*=-=*=-=*=-=*=-=*=-=* old stuff *=-=*=-=*=-=*=-=*=-=*" << std::endl;
+
+    PatternGenerator::Pattern pattern;
+    std::cout << "pattern's name: " << pattern.patternName << std::endl;
+    pattern.printName(); // prints the same name
+
+    PatternGenerator pg;
+    pg.generatePattern(); // prints "new pattern: 12345"
+
+    Distortion ds;
+    ds.processInput();
+    std::cout << "brightness: " << ds.calculateBrightness(250.f, 300.f, 100.f) << std::endl;
+    std::cout << "brightness: " << ds.calculateBrightness(350.f, 300.f, 200.f) << std::endl;
+
+    HarmonicSet harmonicSet = HarmonicSet(220.0f, 440.0f);
+    harmonicSet.playSet(220.0f, 22000.0f);
+    HarmonicSet harmonicSetTwo(100.0f, 360.0f);
+    harmonicSetTwo.playSet(10.f, 22000.0f);
+    std::cout << "Sum of bass and generator is " << harmonicSetTwo.calculateHarmonicity() << std::endl;
+
+    Distortion ds2;
+    ds2.processInput();
+
+    ds2.numEchoes = 15;
+    ds2.processInput();
 
 
     std::cout << "good to go!" << std::endl;
