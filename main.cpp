@@ -336,12 +336,14 @@ struct PatternPlayer
     void play();
 };
 
-PatternPlayer::PatternPlayer() {
+PatternPlayer::PatternPlayer() 
+{
     std::cout << "PatternPlayer default constructor: " << std::endl;
     printDescription();
 }
 
-PatternPlayer::PatternPlayer(float bass, float gen){
+PatternPlayer::PatternPlayer(float bass, float gen)
+{
     std::cout << "PatternPlayer constructor with bass " << bass << " and gen " << gen << std::endl;
     harmonicSet.bassFrequency = bass;
     harmonicSet.genFrequency = gen;
@@ -349,7 +351,8 @@ PatternPlayer::PatternPlayer(float bass, float gen){
     printDescription();
 }
 
-PatternPlayer::~PatternPlayer() {
+PatternPlayer::~PatternPlayer() 
+{
     std::cout << "Pattern Player switched off" << std::endl;
 
 }
@@ -359,7 +362,8 @@ void PatternPlayer::printDescription ()
     std::cout << "Harmonic set: " << harmonicSet.bassFrequency << " and " << harmonicSet.genFrequency << std::endl;
 }
 
-void PatternPlayer::matchNote(int i) {
+void PatternPlayer::matchNote(int i) 
+{
     if (i < currentNote) 
     {
         harmonicSet.prev();
@@ -376,7 +380,8 @@ void PatternPlayer::matchNote(int i) {
     }
 }
 
-void PatternPlayer::play() {
+void PatternPlayer::play() 
+{
 
     pattern.printName();
 
@@ -418,7 +423,8 @@ void PatternPlayer::play() {
  new UDT 5:
  */
 
-struct NoiseMaker {
+struct NoiseMaker 
+{
     NoiseMaker();
     ~NoiseMaker();
 
@@ -427,7 +433,8 @@ struct NoiseMaker {
     void makeSomeNoise();
 };
 
-NoiseMaker::NoiseMaker() {
+NoiseMaker::NoiseMaker() 
+{
     distortion.brightness = 1.0f;
     distortion.roughness = 0.5f;
     distortion.numEchoes = 6;
@@ -438,7 +445,8 @@ NoiseMaker::~NoiseMaker()
     std::cout << "Shutting off NoiseMaker" << std::endl;
 }
 
-void NoiseMaker::makeSomeNoise() {
+void NoiseMaker::makeSomeNoise() 
+{
     distortion.processInput();
 }
 
