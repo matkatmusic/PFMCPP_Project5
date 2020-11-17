@@ -65,6 +65,7 @@ struct HarmonicSet
     float calculateHarmonicity();
     float next();
     float prev();
+    void reset();
 
     void playFiltered(float minFrequency, float maxFrequency, int genRule);
 };
@@ -81,8 +82,7 @@ HarmonicSet::HarmonicSet()
 {
     bassFrequency = 110.f;
     genFrequency = 220.f;
-    current = genFrequency;
-    previous = bassFrequency;
+    reset();
 }
 
 HarmonicSet::~HarmonicSet()
@@ -90,19 +90,28 @@ HarmonicSet::~HarmonicSet()
     std::cout << "Destructor of Harmonic Set with bass " << bassFrequency << " and gen " << genFrequency << std::endl;
 }
 
-float HarmonicSet::next() {
+float HarmonicSet::next() 
+{
     float temp = current;
     current = previous + current;
     previous = temp;
     return current;
 }
 
-float HarmonicSet::prev() {
+float HarmonicSet::prev() 
+{
     float temp = previous;
     previous = current - previous;
     current = temp; 
     return current;
 }
+
+void HarmonicSet::reset() 
+{
+    current = genFrequency;
+    previous = bassFrequency;
+}
+
 
 void HarmonicSet::playSet(float minFrequency, float maxFrequency)
 {
@@ -192,7 +201,14 @@ void Distortion::processInput()
         std::cout << "DISTORRTI";
         for (int m = n; m > 0; m -= 1)
         {
-            std::cout << "O";
+            if (rand() < roughness * RAND_MAX)
+            {
+                std::cout << "O";
+            }
+            else
+            {
+                std::cout << "o";
+            }
         }
         std::cout << "N" << std::endl;
     }
@@ -233,7 +249,6 @@ struct PatternGenerator
     struct Pattern
     {
         Pattern();
-        // ~Pattern();
         bool repeat; 
         int numberOfNotes;  
         int startingNote;  
@@ -245,7 +260,6 @@ struct PatternGenerator
         void stop();
     };
 
-    // void getRhythm(RhythmicRules rhythms); 
     void calculateNote(HarmonicSet harmonies);
     Pattern generatePattern();
 };
@@ -272,17 +286,6 @@ PatternGenerator::Pattern::Pattern()
     isArpeggio = true;    
     patternName = "triads";
 }
-
-// PatternGenerator::Pattern::~Pattern()
-// {
-//     std::cout << "pattern destructor" << std::endl;
-// }
-
-// void PatternGenerator::getRhythm(RhythmicRules rhythms)
-// {
-//     RhythmicRules::Meter meter;
-//     rhythms.outputRhythm(meter);
-// }
 
 void PatternGenerator::calculateNote(HarmonicSet harmonies)
 {
@@ -317,12 +320,76 @@ void PatternGenerator::Pattern::stop()
 
 struct PatternPlayer 
 {
+    PatternPlayer();
+    PatternPlayer(float bass, float gen);
+    ~PatternPlayer();
 
+    PatternGenerator patternGenerator;
+    HarmonicSet harmonicSet;
+    Distortion distorion;
+
+    int currentNote = 1;
+
+    void printDescription();
+    void play();
 };
+
+PatternPlayer::PatternPlayer() {
+    std::cout << "PatternPlayer default constructor: " << std::endl;
+    printDescription();
+}
+
+PatternPlayer::PatternPlayer(float bass, float gen){
+    std::cout << "PatternPlayer constructor with bass " << bass << " and gen " << gen << std::endl;
+    harmonicSet.bassFrequency = bass;
+    harmonicSet.genFrequency = gen;
+    harmonicSet.reset();
+    printDescription();
+}
+
+PatternPlayer::~PatternPlayer() {
+    std::cout << "Pattern Player switched off" << std::endl;
+
+}
+
+void PatternPlayer::printDescription () 
+{
+    std::cout << "Harmonic set: " << harmonicSet.bassFrequency << " and " << harmonicSet.genFrequency << std::endl;
+}
+
+void PatternPlayer::play() {
+
+}
 
 /*
  new UDT 5:
  */
+
+struct NoiseMaker {
+    NoiseMaker();
+    ~NoiseMaker();
+
+    Distortion distortion;
+
+    void makeSomeNoise();
+};
+
+NoiseMaker::NoiseMaker() {
+    distortion.brightness = 1.0f;
+    distortion.roughness = 0.5f;
+    distortion.numEchoes = 6;
+}
+
+NoiseMaker::~NoiseMaker() 
+{
+    std::cout << "Shutting off NoiseMaker" << std::endl;
+}
+
+void NoiseMaker::makeSomeNoise() {
+    distortion.processInput();
+}
+
+
 
 #include <iostream>
 int main()
@@ -358,9 +425,14 @@ int main()
     std::cout << "current: " << hs2.current << std::endl;
     std::cout << "previous: " << hs2.previous << std::endl;
 
-
-
     Distortion distorition;
+
+    PatternPlayer pp;
+
+    PatternPlayer pp2(440.f, 442.f);
+
+    NoiseMaker nm;
+    nm.makeSomeNoise();
 
 
     std::cout << "good to go!" << std::endl;
