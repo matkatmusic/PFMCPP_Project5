@@ -1,49 +1,67 @@
 /*
-Project 5: Part 1 / 4
- video Chapter 2 - Part 12
+Project 5: Part 2 / 4
+ video: Chapter 3 Part 1
 
- Create a branch named Part1
+Create a branch named Part2
 
-Purpose:  This project continues developing Project3 and will take you through how to write code that doesn't leak as well as how to refactor. 
-
- Destructors
-
- If you didn't do Project3, write 3 UDTs below (where it asks for Copied UDTs) that have: 
-        member functions,
-        member variables, 
-        constructors that initialize the members. 
-        for() or while() loops that modify member variables
-        
- Define your implementations of all functions OUTSIDE of the class. 
- Then do instruction 2)
+ The 'this' keyword
  
- If you DID do Project 3, do instruction 1)
+ The purpose of this project part is to show you how accessing member variables of objects INSIDE member functions is very similar to accessing member variables of objects OUTSIDE of member functions, via 'this->' and via the '.' operator.
+ This project part will break the D.R.Y. rule, but that is fine for the purpose of this project part.
  
- 1) Copy a few of your user-defined types (the ones with constructors and for()/while() loops from Project 3) here
- 2) add destructors
-        make the destructors do something like print out the name of the class.
-
-	If you already did Chapter2 part 10 on Coliru and don't have a Project3, just grab some UDTs from your Coliru Ch2P10 submission. 
  
- 3) add 2 new UDTs that use only the types you copied above.
- 4) Add destructors to these 2 new types that do stuff.  
-        maybe print out the name of the class being destructed, or call a member function of one of the members.  be creative
+ 1) if you don't have any std::cout statements in main() that access member variables of your U.D.Ts
+         write some.
+    You can copy some from your Project3's main() if needed.
  
- 5) copy over your main() from the end of Project3 and get it to compile with the types you copied over.
-        remove any code in main() that uses types you didn't copy over.
+ 2) For each std::cout statement in main() that accessed member variables of your types or printed out the results of your member function calls,
+        a) write a member function that prints the same thing out, but uses the proper techniques inside the member functions to access the same member variables/functions.
+        b) be explicit with your use of 'this->' in those member functions so we see how you're accessing/calling those member variables and functions *inside*
+        c) call that member function after your std::cout statement in main.
+        d) you should see 2 (almost) identical messages in the program output for each member function you add:
+            one for the std::cout line, and one for the member function's output
  
- 6) Instantiate your 2 UDT's from step 4) in the main() function at the bottom.
  
- 7) After you finish, click the [run] button.  Clear up any errors or warnings as best you can.
- 
- Commit your changes by clicking on the Source Control panel on the left, entering a message, and click [Commit and push].
- 
-Make a pull request after you make your first commit and pin the pull request link to our DM thread.
-
-send me a DM to check your pull request
-
- Wait for my code review.
+ 3) After you finish, click the [run] button.  Clear up any errors or warnings as best you can.
  */
+
+/*
+ example:
+ */
+#include <iostream>
+namespace Example
+{
+    //a User-Defined Type
+    struct MyFoo
+    {
+        MyFoo() { std::cout << "creating MyFoo" << std::endl; }
+        ~MyFoo() { std::cout << "destroying MyFoo" << std::endl; }
+		
+		// 2a) the member function whose function body is almost identical to the std::cout statement in main.
+        void memberFunc() 
+		{ 
+            // 2b) explicitly using 'this' inside this member function.
+			std::cout << "MyFoo returnValue(): " << this->returnValue() << " and MyFoo memberVariable: " << this->memberVariable << std::endl; 
+		}  
+		
+        int returnValue() { return 3; }
+        float memberVariable = 3.14f;
+    };
+    
+    int main()
+    {
+        //an instance of the User-Defined Type named mf
+        MyFoo mf;
+		
+        // 1) a std::cout statement that uses mf's member variables
+        std::cout << "mf returnValue(): " << mf.returnValue() << " and mf memberVariable: " << mf.memberVariable << std::endl; 
+		
+        // 2c) calling mf's member function.  the member function's body is almost identical to the cout statement above.
+        mf.memberFunc();
+        return 0;
+    }
+}
+
 
 #include <iostream>
 
