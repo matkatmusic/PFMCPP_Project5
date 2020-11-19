@@ -122,6 +122,13 @@ struct HarmonicSet
     {
         std::cout << "Previous: " << this->previous << std::endl;
     }
+
+    void printCalculateHarmonicity()
+    {
+        std::cout << "SUM OF BASS AND GENERATOR IS " << this->calculateHarmonicity() << std::endl;
+    }
+
+
 };
 
 HarmonicSet::~HarmonicSet()
@@ -212,7 +219,7 @@ struct Distortion
 
     void printCalculateBrightness(float first, float second, float third)
     {
-        std::cout << "brightness: " << this->calculateBrightness(250.f, 300.f, 100.f) << std::endl;
+        std::cout << "BRIGHTNESS: " << this->calculateBrightness(first, second, third) << std::endl;
     }
 
 };
@@ -572,6 +579,7 @@ int main()
     HarmonicSet harmonicSetTwo(100.0f, 360.0f);
     harmonicSetTwo.playSet(10.f, 22000.0f);
     std::cout << "Sum of bass and generator is " << harmonicSetTwo.calculateHarmonicity() << std::endl;
+    harmonicSetTwo.printCalculateHarmonicity();
 
     Distortion ds2;
     ds2.processInput();
