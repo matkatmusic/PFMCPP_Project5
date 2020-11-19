@@ -92,6 +92,36 @@ struct HarmonicSet
     void reset();
 
     void playFiltered(float minFrequency, float maxFrequency, int genRule);
+
+    void printNext()
+    {
+        std::cout << " ^" << this->next();
+    }
+    
+    void printPrev()
+    {
+        std::cout << " v" << this->prev();
+    }
+    
+    void printBassFrequency()
+    {
+        std::cout << this->bassFrequency << std::endl;
+    }
+    
+    void printGenFrequency()
+    {
+        std::cout << this->genFrequency << std::endl;
+    }
+
+    void printCurrent()
+    {
+        std::cout << "Current: " << this->current << std::endl;
+    }
+
+    void printPrevious()
+    {
+        std::cout << "Previous: " << this->previous << std::endl;
+    }
 };
 
 HarmonicSet::~HarmonicSet()
@@ -179,6 +209,12 @@ struct Distortion
     float calculateBrightness(float roomSize, float hiPass, float loPass);
 
     bool toggleBypass(bool bypass = false);
+
+    void printCalculateBrightness(float first, float second, float third)
+    {
+        std::cout << "brightness: " << this->calculateBrightness(250.f, 300.f, 100.f) << std::endl;
+    }
+
 };
 
 Distortion::Distortion()
@@ -309,7 +345,7 @@ PatternGenerator::Pattern PatternGenerator::generatePattern()
 
 void PatternGenerator::Pattern::printName()
 {
-    std::cout << patternName << std::endl;
+    std::cout << "PATTERN'S NAME: " << this->patternName << std::endl;
 }
 
 void PatternGenerator::Pattern::reverse()
@@ -468,32 +504,37 @@ int main()
     HarmonicSet hs;
     std::cout << hs.bassFrequency << std::endl;
     std::cout << hs.genFrequency << std::endl;
-    std::cout << hs.next() << " ^";
-    std::cout << hs.next() << " ^";
-    std::cout << hs.next() << " ^";
-    std::cout << hs.next() << " v";
-    std::cout << hs.prev() << " ^";
-    std::cout << hs.next() << " v";
-    std::cout << hs.prev() << " v";
-    std::cout << hs.prev() << std::endl;
+    std::cout << " ^" << hs.next();
+    std::cout << " ^" << hs.next();
+    std::cout << " ^" << hs.next();
+    std::cout << " ^" << hs.next();
+    std::cout << " v" << hs.prev();
+    std::cout << " ^" << hs.next();
+    std::cout << " v" << hs.prev();
+    std::cout << " v" << hs.prev();
+    std::cout << std::endl;
 
     std::cout << "current: " << hs.current << std::endl;
     std::cout << "previous: " << hs.previous << std::endl;
 
-    HarmonicSet hs2(130.f, 450.f);
-    std::cout << hs2.bassFrequency << std::endl;
-    std::cout << hs2.genFrequency << std::endl;
-    std::cout << hs2.next() << " ^";
-    std::cout << hs2.next() << " ^";
-    std::cout << hs2.next() << " ^";
-    std::cout << hs2.next() << " v";
-    std::cout << hs2.prev() << " ^";
-    std::cout << hs2.next() << " v";
-    std::cout << hs2.prev() << " v";
-    std::cout << hs2.prev() << std::endl;
+    // here I've just changed the second HarmonicSet to use member functions
+    HarmonicSet hs2(15.f, 40.f);
+    hs2.printBassFrequency();
+    hs2.printGenFrequency();
+    hs2.printNext();
+    hs2.printNext();
+    hs2.printNext();
+    hs2.printNext();
+    hs2.printPrev();
+    hs2.printNext();
+    hs2.printPrev();
+    hs2.printPrev();
+    std::cout << std::endl;
 
     std::cout << "current: " << hs2.current << std::endl;
+    hs2.printCurrent();
     std::cout << "previous: " << hs2.previous << std::endl;
+    hs2.printPrevious();
 
     Distortion distorition;
 
@@ -523,6 +564,8 @@ int main()
     ds.processInput();
     std::cout << "brightness: " << ds.calculateBrightness(250.f, 300.f, 100.f) << std::endl;
     std::cout << "brightness: " << ds.calculateBrightness(350.f, 300.f, 200.f) << std::endl;
+    ds.printCalculateBrightness(250.f, 300.f, 100.f);
+    ds.printCalculateBrightness(350.f, 300.f, 200.f);
 
     HarmonicSet harmonicSet = HarmonicSet(220.0f, 440.0f);
     harmonicSet.playSet(220.0f, 22000.0f);
