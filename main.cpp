@@ -50,6 +50,7 @@ You don't have to do this, you can keep your current object name and just change
 
 
 #include <iostream>
+#include "LeakedObjectDetector.h"
 
 /*
  copied UDT 1:
@@ -114,7 +115,7 @@ struct HarmonicSet
         std::cout << "SUM OF BASS AND GENERATOR IS " << this->calculateHarmonicity() << std::endl;
     }
 
-
+    JUCE_LEAK_DETECTOR(HarmonicSet)
 };
 
 HarmonicSet::~HarmonicSet()
@@ -163,7 +164,6 @@ void HarmonicSet::playSet(float minFrequency, float maxFrequency)
     std::cout << std::endl;
 }
 
-
 float HarmonicSet::calculateHarmonicity()
 {
     return bassFrequency + genFrequency;
@@ -181,6 +181,13 @@ void HarmonicSet::playFiltered(float minFrequency, float maxFrequency, int genRu
         }
     }
 }
+
+struct HarmonicSetWrapper
+{
+    HarmonicSetWrapper(HarmonicSet* hs) : hsPtr(hs) { }
+    ~HarmonicSetWrapper() { delete hsPtr; }
+    HarmonicSet* hsPtr = nullptr;
+};
 
 
 /*
@@ -208,6 +215,7 @@ struct Distortion
         std::cout << "BRIGHTNESS: " << this->calculateBrightness(first, second, third) << std::endl;
     }
 
+    JUCE_LEAK_DETECTOR(Distortion)
 };
 
 Distortion::Distortion()
@@ -221,35 +229,35 @@ Distortion::Distortion()
 Distortion::~Distortion()
 {
     std::cout << "Distortion switched off" << std::endl;
-    for (float shriek = brightness; shriek > 0.03f; shriek *= 0.75f)
-    {
-        for (int i = int(shriek * 30); i > 0; i -= 1)
-        {
-            std::cout << "+-";
-        }
-        std::cout << std::endl;
-    }
+    // for (float shriek = brightness; shriek > 0.03f; shriek *= 0.75f)
+    // {
+    //     for (int i = int(shriek * 30); i > 0; i -= 1)
+    //     {
+    //         std::cout << "+-";
+    //     }
+    //     std::cout << std::endl;
+    // }
 }
 
 void Distortion::processInput()
 {
     std::cout << "DISTORRTIIOOOOON"<< std::endl;
-    for (int n = numEchoes; n > 0; n -= 1)
-    {
-        std::cout << "DISTORRTI";
-        for (int m = n; m > 0; m -= 1)
-        {
-            if (rand() < roughness * RAND_MAX)
-            {
-                std::cout << "O";
-            }
-            else
-            {
-                std::cout << "o";
-            }
-        }
-        std::cout << "N" << std::endl;
-    }
+    // for (int n = numEchoes; n > 0; n -= 1)
+    // {
+    //     std::cout << "DISTORRTI";
+    //     for (int m = n; m > 0; m -= 1)
+    //     {
+    //         if (rand() < roughness * RAND_MAX)
+    //         {
+    //             std::cout << "O";
+    //         }
+    //         else
+    //         {
+    //             std::cout << "o";
+    //         }
+    //     }
+    //     std::cout << "N" << std::endl;
+    // }
 }
 
 float Distortion::calculateBrightness(float roomSize, float hiPass, float loPass)
@@ -269,6 +277,18 @@ bool Distortion::toggleBypass(bool bypass)
 {
     return !bypass;
 }
+
+struct DistortionWrapper
+{
+    DistortionWrapper(Distortion* d) : dPtr(d) { }
+    ~DistortionWrapper()
+    {
+        delete dPtr;
+    }
+    Distortion* dPtr = nullptr;
+};
+
+
 
 /*
  copied UDT 3:
@@ -300,6 +320,8 @@ struct PatternGenerator
 
     void calculateNote(HarmonicSet harmonies);
     Pattern generatePattern();
+
+    JUCE_LEAK_DETECTOR(PatternGenerator)
 };
 
 PatternGenerator::PatternGenerator()
@@ -351,6 +373,13 @@ void PatternGenerator::Pattern::stop()
 
 }
 
+struct PatternGeneratorWrapper
+{
+    PatternGeneratorWrapper(PatternGenerator* pg) : pgPtr(pg) { }
+    ~PatternGeneratorWrapper() { delete pgPtr; }
+    PatternGenerator* pgPtr = nullptr;
+};
+
 
 /*
  new UDT 4:
@@ -372,6 +401,8 @@ struct PatternPlayer
     void printDescription();
     void matchNote(int i);
     void play();
+
+    JUCE_LEAK_DETECTOR(PatternPlayer)
 };
 
 PatternPlayer::PatternPlayer() 
@@ -406,14 +437,14 @@ void PatternPlayer::matchNote(int i)
     {
         harmonicSet.prev();
         currentNote -= 1;
-        std::cout << "matchNote rewind to " << currentNote << std::endl;
+        // std::cout << "matchNote rewind to " << currentNote << std::endl;
         matchNote(i);
     }
     else if (i > currentNote) 
     {
         harmonicSet.next();
         currentNote += 1;
-        std::cout << "matchNote forward to " << currentNote << std::endl;
+        // std::cout << "matchNote forward to " << currentNote << std::endl;
         matchNote(i);
     }
 }
@@ -457,6 +488,13 @@ void PatternPlayer::play()
     
 }
 
+struct PatternPlayerWrapper
+{
+    PatternPlayerWrapper(PatternPlayer* pp) : ppPtr(pp) { }
+    ~PatternPlayerWrapper() { delete ppPtr; }
+    PatternPlayer* ppPtr = nullptr;
+};
+
 /*
  new UDT 5:
  */
@@ -469,6 +507,8 @@ struct NoiseMaker
     Distortion distortion;
 
     void makeSomeNoise();
+
+    JUCE_LEAK_DETECTOR(NoiseMaker)
 };
 
 NoiseMaker::NoiseMaker() 
@@ -488,61 +528,67 @@ void NoiseMaker::makeSomeNoise()
     distortion.processInput();
 }
 
+struct NoiseMakerWrapper
+{
+    NoiseMakerWrapper(NoiseMaker* nm) : nmPtr(nm) { }
+    ~NoiseMakerWrapper() { delete nmPtr; }
+    NoiseMaker* nmPtr = nullptr;
+};
 
 
 #include <iostream>
 int main()
 {
 
-    HarmonicSet hs;
-    std::cout << hs.bassFrequency << std::endl;
-    std::cout << hs.genFrequency << std::endl;
-    std::cout << " ^" << hs.next();
-    std::cout << " ^" << hs.next();
-    std::cout << " ^" << hs.next();
-    std::cout << " ^" << hs.next();
-    std::cout << " v" << hs.prev();
-    std::cout << " ^" << hs.next();
-    std::cout << " v" << hs.prev();
-    std::cout << " v" << hs.prev();
+    HarmonicSetWrapper hs ( new HarmonicSet );
+    std::cout << hs.hsPtr->bassFrequency << std::endl;
+    std::cout << hs.hsPtr->genFrequency << std::endl;
+    std::cout << " ^" << hs.hsPtr->next();
+    std::cout << " ^" << hs.hsPtr->next();
+    std::cout << " ^" << hs.hsPtr->next();
+    std::cout << " ^" << hs.hsPtr->next();
+    std::cout << " v" << hs.hsPtr->prev();
+    std::cout << " ^" << hs.hsPtr->next();
+    std::cout << " v" << hs.hsPtr->prev();
+    std::cout << " v" << hs.hsPtr->prev();
     std::cout << std::endl;
 
-    std::cout << "current: " << hs.current << std::endl;
-    std::cout << "previous: " << hs.previous << std::endl;
+    std::cout << "current: " << hs.hsPtr->current << std::endl;
+    std::cout << "previous: " << hs.hsPtr->previous << std::endl;
 
     // here I've just changed the second HarmonicSet to use member functions
-    HarmonicSet hs2(15.f, 40.f);
-    hs2.printBassFrequency();
-    hs2.printGenFrequency();
-    hs2.printNext();
-    hs2.printNext();
-    hs2.printNext();
-    hs2.printNext();
-    hs2.printPrev();
-    hs2.printNext();
-    hs2.printPrev();
-    hs2.printPrev();
+    HarmonicSetWrapper hs2( new HarmonicSet(15.f, 40.f) );
+    hs2.hsPtr->printBassFrequency();
+    hs2.hsPtr->printGenFrequency();
+    hs2.hsPtr->printNext();
+    hs2.hsPtr->printNext();
+    hs2.hsPtr->printNext();
+    hs2.hsPtr->printNext();
+    hs2.hsPtr->printPrev();
+    hs2.hsPtr->printNext();
+    hs2.hsPtr->printPrev();
+    hs2.hsPtr->printPrev();
     std::cout << std::endl;
 
-    std::cout << "current: " << hs2.current << std::endl;
-    hs2.printCurrent();
-    std::cout << "previous: " << hs2.previous << std::endl;
-    hs2.printPrevious();
+    std::cout << "current: " << hs2.hsPtr->current << std::endl;
+    hs2.hsPtr->printCurrent();
+    std::cout << "previous: " << hs2.hsPtr->previous << std::endl;
+    hs2.hsPtr->printPrevious();
 
-    Distortion distorition;
+    DistortionWrapper distorition( new Distortion );
 
-    PatternPlayer pp;
-    pp.play();
+    PatternPlayerWrapper pp( new PatternPlayer );
+    pp.ppPtr->play();
 
-    PatternPlayer pp2(440.f, 442.f);
-    pp2.distortion.numEchoes = 5;
-    pp2.pattern.patternName = "pattern 2";
-    pp2.pattern.startingNote = 6;
-    pp2.pattern.numberOfNotes = 7;
-    pp2.play();
+    PatternPlayerWrapper pp2(new PatternPlayer(440.f, 442.f));
+    pp2.ppPtr->distortion.numEchoes = 5;
+    pp2.ppPtr->pattern.patternName = "pattern 2";
+    pp2.ppPtr->pattern.startingNote = 6;
+    pp2.ppPtr->pattern.numberOfNotes = 7;
+    pp2.ppPtr->play();
 
-    NoiseMaker nm;
-    nm.makeSomeNoise();
+    NoiseMakerWrapper nm ( new NoiseMaker );
+    nm.nmPtr->makeSomeNoise();
 
     std::cout << "*=-=*=-=*=-=*=-=*=-=* old stuff *=-=*=-=*=-=*=-=*=-=*" << std::endl;
 
@@ -550,28 +596,28 @@ int main()
     std::cout << "pattern's name: " << pattern.patternName << std::endl;
     pattern.printName(); // prints the same name
 
-    PatternGenerator pg;
-    pg.generatePattern(); // prints "new pattern: 12345"
+    PatternGeneratorWrapper pg ( new PatternGenerator );
+    pg.pgPtr->generatePattern(); // prints "new pattern: 12345"
 
-    Distortion ds;
-    ds.processInput();
-    std::cout << "brightness: " << ds.calculateBrightness(250.f, 300.f, 100.f) << std::endl;
-    std::cout << "brightness: " << ds.calculateBrightness(350.f, 300.f, 200.f) << std::endl;
-    ds.printCalculateBrightness(250.f, 300.f, 100.f);
-    ds.printCalculateBrightness(350.f, 300.f, 200.f);
+    DistortionWrapper ds ( new Distortion );
+    ds.dPtr->processInput();
+    std::cout << "brightness: " << ds.dPtr->calculateBrightness(250.f, 300.f, 100.f) << std::endl;
+    std::cout << "brightness: " << ds.dPtr->calculateBrightness(350.f, 300.f, 200.f) << std::endl;
+    ds.dPtr->printCalculateBrightness(250.f, 300.f, 100.f);
+    ds.dPtr->printCalculateBrightness(350.f, 300.f, 200.f);
 
-    HarmonicSet harmonicSet = HarmonicSet(220.0f, 440.0f);
-    harmonicSet.playSet(220.0f, 22000.0f);
-    HarmonicSet harmonicSetTwo(100.0f, 360.0f);
-    harmonicSetTwo.playSet(10.f, 22000.0f);
-    std::cout << "Sum of bass and generator is " << harmonicSetTwo.calculateHarmonicity() << std::endl;
-    harmonicSetTwo.printCalculateHarmonicity();
+    HarmonicSetWrapper harmonicSet ( new HarmonicSet(220.0f, 440.0f));
+    harmonicSet.hsPtr->playSet(220.0f, 22000.0f);
+    HarmonicSetWrapper harmonicSetTwo ( new HarmonicSet(100.0f, 360.0f));
+    harmonicSetTwo.hsPtr->playSet(10.f, 22000.0f);
+    std::cout << "Sum of bass and generator is " << harmonicSetTwo.hsPtr->calculateHarmonicity() << std::endl;
+    harmonicSetTwo.hsPtr->printCalculateHarmonicity();
 
-    Distortion ds2;
-    ds2.processInput();
+    DistortionWrapper ds2 ( new Distortion );
+    ds2.dPtr->processInput();
 
-    ds2.numEchoes = 15;
-    ds2.processInput();
+    ds2.dPtr->numEchoes = 15;
+    ds2.dPtr->processInput();
 
 
     std::cout << "good to go!" << std::endl;
