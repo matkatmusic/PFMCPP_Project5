@@ -278,6 +278,18 @@ bool Distortion::toggleBypass(bool bypass)
     return !bypass;
 }
 
+struct DistortionWrapper
+{
+    DistortionWrapper(Distortion* d) : dPtr(d) { }
+    ~DistortionWrapper()
+    {
+        delete dPtr;
+    }
+    Distortion* dPtr = nullptr;
+};
+
+
+
 /*
  copied UDT 3:
  */
@@ -360,6 +372,13 @@ void PatternGenerator::Pattern::stop()
 {
 
 }
+
+struct PatternGeneratorWrapper
+{
+    PatternGeneratorWrapper(PatternGenerator* pg) : pgPtr(pg) { }
+    ~PatternGeneratorWrapper() { delete pgPtr; }
+    PatternGenerator* pgPtr = nullptr;
+};
 
 
 /*
@@ -469,6 +488,13 @@ void PatternPlayer::play()
     
 }
 
+struct PatternPlayerWrapper
+{
+    PatternPlayerWrapper(PatternPlayer* pp) : ppPtr(pp) { }
+    ~PatternPlayerWrapper() { delete ppPtr; }
+    PatternPlayer* ppPtr = nullptr;
+};
+
 /*
  new UDT 5:
  */
@@ -502,6 +528,12 @@ void NoiseMaker::makeSomeNoise()
     distortion.processInput();
 }
 
+struct NoiseMakerWrapper
+{
+    NoiseMakerWrapper(NoiseMaker* nm) : nmPtr(nm) { }
+    ~NoiseMakerWrapper() { delete nmPtr; }
+    NoiseMaker* nmPtr = nullptr;
+};
 
 
 #include <iostream>
