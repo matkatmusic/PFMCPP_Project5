@@ -588,7 +588,7 @@ int main()
     pp2.ppPtr->play();
 
     NoiseMakerWrapper nm ( new NoiseMaker );
-    nm.npPtr->makeSomeNoise();
+    nm.nmPtr->makeSomeNoise();
 
     std::cout << "*=-=*=-=*=-=*=-=*=-=* old stuff *=-=*=-=*=-=*=-=*=-=*" << std::endl;
 
@@ -596,28 +596,28 @@ int main()
     std::cout << "pattern's name: " << pattern.patternName << std::endl;
     pattern.printName(); // prints the same name
 
-    PatternGenerator pg;
-    pg.generatePattern(); // prints "new pattern: 12345"
+    PatternGeneratorWrapper pg ( new PatternGenerator );
+    pg.pgPtr->generatePattern(); // prints "new pattern: 12345"
 
-    Distortion ds;
-    ds.processInput();
-    std::cout << "brightness: " << ds.calculateBrightness(250.f, 300.f, 100.f) << std::endl;
-    std::cout << "brightness: " << ds.calculateBrightness(350.f, 300.f, 200.f) << std::endl;
-    ds.printCalculateBrightness(250.f, 300.f, 100.f);
-    ds.printCalculateBrightness(350.f, 300.f, 200.f);
+    DistortionWrapper ds ( new Distortion );
+    ds.dPtr->processInput();
+    std::cout << "brightness: " << ds.dPtr->calculateBrightness(250.f, 300.f, 100.f) << std::endl;
+    std::cout << "brightness: " << ds.dPtr->calculateBrightness(350.f, 300.f, 200.f) << std::endl;
+    ds.dPtr->printCalculateBrightness(250.f, 300.f, 100.f);
+    ds.dPtr->printCalculateBrightness(350.f, 300.f, 200.f);
 
-    HarmonicSet harmonicSet = HarmonicSet(220.0f, 440.0f);
-    harmonicSet.playSet(220.0f, 22000.0f);
-    HarmonicSet harmonicSetTwo(100.0f, 360.0f);
-    harmonicSetTwo.playSet(10.f, 22000.0f);
-    std::cout << "Sum of bass and generator is " << harmonicSetTwo.calculateHarmonicity() << std::endl;
-    harmonicSetTwo.printCalculateHarmonicity();
+    HarmonicSetWrapper harmonicSet ( new HarmonicSet(220.0f, 440.0f));
+    harmonicSet.hsPtr->playSet(220.0f, 22000.0f);
+    HarmonicSetWrapper harmonicSetTwo ( new HarmonicSet(100.0f, 360.0f));
+    harmonicSetTwo.hsPtr->playSet(10.f, 22000.0f);
+    std::cout << "Sum of bass and generator is " << harmonicSetTwo.hsPtr->calculateHarmonicity() << std::endl;
+    harmonicSetTwo.hsPtr->printCalculateHarmonicity();
 
-    Distortion ds2;
-    ds2.processInput();
+    DistortionWrapper ds2 ( new Distortion );
+    ds2.dPtr->processInput();
 
-    ds2.numEchoes = 15;
-    ds2.processInput();
+    ds2.dPtr->numEchoes = 15;
+    ds2.dPtr->processInput();
 
 
     std::cout << "good to go!" << std::endl;
