@@ -50,6 +50,7 @@ You don't have to do this, you can keep your current object name and just change
 
 
 #include <iostream>
+#include "LeakedObjectDetector.h"
 
 /*
  copied UDT 1:
@@ -221,35 +222,35 @@ Distortion::Distortion()
 Distortion::~Distortion()
 {
     std::cout << "Distortion switched off" << std::endl;
-    for (float shriek = brightness; shriek > 0.03f; shriek *= 0.75f)
-    {
-        for (int i = int(shriek * 30); i > 0; i -= 1)
-        {
-            std::cout << "+-";
-        }
-        std::cout << std::endl;
-    }
+    // for (float shriek = brightness; shriek > 0.03f; shriek *= 0.75f)
+    // {
+    //     for (int i = int(shriek * 30); i > 0; i -= 1)
+    //     {
+    //         std::cout << "+-";
+    //     }
+    //     std::cout << std::endl;
+    // }
 }
 
 void Distortion::processInput()
 {
     std::cout << "DISTORRTIIOOOOON"<< std::endl;
-    for (int n = numEchoes; n > 0; n -= 1)
-    {
-        std::cout << "DISTORRTI";
-        for (int m = n; m > 0; m -= 1)
-        {
-            if (rand() < roughness * RAND_MAX)
-            {
-                std::cout << "O";
-            }
-            else
-            {
-                std::cout << "o";
-            }
-        }
-        std::cout << "N" << std::endl;
-    }
+    // for (int n = numEchoes; n > 0; n -= 1)
+    // {
+    //     std::cout << "DISTORRTI";
+    //     for (int m = n; m > 0; m -= 1)
+    //     {
+    //         if (rand() < roughness * RAND_MAX)
+    //         {
+    //             std::cout << "O";
+    //         }
+    //         else
+    //         {
+    //             std::cout << "o";
+    //         }
+    //     }
+    //     std::cout << "N" << std::endl;
+    // }
 }
 
 float Distortion::calculateBrightness(float roomSize, float hiPass, float loPass)
@@ -406,14 +407,14 @@ void PatternPlayer::matchNote(int i)
     {
         harmonicSet.prev();
         currentNote -= 1;
-        std::cout << "matchNote rewind to " << currentNote << std::endl;
+        // std::cout << "matchNote rewind to " << currentNote << std::endl;
         matchNote(i);
     }
     else if (i > currentNote) 
     {
         harmonicSet.next();
         currentNote += 1;
-        std::cout << "matchNote forward to " << currentNote << std::endl;
+        // std::cout << "matchNote forward to " << currentNote << std::endl;
         matchNote(i);
     }
 }
