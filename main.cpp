@@ -115,7 +115,7 @@ struct HarmonicSet
         std::cout << "SUM OF BASS AND GENERATOR IS " << this->calculateHarmonicity() << std::endl;
     }
 
-
+    JUCE_LEAK_DETECTOR(HarmonicSet)
 };
 
 HarmonicSet::~HarmonicSet()
@@ -209,6 +209,7 @@ struct Distortion
         std::cout << "BRIGHTNESS: " << this->calculateBrightness(first, second, third) << std::endl;
     }
 
+    JUCE_LEAK_DETECTOR(Distortion)
 };
 
 Distortion::Distortion()
@@ -301,6 +302,8 @@ struct PatternGenerator
 
     void calculateNote(HarmonicSet harmonies);
     Pattern generatePattern();
+
+    JUCE_LEAK_DETECTOR(PatternGenerator)
 };
 
 PatternGenerator::PatternGenerator()
@@ -373,6 +376,8 @@ struct PatternPlayer
     void printDescription();
     void matchNote(int i);
     void play();
+
+    JUCE_LEAK_DETECTOR(PatternPlayer)
 };
 
 PatternPlayer::PatternPlayer() 
@@ -470,6 +475,8 @@ struct NoiseMaker
     Distortion distortion;
 
     void makeSomeNoise();
+
+    JUCE_LEAK_DETECTOR(NoiseMaker)
 };
 
 NoiseMaker::NoiseMaker() 
