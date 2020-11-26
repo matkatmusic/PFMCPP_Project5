@@ -164,7 +164,6 @@ void HarmonicSet::playSet(float minFrequency, float maxFrequency)
     std::cout << std::endl;
 }
 
-
 float HarmonicSet::calculateHarmonicity()
 {
     return bassFrequency + genFrequency;
@@ -182,6 +181,13 @@ void HarmonicSet::playFiltered(float minFrequency, float maxFrequency, int genRu
         }
     }
 }
+
+struct HarmonicSetWrapper
+{
+    HarmonicSetWrapper(HarmonicSet* hs) : hsPtr(hs) { }
+    ~HarmonicSetWrapper() { delete hsPtr; }
+    HarmonicSet* hsPtr = nullptr;
+};
 
 
 /*
