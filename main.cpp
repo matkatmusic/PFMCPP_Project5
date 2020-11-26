@@ -540,55 +540,55 @@ struct NoiseMakerWrapper
 int main()
 {
 
-    HarmonicSet hs;
-    std::cout << hs.bassFrequency << std::endl;
-    std::cout << hs.genFrequency << std::endl;
-    std::cout << " ^" << hs.next();
-    std::cout << " ^" << hs.next();
-    std::cout << " ^" << hs.next();
-    std::cout << " ^" << hs.next();
-    std::cout << " v" << hs.prev();
-    std::cout << " ^" << hs.next();
-    std::cout << " v" << hs.prev();
-    std::cout << " v" << hs.prev();
+    HarmonicSetWrapper hs ( new HarmonicSet );
+    std::cout << hs.hsPtr->bassFrequency << std::endl;
+    std::cout << hs.hsPtr->genFrequency << std::endl;
+    std::cout << " ^" << hs.hsPtr->next();
+    std::cout << " ^" << hs.hsPtr->next();
+    std::cout << " ^" << hs.hsPtr->next();
+    std::cout << " ^" << hs.hsPtr->next();
+    std::cout << " v" << hs.hsPtr->prev();
+    std::cout << " ^" << hs.hsPtr->next();
+    std::cout << " v" << hs.hsPtr->prev();
+    std::cout << " v" << hs.hsPtr->prev();
     std::cout << std::endl;
 
-    std::cout << "current: " << hs.current << std::endl;
-    std::cout << "previous: " << hs.previous << std::endl;
+    std::cout << "current: " << hs.hsPtr->current << std::endl;
+    std::cout << "previous: " << hs.hsPtr->previous << std::endl;
 
     // here I've just changed the second HarmonicSet to use member functions
-    HarmonicSet hs2(15.f, 40.f);
-    hs2.printBassFrequency();
-    hs2.printGenFrequency();
-    hs2.printNext();
-    hs2.printNext();
-    hs2.printNext();
-    hs2.printNext();
-    hs2.printPrev();
-    hs2.printNext();
-    hs2.printPrev();
-    hs2.printPrev();
+    HarmonicSetWrapper hs2( new HarmonicSet(15.f, 40.f) );
+    hs2.hsPtr->printBassFrequency();
+    hs2.hsPtr->printGenFrequency();
+    hs2.hsPtr->printNext();
+    hs2.hsPtr->printNext();
+    hs2.hsPtr->printNext();
+    hs2.hsPtr->printNext();
+    hs2.hsPtr->printPrev();
+    hs2.hsPtr->printNext();
+    hs2.hsPtr->printPrev();
+    hs2.hsPtr->printPrev();
     std::cout << std::endl;
 
-    std::cout << "current: " << hs2.current << std::endl;
-    hs2.printCurrent();
-    std::cout << "previous: " << hs2.previous << std::endl;
-    hs2.printPrevious();
+    std::cout << "current: " << hs2.hsPtr->current << std::endl;
+    hs2.hsPtr->printCurrent();
+    std::cout << "previous: " << hs2.hsPtr->previous << std::endl;
+    hs2.hsPtr->printPrevious();
 
-    Distortion distorition;
+    DistortionWrapper distorition( new Distortion );
 
-    PatternPlayer pp;
-    pp.play();
+    PatternPlayerWrapper pp( new PatternPlayer );
+    pp.ppPtr->play();
 
-    PatternPlayer pp2(440.f, 442.f);
-    pp2.distortion.numEchoes = 5;
-    pp2.pattern.patternName = "pattern 2";
-    pp2.pattern.startingNote = 6;
-    pp2.pattern.numberOfNotes = 7;
-    pp2.play();
+    PatternPlayerWrapper pp2(new PatternPlayer(440.f, 442.f));
+    pp2.ppPtr->distortion.numEchoes = 5;
+    pp2.ppPtr->pattern.patternName = "pattern 2";
+    pp2.ppPtr->pattern.startingNote = 6;
+    pp2.ppPtr->pattern.numberOfNotes = 7;
+    pp2.ppPtr->play();
 
-    NoiseMaker nm;
-    nm.makeSomeNoise();
+    NoiseMakerWrapper nm ( new NoiseMaker );
+    nm.npPtr->makeSomeNoise();
 
     std::cout << "*=-=*=-=*=-=*=-=*=-=* old stuff *=-=*=-=*=-=*=-=*=-=*" << std::endl;
 
