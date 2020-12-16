@@ -1,2 +1,2 @@
 language = "cpp"
-run = "clang++ -std=c++17 -Weverything -Wno-c++98-compat -Wno-missing-prototypes -Wno-exit-time-destructors -Wno-padded main.cpp && ./a.out"
+run = "clang++ -std=c++17 -Weverything -Wno-c++98-compat -Wno-missing-prototypes -Wno-exit-time-destructors -Wno-padded main.cpp HarmonicSet.cpp Distortion.cpp PatternPlayer.cpp PatternGenerator.cpp NoiseMaker.cpp && ./a.out"
