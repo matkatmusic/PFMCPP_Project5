@@ -4,13 +4,13 @@
 #include <iostream>
 
 HarmonicSet::HarmonicSet(float bass, float gen) : 
-        bassFrequency(bass), 
-        genFrequency(gen), 
-        current(gen), 
-        previous(bass)
-    {
-        reset();
-    }
+    bassFrequency(bass), 
+    genFrequency(gen), 
+    current(gen), 
+    previous(bass)
+{
+    reset();
+}
 
 HarmonicSet::~HarmonicSet()
 {
@@ -77,36 +77,36 @@ void HarmonicSet::playFiltered(float minFrequency, float maxFrequency, int genRu
 }
 
 void HarmonicSet::printNext()
-    {
-        std::cout << " ^" << this->next();
-    }
+{
+    std::cout << " ^" << this->next();
+}
     
 void HarmonicSet::printPrev()
-    {
-        std::cout << " v" << this->prev();
-    }
+{
+    std::cout << " v" << this->prev();
+}
     
 void HarmonicSet::printBassFrequency()
-    {
-        std::cout << this->bassFrequency << std::endl;
-    }
+{
+    std::cout << this->bassFrequency << std::endl;
+}
     
 void HarmonicSet::printGenFrequency()
-    {
-        std::cout << this->genFrequency << std::endl;
-    }
+{
+    std::cout << this->genFrequency << std::endl;
+}
 
 void HarmonicSet::printCurrent()
-    {
-        std::cout << "Current: " << this->current << std::endl;
-    }
+{
+    std::cout << "Current: " << this->current << std::endl;
+}
 
 void HarmonicSet::printPrevious()
-    {
-        std::cout << "Previous: " << this->previous << std::endl;
-    }
+{
+    std::cout << "Previous: " << this->previous << std::endl;
+}
 
 void HarmonicSet::printCalculateHarmonicity()
-    {
-        std::cout << "SUM OF BASS AND GENERATOR IS " << this->calculateHarmonicity() << std::endl;
-    }
+{
+    std::cout << "SUM OF BASS AND GENERATOR IS " << this->calculateHarmonicity() << std::endl;
+}

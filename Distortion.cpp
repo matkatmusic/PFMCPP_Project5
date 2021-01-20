@@ -16,9 +16,9 @@ Distortion::~Distortion()
 }
 
 void Distortion::printCalculateBrightness(float first, float second, float third)
-    {
-        std::cout << "BRIGHTNESS: " << this->calculateBrightness(first, second, third) << std::endl;
-    }
+{
+    std::cout << "BRIGHTNESS: " << this->calculateBrightness(first, second, third) << std::endl;
+}
 
 void Distortion::processInput()
 {

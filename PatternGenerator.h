@@ -1,8 +1,6 @@
 #pragma once
 
 #include "LeakedObjectDetector.h"
-#include "HarmonicSet.h"
-#include "Distortion.h"
 
 struct HarmonicSet;
 

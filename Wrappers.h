@@ -2,50 +2,37 @@
 
 #include <memory>
 
-struct HarmonicSet;
-
 struct HarmonicSetWrapper
 {
-    HarmonicSetWrapper(HarmonicSet* hs) : hsPtr(hs) { }
-    ~HarmonicSetWrapper() { delete hsPtr; }
+    HarmonicSetWrapper(HarmonicSet* hs);
+    ~HarmonicSetWrapper();
     HarmonicSet* hsPtr = nullptr;
 };
 
-struct Distortion;
-
 struct DistortionWrapper
 {
-    DistortionWrapper(Distortion* d) : dPtr(d) { }
-    ~DistortionWrapper()
-    {
-        delete dPtr;
-    }
+    DistortionWrapper(Distortion* d);
+    ~DistortionWrapper();
     Distortion* dPtr = nullptr;
 };
 
-struct PatternGenerator;
-
 struct PatternGeneratorWrapper
 {
-    PatternGeneratorWrapper(PatternGenerator* pg) : pgPtr(pg) { }
-    ~PatternGeneratorWrapper() { delete pgPtr; }
+    PatternGeneratorWrapper(PatternGenerator* pg);
+    ~PatternGeneratorWrapper();
     PatternGenerator* pgPtr = nullptr;
 };
 
-struct PatternPlayer;
-
 struct PatternPlayerWrapper
 {
-    PatternPlayerWrapper(PatternPlayer* pp) : ppPtr(pp) { }
-    ~PatternPlayerWrapper() { delete ppPtr; }
+    PatternPlayerWrapper(PatternPlayer* pp);
+    ~PatternPlayerWrapper();
     PatternPlayer* ppPtr = nullptr;
 };
 
-struct NoiseMaker;
-
 struct NoiseMakerWrapper
 {
-    NoiseMakerWrapper(NoiseMaker* nm) : nmPtr(nm) { }
-    ~NoiseMakerWrapper() { delete nmPtr; }
+    NoiseMakerWrapper(NoiseMaker* nm);
+    ~NoiseMakerWrapper();
     NoiseMaker* nmPtr = nullptr;
 };
