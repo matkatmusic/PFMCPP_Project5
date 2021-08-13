@@ -43,10 +43,7 @@ Purpose:  This project continues developing Project3.
 struct Dishwasher
 {
     Dishwasher();
-    ~Dishwasher()
-    {
-        std::cout << "Dishwasher destroyed" << std::endl;
-    }
+    ~Dishwasher();
 
     int capacityPlates { 15 };
     int capacityCupsGlasses { 18 };
@@ -56,10 +53,7 @@ struct Dishwasher
     struct Dishes
     {
         Dishes();
-        ~Dishes()
-        {
-            std::cout << "Dishes destroyed" << std::endl;
-        }
+        ~Dishes();
 
         float oiliness;
         int soupBowls { 4 };
@@ -79,6 +73,7 @@ struct Dishwasher
     int alarm(int remainingTime = 100);
 
     Dishes dishes;
+    void updateOiliness(float oiliness);
 };
 
 Dishwasher::Dishwasher() :
@@ -87,11 +82,26 @@ timePerRun(135),
 waterConsumption(30.5)
 {}
 
+Dishwasher::~Dishwasher()
+{
+    std::cout << "Dishwasher destroyed" << std::endl;
+}
+
 Dishwasher::Dishes::Dishes() :
 oiliness(25.76f),
 cups(8),
 glasses(5)
 {}
+
+Dishwasher::Dishes::~Dishes()
+{
+    std::cout << "Dishes destroyed" << std::endl;
+}
+
+void Dishwasher::updateOiliness(float oiliness)
+{
+    dishes.oiliness = oiliness;
+}
 
 void Dishwasher::Dishes::clogDrain(std::string residues)
 {
@@ -201,10 +211,7 @@ int Dishwasher::alarm(int remainingTime)
 struct Oven
 {
     Oven();
-    ~Oven()
-    {
-        std::cout << "Oven destroyed" << std::endl;
-    }
+    ~Oven();
 
     int numberBakingSheets, numberPrograms;
     int highestTemp { 300 };
@@ -223,6 +230,11 @@ numberBakingSheets(3),
 numberPrograms(5),
 currentProgram("top heat")
 {}
+
+Oven::~Oven()
+{
+    std::cout << "Oven destroyed" << std::endl;
+}
 
 void Oven::bakeCake(std::string typeOfCake, int preHeat)
 {
@@ -261,10 +273,7 @@ int Oven::adjustTemp(int targetTemp, int current)
 struct Stove
 {
     Stove();
-    ~Stove()
-    {
-        std::cout << "Oven destroyed" << std::endl;
-    }
+    ~Stove();
     
     std::string typeStove;
     int numberHotplates { 4 };
@@ -283,6 +292,11 @@ Stove::Stove() :
     largestDiam(28.5),
     smallestDiam(14.5)
 {}
+
+Stove::~Stove()
+{
+    std::cout << "Oven destroyed" << std::endl;
+}
 
 void Stove::boilWater(int setLevel)
 {
@@ -327,14 +341,8 @@ int Stove::cookBigMeal(int numPotsNeeded, int inUse)
 
 struct KitchenCatalog
 {
-    KitchenCatalog()
-    {
-        std::cout << "KitchenCatalog constructed" << std::endl;
-    }
-    ~KitchenCatalog()
-    {
-        std::cout << "KitchenCatalog destroyed" << std::endl;
-    }
+    KitchenCatalog();
+    ~KitchenCatalog();
 
     Dishwasher myDishwasher;
     Oven myOven;
@@ -343,6 +351,16 @@ struct KitchenCatalog
     void displayPage(int pageNumber);
     double shippingCost(int numDshwsh, int numOvn, int numStv);
 };
+
+KitchenCatalog::KitchenCatalog()
+{
+    std::cout << "KitchenCatalog constructed" << std::endl;
+}
+
+KitchenCatalog::~KitchenCatalog()
+{
+    std::cout << "KitchenCatalog destroyed" << std::endl;
+}
 
 void KitchenCatalog::displayPage(int pageNumber)
 {
@@ -380,14 +398,8 @@ double KitchenCatalog::shippingCost(int numDshwsh, int numOvn, int numStv)
 
 struct KitchenStuff
 {
-    KitchenStuff()
-    {
-        std::cout << "KitchenStuff constructed" << std::endl;
-    }
-    ~KitchenStuff()
-    {
-        std::cout << "Kitchenstuff destroyed" << std::endl;
-    }
+    KitchenStuff();
+    ~KitchenStuff();
 
     Dishwasher myDishwasher;
     Dishwasher::Dishes myDishes;
@@ -397,6 +409,16 @@ struct KitchenStuff
     void usingOven(std::string myDish);
     void usingStove(std::string myDish);
 };
+
+KitchenStuff::KitchenStuff()
+{
+    std::cout << "KitchenStuff constructed" << std::endl;
+}
+
+KitchenStuff::~KitchenStuff()
+{
+    std::cout << "Kitchenstuff destroyed" << std::endl;
+}
 
 void KitchenStuff::usingOven(std::string myDish)
 {
@@ -462,6 +484,7 @@ void KitchenStuff::usingStove(std::string myDish)
 int main()
 {
     Dishwasher dishwasher;
+    dishwasher.updateOiliness(123.45f);
     dishwasher.dryDishes();
     dishwasher.alarm();
 
