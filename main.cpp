@@ -76,6 +76,8 @@ struct Dishwasher
     void updateOiliness(float oiliness);
 };
 
+static Dishwasher::Dishes myDishes;
+
 Dishwasher::Dishwasher() :
 capacityCutlery(30),
 timePerRun(135),
@@ -483,7 +485,11 @@ void KitchenStuff::usingStove(std::string myDish)
 #include <iostream>
 int main()
 {
+    
+    myDishes.oiliness = 9001.f;
     Dishwasher dishwasher;
+    dishwasher.cleanDishes(myDishes);
+
     dishwasher.updateOiliness(123.45f);
     dishwasher.dryDishes();
     dishwasher.alarm();
