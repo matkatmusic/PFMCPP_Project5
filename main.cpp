@@ -493,8 +493,6 @@ int main()
     dishwasher.alarm();
 
     dishwasher.dishes.tarnish(true);
-    dishwasher.cleanDishes(dishwasher.dishes);
-    dishwasher.cleanDishes(dishwasher.dishes);
 
     dishwasher.dishes.shatter(true);
     dishwasher.dishes.puttingInGlasses(2,18);
