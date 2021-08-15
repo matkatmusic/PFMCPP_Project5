@@ -98,6 +98,8 @@ struct Dishwasher
         void shatter(bool isPiledBadly = false);
 
         int puttingInGlasses(int toClean = 5, int room = 18);
+
+        void soupBowlCounter();
     };
 
     void cleanDishes(Dishes dishes);
@@ -108,6 +110,8 @@ struct Dishwasher
 
     Dishes dishes;
     void updateOiliness(float oiliness);
+
+    void cutleryCounter();
 };
 
 Dishwasher::Dishwasher() :
@@ -135,6 +139,11 @@ Dishwasher::Dishes::~Dishes()
 void Dishwasher::updateOiliness(float oiliness)
 {
     dishes.oiliness = oiliness;
+}
+
+void Dishwasher::cutleryCounter()
+{
+    std::cout << "room for " << this->capacityCutlery << " pieces of cutlery" << std::endl;
 }
 
 void Dishwasher::Dishes::clogDrain(std::string residues)
@@ -174,6 +183,11 @@ int Dishwasher::Dishes::puttingInGlasses(int toClean, int room)
     std::cout << "any glasses left?" << std::endl;
     toClean == 0 ? std::cout << "all in there" << std::endl : std::cout << "yeah, " << toClean << ", but there's no more room..." << std::endl;
     return spaceLeft;
+}
+
+void Dishwasher::Dishes::soupBowlCounter()
+{
+    std::cout << "here's " << this->soupBowls << " soupbowls" << std::endl;
 }
 
 void Dishwasher::cleanDishes(Dishwasher::Dishes newDishes)
@@ -257,6 +271,8 @@ struct Oven
     void makeRoast(std::string typeOfRoast = "beef", int setTemp = 230);
 
     int adjustTemp(int targetTemp = 200, int current = 25);
+
+    void printMaxTemp();
 };
 
 Oven::Oven() :
@@ -299,6 +315,11 @@ int Oven::adjustTemp(int targetTemp, int current)
     return current;
 }
 
+void Oven::printMaxTemp()
+{
+    std::cout << "It goes up to " << this->highestTemp << " degrees Celsius" << std::endl;
+}
+
 
 /*
  copied UDT 3:
@@ -319,6 +340,8 @@ struct Stove
     void makeSoup(int setLevel = 5);
 
     int cookBigMeal(int numPotsNeeded = 5, int inUse = 0);
+
+    void potSizePossibilities();
 };
 
 Stove::Stove() :
@@ -367,6 +390,11 @@ int Stove::cookBigMeal(int numPotsNeeded, int inUse)
     return numPotsNeeded;
 }
 
+void Stove::potSizePossibilities()
+{
+    std::cout << "You can use pots with a diameter between " << this->smallestDiam << " and " << this->largestDiam << " centimeters" << std::endl;
+}
+
 
 /*
  new UDT 4:
@@ -384,6 +412,7 @@ struct KitchenCatalog
     
     void displayPage(int pageNumber);
     double shippingCost(int numDshwsh, int numOvn, int numStv);
+    void shippingForAnOven();
 };
 
 KitchenCatalog::KitchenCatalog()
@@ -425,6 +454,11 @@ double KitchenCatalog::shippingCost(int numDshwsh, int numOvn, int numStv)
     return shipping;
 }
 
+void KitchenCatalog::shippingForAnOven()
+{
+    std::cout << "The shipping for an oven is " << this->shippingCost(0, 1, 0) << " Euro" << std::endl;
+}
+
 /*
  new UDT 5:
  with 2 member functions
@@ -442,6 +476,8 @@ struct KitchenStuff
 
     void usingOven(std::string myDish);
     void usingStove(std::string myDish);
+
+    void dishwasherTime();
 };
 
 KitchenStuff::KitchenStuff()
@@ -499,6 +535,11 @@ void KitchenStuff::usingStove(std::string myDish)
     }
 }
 
+void KitchenStuff::dishwasherTime()
+{
+    std::cout << "A run takes " << this->myDishwasher.timePerRun << " minutes" << std::endl;
+}
+
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
@@ -532,24 +573,37 @@ int main()
     dishwasher.dishes.puttingInGlasses(2,18);
     dishwasher.dishes.puttingInGlasses(9,18);
 
+    std::cout << "room for " << dishwasher.capacityCutlery << " pieces of cutlery" << std::endl;
+    dishwasher.cutleryCounter();
+    std::cout << "here's " << myDishes.soupBowls << " soupbowls" << std::endl;
+    myDishes.soupBowlCounter();
+
     Oven oven;
     oven.bakePizza();
-    std::cout << "How high does it go? -Up to " << oven.highestTemp << " degrees." << std::endl;
     oven.adjustTemp();
+    std::cout << "How high does it go?" << std::endl;
+    std::cout << "It goes up to " << oven.highestTemp << " degrees Celsius" << std::endl;
+    oven.printMaxTemp();
 
     Stove stove;
     stove.boilWater();
     stove.cookBigMeal();
+    std::cout << "You can use pots with a diameter between " << stove.smallestDiam << " and " << stove.largestDiam << " centimeters" << std::endl;
+    stove.potSizePossibilities();
 
     KitchenCatalog kitchenCatalog;
     kitchenCatalog.displayPage(2);
     kitchenCatalog.displayPage(5);
     kitchenCatalog.shippingCost(1, 3, 5);
     kitchenCatalog.shippingCost(0, 0, 2);
+    std::cout << "The shipping for an oven is " << kitchenCatalog.shippingCost(0, 1, 0) << " Euro" << std::endl;
+    kitchenCatalog.shippingForAnOven();
 
     KitchenStuff kitchenStuff;
     kitchenStuff.usingOven("pizza");
     kitchenStuff.usingStove("water");
+    std::cout << "A run takes " << kitchenStuff.myDishwasher.timePerRun << " minutes" << std::endl;
+    kitchenStuff.dishwasherTime();
 
     std::cout << "good to go!" << std::endl;
 }
