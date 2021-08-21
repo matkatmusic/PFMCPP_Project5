@@ -50,6 +50,7 @@ You don't have to do this, you can keep your current object name and just change
 
 
 #include <iostream>
+#include "LeakedObjectDetector.h"
 
 /*
  copied UDT 1:
@@ -81,6 +82,8 @@ struct Dishwasher
         int puttingInGlasses(int toClean = 5, int room = 18);
 
         void soupBowlCounter();
+
+        JUCE_LEAK_DETECTOR(Dishes)
     };
 
     void cleanDishes(Dishes dishes);
@@ -93,7 +96,34 @@ struct Dishwasher
     void updateOiliness(float oiliness);
 
     void cutleryCounter();
+
+    JUCE_LEAK_DETECTOR(Dishwasher)
 };
+
+struct DishwasherWrapper{
+    DishwasherWrapper(Dishwasher* ptr) :
+    pointerToDishwasher(ptr)
+    {}
+    ~DishwasherWrapper()
+    {
+        delete pointerToDishwasher;
+    }
+
+    Dishwasher* pointerToDishwasher = nullptr;
+};
+
+struct DishesWrapper{
+    DishesWrapper(Dishwasher::Dishes* ptr) :
+    pointerToDishes(ptr)
+    {}
+    ~DishesWrapper()
+    {
+        delete pointerToDishes;
+    }
+
+    Dishwasher::Dishes* pointerToDishes = nullptr;
+};
+
 
 Dishwasher::Dishwasher() :
 capacityCutlery(30),
@@ -256,6 +286,18 @@ struct Oven
     void printMaxTemp();
 };
 
+struct OvenWrapper{
+    OvenWrapper(Oven* ptr) :
+    pointerToOven(ptr)
+    {}
+    ~OvenWrapper()
+    {
+        delete pointerToOven;
+    }
+
+    Oven* pointerToOven = nullptr;
+};
+
 Oven::Oven() :
 numberBakingSheets(3),
 numberPrograms(5),
@@ -323,6 +365,18 @@ struct Stove
     int cookBigMeal(int numPotsNeeded = 5, int inUse = 0);
 
     void potSizePossibilities();
+};
+
+struct StoveWrapper{
+    StoveWrapper(Stove* ptr) :
+    pointerToStove(ptr)
+    {}
+    ~StoveWrapper()
+    {
+        delete pointerToStove;
+    }
+
+    Stove* pointerToStove = nullptr;
 };
 
 Stove::Stove() :
@@ -396,6 +450,18 @@ struct KitchenCatalog
     void shippingForAnOven();
 };
 
+struct KitchenCatalogWrapper{
+    KitchenCatalogWrapper(KitchenCatalog* ptr) :
+    pointerToKitchenCatalog(ptr)
+    {}
+    ~KitchenCatalogWrapper()
+    {
+        delete pointerToKitchenCatalog;
+    }
+
+    KitchenCatalog* pointerToKitchenCatalog = nullptr;
+};
+
 KitchenCatalog::KitchenCatalog()
 {
     std::cout << "KitchenCatalog constructed" << std::endl;
@@ -459,6 +525,18 @@ struct KitchenStuff
     void usingStove(std::string myDish);
 
     void dishwasherTime();
+};
+
+struct KitchenStuffWrapper{
+    KitchenStuffWrapper(KitchenStuff* ptr) :
+    pointerToKitchenStuff(ptr)
+    {}
+    ~KitchenStuffWrapper()
+    {
+        delete pointerToKitchenStuff;
+    }
+
+    KitchenStuff* pointerToKitchenStuff = nullptr;
 };
 
 KitchenStuff::KitchenStuff()
@@ -539,52 +617,57 @@ void KitchenStuff::dishwasherTime()
 #include <iostream>
 int main()
 {
-    Dishwasher::Dishes myDishes;
-    myDishes.oiliness = 9001.f;
-    Dishwasher dishwasher;
-    dishwasher.cleanDishes(myDishes);
+    //Dishwasher and Dishes
+    DishesWrapper myDishes(new Dishwasher::Dishes);
+    myDishes.pointerToDishes->oiliness = 9001.f;
+    DishwasherWrapper dishwasher(new Dishwasher);
+    dishwasher.pointerToDishwasher->cleanDishes(*myDishes.pointerToDishes);
 
-    dishwasher.updateOiliness(123.45f);
-    dishwasher.dryDishes();
-    dishwasher.alarm();
+    dishwasher.pointerToDishwasher->updateOiliness(123.45f);
+    dishwasher.pointerToDishwasher->dryDishes();
+    dishwasher.pointerToDishwasher->alarm();
 
-    dishwasher.dishes.tarnish(true);
+    dishwasher.pointerToDishwasher->dishes.tarnish(true);
 
-    dishwasher.dishes.shatter(true);
-    dishwasher.dishes.puttingInGlasses(2,18);
-    dishwasher.dishes.puttingInGlasses(9,18);
+    dishwasher.pointerToDishwasher->dishes.shatter(true);
+    dishwasher.pointerToDishwasher->dishes.puttingInGlasses(2,18);
+    dishwasher.pointerToDishwasher->dishes.puttingInGlasses(9,18);
 
-    std::cout << "room for " << dishwasher.capacityCutlery << " pieces of cutlery" << std::endl;
-    dishwasher.cutleryCounter();
-    std::cout << "here's " << myDishes.soupBowls << " soupbowls" << std::endl;
-    myDishes.soupBowlCounter();
+    std::cout << "room for " << dishwasher.pointerToDishwasher->capacityCutlery << " pieces of cutlery" << std::endl;
+    dishwasher.pointerToDishwasher->cutleryCounter();
+    std::cout << "here's " << myDishes.pointerToDishes->soupBowls << " soupbowls" << std::endl;
+    myDishes.pointerToDishes->soupBowlCounter();
 
-    Oven oven;
-    oven.bakePizza();
-    oven.adjustTemp();
+    //Oven
+    OvenWrapper oven(new Oven);
+    oven.pointerToOven->bakePizza();
+    oven.pointerToOven->adjustTemp();
     std::cout << "How high does it go?" << std::endl;
-    std::cout << "It goes up to " << oven.highestTemp << " degrees Celsius" << std::endl;
-    oven.printMaxTemp();
+    std::cout << "It goes up to " << oven.pointerToOven->highestTemp << " degrees Celsius" << std::endl;
+    oven.pointerToOven->printMaxTemp();
 
-    Stove stove;
-    stove.boilWater();
-    stove.cookBigMeal();
-    std::cout << "You can use pots with a diameter between " << stove.smallestDiam << " and " << stove.largestDiam << " centimeters" << std::endl;
-    stove.potSizePossibilities();
+    //Stove
+    StoveWrapper stove(new Stove);
+    stove.pointerToStove->boilWater();
+    stove.pointerToStove->cookBigMeal();
+    std::cout << "You can use pots with a diameter between " << stove.pointerToStove->smallestDiam << " and " << stove.pointerToStove->largestDiam << " centimeters" << std::endl;
+    stove.pointerToStove->potSizePossibilities();
 
-    KitchenCatalog kitchenCatalog;
-    kitchenCatalog.displayPage(2);
-    kitchenCatalog.displayPage(5);
-    kitchenCatalog.shippingCost(1, 3, 5);
-    kitchenCatalog.shippingCost(0, 0, 2);
-    std::cout << "The shipping for an oven is " << kitchenCatalog.shippingCost(0, 1, 0) << " Euro" << std::endl;
-    kitchenCatalog.shippingForAnOven();
+    //KitchenCatalog
+    KitchenCatalogWrapper kitchenCatalog(new KitchenCatalog);
+    kitchenCatalog.pointerToKitchenCatalog->displayPage(2);
+    kitchenCatalog.pointerToKitchenCatalog->displayPage(5);
+    kitchenCatalog.pointerToKitchenCatalog->shippingCost(1, 3, 5);
+    kitchenCatalog.pointerToKitchenCatalog->shippingCost(0, 0, 2);
+    std::cout << "The shipping for an oven is " << kitchenCatalog.pointerToKitchenCatalog->shippingCost(0, 1, 0) << " Euro" << std::endl;
+    kitchenCatalog.pointerToKitchenCatalog->shippingForAnOven();
 
-    KitchenStuff kitchenStuff;
-    kitchenStuff.usingOven("pizza");
-    kitchenStuff.usingStove("water");
-    std::cout << "A run takes " << kitchenStuff.myDishwasher.timePerRun << " minutes" << std::endl;
-    kitchenStuff.dishwasherTime();
+    //KitchenStuff
+    KitchenStuffWrapper kitchenStuff(new KitchenStuff);
+    kitchenStuff.pointerToKitchenStuff->usingOven("pizza");
+    kitchenStuff.pointerToKitchenStuff->usingStove("water");
+    std::cout << "A run takes " << kitchenStuff.pointerToKitchenStuff->myDishwasher.timePerRun << " minutes" << std::endl;
+    kitchenStuff.pointerToKitchenStuff->dishwasherTime();
 
     std::cout << "good to go!" << std::endl;
 }
