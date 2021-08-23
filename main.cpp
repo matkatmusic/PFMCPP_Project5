@@ -144,11 +144,7 @@ void Safeway::Customer::redeemGiftCard(int codeOfGiftcard)
 
 bool Safeway::Customer::redeemProduct(int pointsOfProduct)
 {
-    if (pointsOfProduct > 700)
-    {
-        return false;
-    }
-    return true;   
+    return !(pointsOfProduct > 700);
 }
 
 void Safeway::Customer::changeProfile(int dateOfBirthday)
