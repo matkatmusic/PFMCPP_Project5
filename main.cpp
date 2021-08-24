@@ -1,40 +1,72 @@
 /*
-Project 5: Part 1 / 4
- video Chapter 2 - Part 12
+Project 5: Part 2 / 4
+ video: Chapter 3 Part 1
 
- Create a branch named Part1
+Create a branch named Part2
 
-Purpose:  This project continues developing Project3.
-       you will learn how to take code from existing projects and migrate only what you need to new projects
-       you will learn how to write code that doesn't leak as well as how to refactor. 
-
- Destructors
-        
- 0) move all of your implementations of all functions to OUTSIDE of the class. 
+ The 'this' keyword
  
- 1) Copy 3 of your user-defined types (the ones with constructors and for()/while() loops from Project 3) here
-    Choose the classes that contained nested classes.  Include the nested classes when you copy them over.
-
- 2) add destructors
-        make the destructors do something like print out the name of the class.
-
- 3) add 2 new UDTs that use only the types you copied above as member variables.
-
- 4) add 2 member functions that use your member variables to each of these new UDTs
-
- 5) Add constructors and destructors to these 2 new types that do stuff.  
-        maybe print out the name of the class being destructed, or call a member function of one of the members.  be creative
+ The purpose of this project part is to show you how accessing member variables of objects INSIDE member functions is very similar to accessing member variables of objects OUTSIDE of member functions, via 'this->' and via the '.' operator.
+ This project part will break the D.R.Y. rule, but that is fine for the purpose of this project part.
  
- 6) copy over your main() from the end of Project3 
-        get it to compile with the types you copied over.
-        remove any code in main() that uses types you didn't copy over.
  
- 7) Instantiate your 2 UDT's from step 4) in the main() function at the bottom.
-       call their member functions.
+ 1) if you don't have any std::cout statements in main() that access member variables of your U.D.Ts
+         write some.
+    You can copy some from your Project3's main() if needed.
  
- 8) After you finish, click the [run] button.  Clear up any errors or warnings as best you can.
+ 2) For each std::cout statement in main() that accessed member variables of your types or printed out the results of your member function calls,
+        a) write a member function that prints the same thing out, but uses the proper techniques inside the member functions to access the same member variables/functions.
+        b) be explicit with your use of 'this->' in those member functions so we see how you're accessing/calling those member variables and functions *inside*
+        c) call that member function after your std::cout statement in main.
+        d) you should see 2 (almost) identical messages in the program output for each member function you add:
+            one for the std::cout line, and one for the member function's output
  
+ 
+ 3) After you finish, click the [run] button.  Clear up any errors or warnings as best you can.
  */
+
+/*
+ example:
+ */
+#include <iostream>
+namespace Example
+{
+    //a User-Defined Type
+    struct MyFoo
+    {
+        MyFoo() { std::cout << "creating MyFoo" << std::endl; }
+        ~MyFoo() { std::cout << "destroying MyFoo" << std::endl; }
+        
+		// 2a) the member function whose function body is almost identical to the std::cout statement in main.
+        void memberFunc() 
+        { 
+            // 2b) explicitly using 'this' inside this member function.
+            std::cout << "MyFoo returnValue(): " << this->returnValue() << " and MyFoo memberVariable: " << this->memberVariable << std::endl; 
+        }  
+        
+        int returnValue() { return 3; }
+        float memberVariable = 3.14f;
+
+        /*
+        note: the example functions are implemented in-class, and the ctor/dtor show the curly braces on the same line as the function declaration.
+        Do not do this.  Follow the instructions and coding style for the course.
+        */
+    };
+    
+    int main()
+    {
+        //an instance of the User-Defined Type named mf
+        MyFoo mf;
+        
+        // 1) a std::cout statement that uses mf's member variables
+        std::cout << "mf returnValue(): " << mf.returnValue() << " and mf memberVariable: " << mf.memberVariable << std::endl; 
+        
+        // 2c) calling mf's member function.  the member function's body is almost identical to the cout statement above.
+        mf.memberFunc();
+        return 0;
+    }
+}
+
 
 #include<iostream>
 
@@ -447,7 +479,7 @@ double CommerceBureau::taxPaidRequirment(bool forProfit, double tax = 0)
 int main()
 {
 
-    std::cout<< "" << std::endl;
+    std::cout<< "" << std::endl; FIXME: add space around the '<<'
     Safeway northblock;//2
     northblock.printThing();
     ShelterOfCats oreo;//3
@@ -457,7 +489,7 @@ int main()
     Safeway::Customer patrick;
     Artist::Group loveGaga;
 
-    std::cout<< "" << std::endl;
+    std::cout<< "" << std::endl; FIXME: add space around the '<<'
 
     northblock.limitOfCoupons(5, 3);
     std::cout << "northblock.coupons: " << northblock.coupons << std::endl << std::endl;
@@ -466,7 +498,7 @@ int main()
     oreo.preparationBeforeAdopt(3, 1);
     std::cout << "oreo.getVaccined: " << oreo.getVaccined << std::endl << std::endl;  
 
-    std::cout<< "" << std::endl;
+    std::cout<< "" << std::endl; FIXME: add space around the '<<'
 
     std::cout << "Is northblock's member var 'b' equal to 2? " << (northblock.b == 2 ? "Yes" : "No") << "\n";
     std::cout << "Is oreo's member var 'c' equal to 3? " << (oreo.c == 3 ? "Yes" : "No") << "\n";
@@ -479,13 +511,13 @@ int main()
     ladygaga.checkTheHottestSongOfArtist(23);
     ladygaga.followAArtist("ladygaga");
 
-    std::cout<< "" << std::endl;
+    std::cout<< "" << std::endl; FIXME: add space around the '<<'
 
     Map mapleStreet;
     mapleStreet.parkSpaceFinder(0);
-    std::cout<< "" << std::endl;
+    std::cout<< "" << std::endl; FIXME: add space around the '<<'
     mapleStreet.turnROrNot(13, 7, 12);
-    std::cout<< "" << std::endl;
+    std::cout<< "" << std::endl; FIXME: add space around the '<<'
     CommerceBureau market;
     market.permissionUpdate(7, 6);
     market.taxPaidRequirment(1, 0.15);
