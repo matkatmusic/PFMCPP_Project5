@@ -114,11 +114,11 @@ void Safeway::printQAboutb()
 
 void Safeway::printCoupons()
 {
-    std::cout << "northblock.coupons: " << this->coupons << std::endl;
+    std::cout << "northblock.coupons: " << this->coupons << std::endl << std::endl;
 }
 void Safeway::Customer::printMembership()
 {
-    std::cout << "patrick.membership: " << this->membership << std::endl;
+    std::cout << "patrick.membership: " << this->membership << std::endl << std::endl;
 }
 
 Safeway::~Safeway()
@@ -242,12 +242,12 @@ void Artist::printQAboutf()
 
 void Artist::Group::printNumberOfMembers()
 {
-    std::cout << "loveGaga.members: " << this->numberOfMembers << std::endl;
+    std::cout << "loveGaga.members: " << this->numberOfMembers << std::endl << std::endl;
 }
 
 void Artist::printNumberOfFollowers()
 {
-    std::cout << "ladygaga.followers: " << this->numberOfFollowers << std::endl;
+    std::cout << "ladygaga.followers: " << this->numberOfFollowers << std::endl << std::endl;
 }
 
 
@@ -353,7 +353,7 @@ void ShelterOfCats::printQAboutc()
 
 void ShelterOfCats::printGetVaccined()
 {
-    std::cout << "oreo.getVaccined: " << this->getVaccined << std::endl;
+    std::cout << "oreo.getVaccined: " << this->getVaccined << std::endl << std::endl;
 }
 
 ShelterOfCats::~ShelterOfCats()
@@ -548,35 +548,33 @@ int main()
     std::cout << "" << std::endl; 
 //=========Part2
     northblock.limitOfCoupons(5, 3);
-
+    std::cout << "northblock.coupons: " << northblock.coupons << std::endl;
     northblock.printCoupons();
-    std::cout << "northblock.coupons: " << northblock.coupons << std::endl << std::endl;
-
+    
     patrick.alarmForMembership(10, 13);
-
+    std::cout << "patrick.membership: " << patrick.membership << std::endl;
     patrick.printMembership();
-    std::cout << "patrick.membership: " << patrick.membership << std::endl << std::endl;
 
     oreo.preparationBeforeAdopt(3, 1);
+    std::cout << "oreo.getVaccined: " << oreo.getVaccined << std::endl;
     oreo.printGetVaccined();
-    std::cout << "oreo.getVaccined: " << oreo.getVaccined << std::endl << std::endl;
 
+    std::cout << "ladygaga.followers: " << ladygaga.numberOfFollowers << std::endl;
     ladygaga.printNumberOfFollowers();
-    std::cout << "ladygaga.followers: " << ladygaga.numberOfFollowers << std::endl << std::endl;
 
+    std::cout << "loveGaga.members: " << loveGaga.numberOfMembers << std::endl;
     loveGaga.printNumberOfMembers();
-    std::cout << "loveGaga.members: " << loveGaga.numberOfMembers << std::endl << std::endl;
 
     std::cout << "" << std::endl;
     northblock.printQAboutb();
-
     std::cout << "Is northblock's member var 'b' equal to 2? " << (northblock.b == 2 ? "Yes" : "No") << "\n";
-
-    oreo.printQAboutc();
+    northblock.printQAboutb();
+    
     std::cout << "Is oreo's member var 'c' equal to 3? " << (oreo.c == 3 ? "Yes" : "No") << "\n";
+    oreo.printQAboutc();
 
-    ladygaga.printQAboutf();
     std::cout << "Is ladygaga's member var 'f' equal to 6? " << (ladygaga.f == 6 ? "Yes" : "No") << "\n";
+    ladygaga.printQAboutf();
 //Part 2 =========End
 
     std::cout << "" << std::endl; 
