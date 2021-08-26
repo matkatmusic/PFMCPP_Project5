@@ -73,7 +73,7 @@ namespace Example
 /*
  copied UDT 1:====================================
  */
-struct Safeway//2
+struct Safeway
 {
     int b;
     float bb{2.2f};
@@ -96,8 +96,10 @@ struct Safeway//2
         bool redeemProduct(int pointsOfProduct = 700);
         void changeProfile(int dateOfBirthday = 13);
         int alarmForMembership(int threshold, int currentDays);
+        void printMembership();
     };
-
+    void printCoupons();
+    void printQAboutb();
     void orderGroceryOnline(Customer customer);
     double refund(int productNumber);
     void collectCoupons(Customer customer);
@@ -105,12 +107,26 @@ struct Safeway//2
     int limitOfCoupons(int threshold, int couponsInUse);
 };
 
+void Safeway::printQAboutb()
+{
+    std::cout << "Is northblock's member var 'b' equal to 2? " << (this->b == 2 ? "Yes" : "No") << "\n";
+}
+
+void Safeway::printCoupons()
+{
+    std::cout << "northblock.coupons: " << this->coupons << std::endl << std::endl;
+}
+void Safeway::Customer::printMembership()
+{
+    std::cout << "patrick.membership: " << this->membership << std::endl << std::endl;
+}
+
 Safeway::~Safeway()
 {
     std::cout<< "Artist is being deleted" << std::endl;
 }
 
-int Safeway::Customer::alarmForMembership(int threshold, int currentDays = 0)//P5
+int Safeway::Customer::alarmForMembership(int threshold, int currentDays = 0)
 {  
     while(currentDays >  threshold)
     {
@@ -186,7 +202,7 @@ void Safeway::Customer::changeProfile(int dateOfBirthday)
 /*
  copied UDT 2:====================================
  */
-struct Artist//6
+struct Artist
 {
     double fb{6.6};
     Artist();
@@ -205,6 +221,7 @@ struct Artist//6
         std::string notice = " New album will be released in few weeks";
         int limitOfMembers = 500;
         int unreadMessages = 82;
+        void printNumberOfMembers();
         void addAdministrators(std::string nickname = "Tulips");
         void confirmNotice(std::string notice1);
         void changeNickname(std::string newNickname = "Cornish");
@@ -214,7 +231,25 @@ struct Artist//6
     void enterTheGroupOfAArtist(Group group);
     void checkTheHottestSongOfArtist(int rankingOfASong);
     void abbreOfNumber(int fiveThousands, int followers = 0);
+    void printNumberOfFollowers();
+    void printQAboutf();
 };
+
+void Artist::printQAboutf()
+{
+    std::cout << "Is ladygaga's member var 'f' equal to 6? " << (this->f == 6 ? "Yes" : "No") << "\n";
+}
+
+void Artist::Group::printNumberOfMembers()
+{
+    std::cout << "loveGaga.members: " << this->numberOfMembers << std::endl << std::endl;
+}
+
+void Artist::printNumberOfFollowers()
+{
+    std::cout << "ladygaga.followers: " << this->numberOfFollowers << std::endl << std::endl;
+}
+
 
 Artist::~Artist()
 {
@@ -291,7 +326,7 @@ void Artist::checkTheHottestSongOfArtist(int rankingOfASong)
 /*
  copied UDT 3:====================================
  */
-struct ShelterOfCats//3
+struct ShelterOfCats
 {
     float cb{3.3f};
     ShelterOfCats();
@@ -307,7 +342,19 @@ struct ShelterOfCats//3
     void visitTheShelterOnSite(std::string address);
     void printThing();
     int preparationBeforeAdopt(int preparationNumber, int vaccineNumber = 0);
+    void printGetVaccined();
+    void printQAboutc();
 };
+
+void ShelterOfCats::printQAboutc()
+{
+     std::cout << "Is oreo's member var 'c' equal to 3? " << (this->c == 3 ? "Yes" : "No") << "\n";
+}
+
+void ShelterOfCats::printGetVaccined()
+{
+    std::cout << "oreo.getVaccined: " << this->getVaccined << std::endl << std::endl;
+}
 
 ShelterOfCats::~ShelterOfCats()
 {
@@ -328,6 +375,7 @@ int ShelterOfCats::preparationBeforeAdopt(int preparationNumber, int vaccineNumb
     }
     return -1;
 }
+
 
 ShelterOfCats::ShelterOfCats() : c(3)
 {
@@ -366,11 +414,12 @@ struct Map
     Safeway::Customer mary;
     void parkSpaceFinder(int parkingLot);
     void turnROrNot(double currentT, double openT, double closeT);
-
     Map();
     ~Map();
 
 };
+
+
 
 Map::Map()
 {
@@ -381,6 +430,7 @@ Map::~Map()
 {
     std::cout << "See you!" << std::endl;
 }
+
 
 void Map::parkSpaceFinder(int parkingLot)
 {
@@ -398,7 +448,6 @@ void Map::parkSpaceFinder(int parkingLot)
         oDistrict.orderGroceryOnline(mary);
         std::cout << "Would you like to order online? " << std::endl;
     } 
-
 }
 
 void Map::turnROrNot(double currentT, double openT, double closeT)
@@ -427,7 +476,13 @@ struct CommerceBureau
     ~CommerceBureau();
     bool permissionUpdate(int currentYear, int permissionYear);
     double taxPaidRequirment(bool forProfit, double tax);
+    void memberG();
 };
+
+void CommerceBureau::memberG()
+{
+    std::cout << "CommerceBureau permissionUpdate: " << this->permissionUpdate(2019,2021) << " and CommerceBureau taxPaidRequirment : " << this->taxPaidRequirment(0, 1245566.23) << std::endl;
+}
 
 CommerceBureau::CommerceBureau()
 {
@@ -475,11 +530,12 @@ double CommerceBureau::taxPaidRequirment(bool forProfit, double tax = 0)
  Wait for my code review.
  */
 
+
 #include <iostream>
 int main()
 {
 
-    std::cout<< "" << std::endl; FIXME: add space around the '<<'
+    std::cout << "" << std::endl; 
     Safeway northblock;//2
     northblock.printThing();
     ShelterOfCats oreo;//3
@@ -489,21 +545,39 @@ int main()
     Safeway::Customer patrick;
     Artist::Group loveGaga;
 
-    std::cout<< "" << std::endl; FIXME: add space around the '<<'
-
+    std::cout << "" << std::endl; 
+//=========Part2
     northblock.limitOfCoupons(5, 3);
-    std::cout << "northblock.coupons: " << northblock.coupons << std::endl << std::endl;
+    std::cout << "northblock.coupons: " << northblock.coupons << std::endl;
+    northblock.printCoupons();
+    
     patrick.alarmForMembership(10, 13);
-    std::cout << "patrick.membership: " << patrick.membership << std::endl << std::endl;
+    std::cout << "patrick.membership: " << patrick.membership << std::endl;
+    patrick.printMembership();
+
     oreo.preparationBeforeAdopt(3, 1);
-    std::cout << "oreo.getVaccined: " << oreo.getVaccined << std::endl << std::endl;  
+    std::cout << "oreo.getVaccined: " << oreo.getVaccined << std::endl;
+    oreo.printGetVaccined();
 
-    std::cout<< "" << std::endl; FIXME: add space around the '<<'
+    std::cout << "ladygaga.followers: " << ladygaga.numberOfFollowers << std::endl;
+    ladygaga.printNumberOfFollowers();
 
+    std::cout << "loveGaga.members: " << loveGaga.numberOfMembers << std::endl;
+    loveGaga.printNumberOfMembers();
+
+    std::cout << "" << std::endl;
+    northblock.printQAboutb();
     std::cout << "Is northblock's member var 'b' equal to 2? " << (northblock.b == 2 ? "Yes" : "No") << "\n";
+    northblock.printQAboutb();
+    
     std::cout << "Is oreo's member var 'c' equal to 3? " << (oreo.c == 3 ? "Yes" : "No") << "\n";
-    std::cout << "Is ladygaga's member var 'f' equal to 6? " << (ladygaga.f == 6 ? "Yes" : "No") << "\n";
+    oreo.printQAboutc();
 
+    std::cout << "Is ladygaga's member var 'f' equal to 6? " << (ladygaga.f == 6 ? "Yes" : "No") << "\n";
+    ladygaga.printQAboutf();
+//Part 2 =========End
+
+    std::cout << "" << std::endl; 
     Safeway::Customer mary;
     northblock.orderGroceryOnline(mary);
     oreo.donateMoney(4.88);
@@ -511,17 +585,18 @@ int main()
     ladygaga.checkTheHottestSongOfArtist(23);
     ladygaga.followAArtist("ladygaga");
 
-    std::cout<< "" << std::endl; FIXME: add space around the '<<'
+    std::cout << "" << std::endl; 
 
     Map mapleStreet;
     mapleStreet.parkSpaceFinder(0);
-    std::cout<< "" << std::endl; FIXME: add space around the '<<'
+    std::cout << "" << std::endl; 
     mapleStreet.turnROrNot(13, 7, 12);
-    std::cout<< "" << std::endl; FIXME: add space around the '<<'
+    std::cout << "" << std::endl; 
     CommerceBureau market;
     market.permissionUpdate(7, 6);
     market.taxPaidRequirment(1, 0.15);
 
-
+    std::cout << "" << std::endl; 
+    
     std::cout << "good to go!" << std::endl;
 }
