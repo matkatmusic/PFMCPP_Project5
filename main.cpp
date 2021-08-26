@@ -96,9 +96,10 @@ struct Safeway
         bool redeemProduct(int pointsOfProduct = 700);
         void changeProfile(int dateOfBirthday = 13);
         int alarmForMembership(int threshold, int currentDays);
-        void memberB();
+        void printMembership();
     };
-    void memberA();
+    void printCoupons();
+    void printQAboutb();
     void orderGroceryOnline(Customer customer);
     double refund(int productNumber);
     void collectCoupons(Customer customer);
@@ -106,14 +107,18 @@ struct Safeway
     int limitOfCoupons(int threshold, int couponsInUse);
 };
 
-void Safeway::memberA()
+void Safeway::printQAboutb()
 {
-    std::cout << "Safeway b: " << this->b << " and Safeway bb: " << this->bb << std::endl;
+    std::cout << "Is northblock's member var 'b' equal to 2? " << (this->b == 2 ? "Yes" : "No") << "\n";
 }
 
-void Safeway::Customer::memberB()
+void Safeway::printCoupons()
 {
-    std::cout << "Customer registrationDays: " << this->registrationDays << " and Customer membership: " << this->membership << std::endl;
+    std::cout << "northblock.coupons: " << this->coupons << std::endl;
+}
+void Safeway::Customer::printMembership()
+{
+    std::cout << "patrick.membership: " << this->membership << std::endl;
 }
 
 Safeway::~Safeway()
@@ -216,27 +221,33 @@ struct Artist
         std::string notice = " New album will be released in few weeks";
         int limitOfMembers = 500;
         int unreadMessages = 82;
-        void memberD();
+        void printNumberOfMembers();
         void addAdministrators(std::string nickname = "Tulips");
         void confirmNotice(std::string notice1);
         void changeNickname(std::string newNickname = "Cornish");
         int groupMembers(int capacity, int members = 0);
     };
-    void memberC();
     std::string followAArtist(std::string nameOfArtist);
     void enterTheGroupOfAArtist(Group group);
     void checkTheHottestSongOfArtist(int rankingOfASong);
     void abbreOfNumber(int fiveThousands, int followers = 0);
+    void printNumberOfFollowers();
+    void printQAboutf();
 };
 
-void Artist::memberC()
+void Artist::printQAboutf()
 {
-    std::cout << "Artist f: " << this->f << " and Artist age: " << this->age << std::endl;
+    std::cout << "Is ladygaga's member var 'f' equal to 6? " << (this->f == 6 ? "Yes" : "No") << "\n";
 }
 
-void Artist::Group::memberD()
+void Artist::Group::printNumberOfMembers()
 {
-    std::cout << "Group numberOfMembers: " << this->numberOfMembers << " and Customer limitOfMembers: " << this->limitOfMembers << std::endl;
+    std::cout << "loveGaga.members: " << this->numberOfMembers << std::endl;
+}
+
+void Artist::printNumberOfFollowers()
+{
+    std::cout << "ladygaga.followers: " << this->numberOfFollowers << std::endl;
 }
 
 
@@ -331,12 +342,18 @@ struct ShelterOfCats
     void visitTheShelterOnSite(std::string address);
     void printThing();
     int preparationBeforeAdopt(int preparationNumber, int vaccineNumber = 0);
-    void memberE();
+    void printGetVaccined();
+    void printQAboutc();
 };
 
-void ShelterOfCats::memberE()
+void ShelterOfCats::printQAboutc()
 {
-    std::cout << "ShelterOfCats distance: " << this->distance << " and ShelterOfCats c: " << this->c << std::endl;
+     std::cout << "Is oreo's member var 'c' equal to 3? " << (this->c == 3 ? "Yes" : "No") << "\n";
+}
+
+void ShelterOfCats::printGetVaccined()
+{
+    std::cout << "oreo.getVaccined: " << this->getVaccined << std::endl;
 }
 
 ShelterOfCats::~ShelterOfCats()
@@ -529,19 +546,40 @@ int main()
     Artist::Group loveGaga;
 
     std::cout << "" << std::endl; 
+//=========Part2
     northblock.limitOfCoupons(5, 3);
+
+    northblock.printCoupons();
     std::cout << "northblock.coupons: " << northblock.coupons << std::endl << std::endl;
+
     patrick.alarmForMembership(10, 13);
+
+    patrick.printMembership();
     std::cout << "patrick.membership: " << patrick.membership << std::endl << std::endl;
+
     oreo.preparationBeforeAdopt(3, 1);
+    oreo.printGetVaccined();
     std::cout << "oreo.getVaccined: " << oreo.getVaccined << std::endl << std::endl;
 
+    ladygaga.printNumberOfFollowers();
+    std::cout << "ladygaga.followers: " << ladygaga.numberOfFollowers << std::endl << std::endl;
+
+    loveGaga.printNumberOfMembers();
+    std::cout << "loveGaga.members: " << loveGaga.numberOfMembers << std::endl << std::endl;
+
     std::cout << "" << std::endl;
+    northblock.printQAboutb();
 
     std::cout << "Is northblock's member var 'b' equal to 2? " << (northblock.b == 2 ? "Yes" : "No") << "\n";
-    std::cout << "Is oreo's member var 'c' equal to 3? " << (oreo.c == 3 ? "Yes" : "No") << "\n";
-    std::cout << "Is ladygaga's member var 'f' equal to 6? " << (ladygaga.f == 6 ? "Yes" : "No") << "\n";
 
+    oreo.printQAboutc();
+    std::cout << "Is oreo's member var 'c' equal to 3? " << (oreo.c == 3 ? "Yes" : "No") << "\n";
+
+    ladygaga.printQAboutf();
+    std::cout << "Is ladygaga's member var 'f' equal to 6? " << (ladygaga.f == 6 ? "Yes" : "No") << "\n";
+//Part 2 =========End
+
+    std::cout << "" << std::endl; 
     Safeway::Customer mary;
     northblock.orderGroceryOnline(mary);
     oreo.donateMoney(4.88);
@@ -561,14 +599,6 @@ int main()
     market.taxPaidRequirment(1, 0.15);
 
     std::cout << "" << std::endl; 
-
-//=========Part2
-    northblock.memberA();
-    patrick.memberB();
-    ladygaga.memberC();
-    loveGaga.memberD();
-    oreo.memberE();
-    market.memberG();
     
     std::cout << "good to go!" << std::endl;
 }
