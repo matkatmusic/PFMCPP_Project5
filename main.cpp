@@ -55,6 +55,7 @@ You don't have to do this, you can keep your current object name and just change
 
 
 #include<iostream>
+#include "LeakedObjectDetector.h"
 
 /*
  copied UDT 1:====================================
@@ -91,6 +92,18 @@ struct Safeway
     void collectCoupons(Customer customer);
     void printThing();
     int limitOfCoupons(int threshold, int couponsInUse);
+
+    JUCE_LEAK_DETECTOR(Safeway)
+};
+
+struct SafewayWrapper
+{
+    SafewayWrapper( Safeway *ptr) : pointerToSafeway(ptr) {}
+    ~SafewayWrapper()
+    {
+        delete pointerToSafeway;
+    }
+    Safeway *pointerToSafeway = nullptr;
 };
 
 void Safeway::printQAboutb()
@@ -219,6 +232,18 @@ struct Artist
     void abbreOfNumber(int fiveThousands, int followers = 0);
     void printNumberOfFollowers();
     void printQAboutf();
+
+    JUCE_LEAK_DETECTOR(Artist)
+};
+
+struct ArtistWrapper
+{
+    ArtistWrapper( Artist *ptr) : pointerToArtist(ptr) {}
+    ~ArtistWrapper()
+    {
+        delete pointerToArtist;
+    }
+    Artist *pointerToArtist = nullptr;
 };
 
 void Artist::printQAboutf()
@@ -330,6 +355,18 @@ struct ShelterOfCats
     int preparationBeforeAdopt(int preparationNumber, int vaccineNumber = 0);
     void printGetVaccined();
     void printQAboutc();
+
+    JUCE_LEAK_DETECTOR(ShelterOfCats)
+};
+
+struct ShelterOfCatsWrapper
+{
+    ShelterOfCatsWrapper( ShelterOfCats *ptr) : pointerToShelterOfCats(ptr) {}
+    ~ShelterOfCatsWrapper()
+    {
+        delete pointerToShelterOfCats;
+    }
+    ShelterOfCats *pointerToShelterOfCats = nullptr;
 };
 
 void ShelterOfCats::printQAboutc()
@@ -403,9 +440,18 @@ struct Map
     Map();
     ~Map();
 
+    JUCE_LEAK_DETECTOR(Map)
 };
 
-
+struct MapWrapper
+{
+    MapWrapper( Map *ptr) : pointerToMap(ptr) {}
+    ~MapWrapper()
+    {
+        delete pointerToMap;
+    }
+    Map *pointerToMap = nullptr;
+};
 
 Map::Map()
 {
@@ -463,6 +509,17 @@ struct CommerceBureau
     bool permissionUpdate(int currentYear, int permissionYear);
     double taxPaidRequirment(bool forProfit, double tax);
     void memberG();
+    JUCE_LEAK_DETECTOR(CommerceBureau)
+};
+
+struct CommerceBureauWrapper
+{
+    CommerceBureauWrapper( Map *ptr) : pointerToCommerceBureau(ptr) {}
+    ~CommerceBureauWrapper()
+    {
+        delete pointerToCommerceBureau;
+    }
+    CommerceBureau *pointerToCommerceBureau = nullptr;
 };
 
 void CommerceBureau::memberG()
