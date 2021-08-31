@@ -55,6 +55,7 @@ You don't have to do this, you can keep your current object name and just change
 
 
 #include<iostream>
+#include "LeakedObjectDetector.h"
 
 /*
  copied UDT 1:====================================
@@ -91,6 +92,28 @@ struct Safeway
     void collectCoupons(Customer customer);
     void printThing();
     int limitOfCoupons(int threshold, int couponsInUse);
+
+    JUCE_LEAK_DETECTOR(Safeway)
+};
+
+struct CustomerWrapper
+{
+    CustomerWrapper( Safeway::Customer *ptr) : pointerToCustomer(ptr){}
+    ~CustomerWrapper()
+    {
+        delete pointerToCustomer;
+    }
+    Safeway::Customer *pointerToCustomer = nullptr;
+};
+
+struct SafewayWrapper
+{
+    SafewayWrapper( Safeway *ptr) : pointerToSafeway(ptr) {}
+    ~SafewayWrapper()
+    {
+        delete pointerToSafeway;
+    }
+    Safeway *pointerToSafeway = nullptr;
 };
 
 void Safeway::printQAboutb()
@@ -219,6 +242,28 @@ struct Artist
     void abbreOfNumber(int fiveThousands, int followers = 0);
     void printNumberOfFollowers();
     void printQAboutf();
+
+    JUCE_LEAK_DETECTOR(Artist)
+};
+
+struct GroupWrapper
+{
+    GroupWrapper(Artist::Group *ptr) : pointerToGroup(ptr) {}
+    ~GroupWrapper()
+    {
+        delete pointerToGroup;
+    }
+    Artist::Group *pointerToGroup = nullptr;
+};
+
+struct ArtistWrapper
+{
+    ArtistWrapper(Artist *ptr) : pointerToArtist(ptr) {}
+    ~ArtistWrapper()
+    {
+        delete pointerToArtist;
+    }
+    Artist *pointerToArtist = nullptr;
 };
 
 void Artist::printQAboutf()
@@ -330,6 +375,18 @@ struct ShelterOfCats
     int preparationBeforeAdopt(int preparationNumber, int vaccineNumber = 0);
     void printGetVaccined();
     void printQAboutc();
+
+    JUCE_LEAK_DETECTOR(ShelterOfCats)
+};
+
+struct ShelterOfCatsWrapper
+{
+    ShelterOfCatsWrapper( ShelterOfCats *ptr) : pointerToShelterOfCats(ptr) {}
+    ~ShelterOfCatsWrapper()
+    {
+        delete pointerToShelterOfCats;
+    }
+    ShelterOfCats *pointerToShelterOfCats = nullptr;
 };
 
 void ShelterOfCats::printQAboutc()
@@ -403,9 +460,18 @@ struct Map
     Map();
     ~Map();
 
+    JUCE_LEAK_DETECTOR(Map)
 };
 
-
+struct MapWrapper
+{
+    MapWrapper( Map *ptr) : pointerToMap(ptr) {}
+    ~MapWrapper()
+    {
+        delete pointerToMap;
+    }
+    Map *pointerToMap = nullptr;
+};
 
 Map::Map()
 {
@@ -463,6 +529,17 @@ struct CommerceBureau
     bool permissionUpdate(int currentYear, int permissionYear);
     double taxPaidRequirment(bool forProfit, double tax);
     void memberG();
+    JUCE_LEAK_DETECTOR(CommerceBureau)
+};
+
+struct CommerceBureauWrapper
+{
+    CommerceBureauWrapper( CommerceBureau *ptr) : pointerToCommerceBureau(ptr) {}
+    ~CommerceBureauWrapper()
+    {
+        delete pointerToCommerceBureau;
+    }
+    CommerceBureau *pointerToCommerceBureau = nullptr;
 };
 
 void CommerceBureau::memberG()
@@ -522,65 +599,70 @@ int main()
 {
 
     std::cout << "" << std::endl; 
-    Safeway northblock;//2
-    northblock.printThing();
-    ShelterOfCats oreo;//3
-    oreo.printThing();
-    Artist ladygaga;//6
-    ladygaga.printThing();
-    Safeway::Customer patrick;
-    Artist::Group loveGaga;
+    //Safeway northblock;//2
+    SafewayWrapper northblock( new Safeway());
+    //SafewayWrapper patrick( new Safeway::Customer());
+    northblock.pointerToSafeway->printThing();
+    //ShelterOfCats oreo;//3
+    ShelterOfCatsWrapper oreo( new ShelterOfCats());
+    oreo.pointerToShelterOfCats->printThing();
+    //Artist ladygaga;//6
+    ArtistWrapper ladygaga( new Artist());
+    ladygaga.pointerToArtist->printThing();
+    CustomerWrapper patrick( new Safeway::Customer());
+    GroupWrapper loveGaga (new Artist::Group());
+
 
     std::cout << "" << std::endl; 
 //=========Part2
-    northblock.limitOfCoupons(5, 3);
-    std::cout << "northblock.coupons: " << northblock.coupons << std::endl;
-    northblock.printCoupons();
+    northblock.pointerToSafeway->limitOfCoupons(5, 3);
+    std::cout << "northblock.coupons: " << northblock.pointerToSafeway->coupons << std::endl;
+    northblock.pointerToSafeway->printCoupons();
     
-    patrick.alarmForMembership(10, 13);
-    std::cout << "patrick.membership: " << patrick.membership << std::endl;
-    patrick.printMembership();
+    patrick.pointerToCustomer->alarmForMembership(10, 13);
+    std::cout << "patrick.membership: " << patrick.pointerToCustomer->membership << std::endl;
+    patrick.pointerToCustomer->printMembership();
 
-    oreo.preparationBeforeAdopt(3, 1);
-    std::cout << "oreo.getVaccined: " << oreo.getVaccined << std::endl;
-    oreo.printGetVaccined();
+    oreo.pointerToShelterOfCats->preparationBeforeAdopt(3, 1);
+    std::cout << "oreo.getVaccined: " << oreo.pointerToShelterOfCats->getVaccined << std::endl;
+    oreo.pointerToShelterOfCats->printGetVaccined();
 
-    std::cout << "ladygaga.followers: " << ladygaga.numberOfFollowers << std::endl;
-    ladygaga.printNumberOfFollowers();
+    std::cout << "ladygaga.followers: " << ladygaga.pointerToArtist->numberOfFollowers << std::endl;
+    ladygaga.pointerToArtist->printNumberOfFollowers();
 
-    std::cout << "loveGaga.members: " << loveGaga.numberOfMembers << std::endl;
-    loveGaga.printNumberOfMembers();
+    std::cout << "loveGaga.members: " << loveGaga.pointerToGroup->numberOfMembers << std::endl;
+    loveGaga.pointerToGroup->printNumberOfMembers();
 
     std::cout << "" << std::endl;
-    northblock.printQAboutb();
-    std::cout << "Is northblock's member var 'b' equal to 2? " << (northblock.b == 2 ? "Yes" : "No") << "\n";
-    northblock.printQAboutb();
+    northblock.pointerToSafeway->printQAboutb();
+    std::cout << "Is northblock's member var 'b' equal to 2? " << (northblock.pointerToSafeway->b == 2 ? "Yes" : "No") << "\n";
+    northblock.pointerToSafeway->printQAboutb();
     
-    std::cout << "Is oreo's member var 'c' equal to 3? " << (oreo.c == 3 ? "Yes" : "No") << "\n";
-    oreo.printQAboutc();
+    std::cout << "Is oreo's member var 'c' equal to 3? " << (oreo.pointerToShelterOfCats->c == 3 ? "Yes" : "No") << "\n";
+    oreo.pointerToShelterOfCats->printQAboutc();
 
-    std::cout << "Is ladygaga's member var 'f' equal to 6? " << (ladygaga.f == 6 ? "Yes" : "No") << "\n";
-    ladygaga.printQAboutf();
+    std::cout << "Is ladygaga's member var 'f' equal to 6? " << (ladygaga.pointerToArtist->f == 6 ? "Yes" : "No") << "\n";
+    ladygaga.pointerToArtist->printQAboutf();
 //Part 2 =========End
 
     std::cout << "" << std::endl; 
     Safeway::Customer mary;
-    northblock.orderGroceryOnline(mary);
-    oreo.donateMoney(4.88);
-    oreo.adoptACat(23);
-    ladygaga.checkTheHottestSongOfArtist(23);
-    ladygaga.followAArtist("ladygaga");
+    northblock.pointerToSafeway->orderGroceryOnline(mary);
+    oreo.pointerToShelterOfCats->donateMoney(4.88);
+    oreo.pointerToShelterOfCats->adoptACat(23);
+    ladygaga.pointerToArtist->checkTheHottestSongOfArtist(23);
+    ladygaga.pointerToArtist->followAArtist("ladygaga");
 
     std::cout << "" << std::endl; 
 
-    Map mapleStreet;
-    mapleStreet.parkSpaceFinder(0);
+    MapWrapper mapleStreet( new Map());
+    mapleStreet.pointerToMap->parkSpaceFinder(0);
     std::cout << "" << std::endl; 
-    mapleStreet.turnROrNot(13, 7, 12);
+    mapleStreet.pointerToMap->turnROrNot(13, 7, 12);
     std::cout << "" << std::endl; 
-    CommerceBureau market;
-    market.permissionUpdate(7, 6);
-    market.taxPaidRequirment(1, 0.15);
+    CommerceBureauWrapper market (new CommerceBureau());
+    market.pointerToCommerceBureau->permissionUpdate(7, 6);
+    market.pointerToCommerceBureau->taxPaidRequirment(1, 0.15);
 
     std::cout << "" << std::endl; 
     
