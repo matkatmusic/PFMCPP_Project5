@@ -56,3 +56,4 @@ void ShelterOfCats::visitTheShelterOnSite(std::string address)
 {
     std::cout << "The address:" << address << std::endl;
 }
+
