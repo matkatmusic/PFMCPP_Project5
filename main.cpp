@@ -584,7 +584,7 @@ double CommerceBureau::taxPaidRequirment(bool forProfit, double tax = 0)
 
  Wait for my code review.
  */
-
+*/
 
 #include <iostream>
 int main()
