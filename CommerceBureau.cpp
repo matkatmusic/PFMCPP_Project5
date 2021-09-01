@@ -1,3 +1,6 @@
+
+#include "CommerceBureau.h"
+
 void CommerceBureau::memberG()
 {
     std::cout << "CommerceBureau permissionUpdate: " << this->permissionUpdate(2019,2021) << " and CommerceBureau taxPaidRequirment : " << this->taxPaidRequirment(0, 1245566.23) << std::endl;

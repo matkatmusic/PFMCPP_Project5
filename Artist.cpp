@@ -1,3 +1,5 @@
+#include "Artist.h"
+
 void Artist::printQAboutf()
 {
     std::cout << "Is ladygaga's member var 'f' equal to 6? " << (this->f == 6 ? "Yes" : "No") << "\n";

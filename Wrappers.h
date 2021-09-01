@@ -1,69 +1,48 @@
 struct CustomerWrapper
 {
-    CustomerWrapper( Safeway::Customer *ptr) : pointerToCustomer(ptr){}
-    ~CustomerWrapper()
-    {
-        delete pointerToCustomer;
-    }
+    CustomerWrapper( Safeway::Customer *ptr);
+    ~CustomerWrapper();
     Safeway::Customer *pointerToCustomer = nullptr;
 };
 
 struct SafewayWrapper
 {
-    SafewayWrapper( Safeway *ptr) : pointerToSafeway(ptr) {}
-    ~SafewayWrapper()
-    {
-        delete pointerToSafeway;
-    }
+    SafewayWrapper( Safeway *ptr);
+    ~SafewayWrapper();
     Safeway *pointerToSafeway = nullptr;
 };
 
 struct GroupWrapper
 {
-    GroupWrapper(Artist::Group *ptr) : pointerToGroup(ptr) {}
-    ~GroupWrapper()
-    {
-        delete pointerToGroup;
-    }
+    GroupWrapper(Artist::Group *ptr);
+    ~GroupWrapper();
     Artist::Group *pointerToGroup = nullptr;
 };
 
 struct ArtistWrapper
 {
-    ArtistWrapper(Artist *ptr) : pointerToArtist(ptr) {}
-    ~ArtistWrapper()
-    {
-        delete pointerToArtist;
-    }
+    ArtistWrapper(Artist *ptr);
+    ~ArtistWrapper();
     Artist *pointerToArtist = nullptr;
 };
 
 struct ShelterOfCatsWrapper
 {
-    ShelterOfCatsWrapper( ShelterOfCats *ptr) : pointerToShelterOfCats(ptr) {}
-    ~ShelterOfCatsWrapper()
-    {
-        delete pointerToShelterOfCats;
-    }
+    ShelterOfCatsWrapper( ShelterOfCats *ptr);
+    ~ShelterOfCatsWrapper();
     ShelterOfCats *pointerToShelterOfCats = nullptr;
 };
 
 struct MapWrapper
 {
-    MapWrapper( Map *ptr) : pointerToMap(ptr) {}
-    ~MapWrapper()
-    {
-        delete pointerToMap;
-    }
+    MapWrapper( Map *ptr);
+    ~MapWrapper();
     Map *pointerToMap = nullptr;
 };
 
 struct CommerceBureauWrapper
 {
-    CommerceBureauWrapper( CommerceBureau *ptr) : pointerToCommerceBureau(ptr) {}
-    ~CommerceBureauWrapper()
-    {
-        delete pointerToCommerceBureau;
-    }
+    CommerceBureauWrapper( CommerceBureau *ptr);
+    ~CommerceBureauWrapper();
     CommerceBureau *pointerToCommerceBureau = nullptr;
 };

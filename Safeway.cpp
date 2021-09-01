@@ -1,3 +1,6 @@
+
+#include "Safeway.h"
+
 void Safeway::printQAboutb()
 {
     std::cout << "Is northblock's member var 'b' equal to 2? " << (this->b == 2 ? "Yes" : "No") << "\n";

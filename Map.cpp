@@ -1,3 +1,5 @@
+#include "Map.h"
+
 Map::Map()
 {
     std::cout << "Welcome!" << std::endl;

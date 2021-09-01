@@ -45,6 +45,7 @@
 #include "Artist.h"
 #include "CommerceBureau.h"
 #include "Map.h"
+#include "Wrappers.h"
 
 
 

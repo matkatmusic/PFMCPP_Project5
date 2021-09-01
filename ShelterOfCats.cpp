@@ -1,3 +1,5 @@
+#include "ShelterOfCats.h"
+
 void ShelterOfCats::printQAboutc()
 {
      std::cout << "Is oreo's member var 'c' equal to 3? " << (this->c == 3 ? "Yes" : "No") << "\n";
