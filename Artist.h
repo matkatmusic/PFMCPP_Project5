@@ -1,3 +1,6 @@
+#include <iostream>
+#include "LeakedObjectDetector.h"
+
 struct Artist
 {
     double fb{6.6};

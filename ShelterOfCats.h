@@ -1,3 +1,6 @@
+#include <iostream>
+#include "LeakedObjectDetector.h"
+
 struct ShelterOfCats
 {
     float cb{3.3f};

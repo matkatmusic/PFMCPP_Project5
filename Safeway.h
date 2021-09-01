@@ -1,3 +1,6 @@
+#include <iostream>
+#include "LeakedObjectDetector.h"
+
 struct Safeway
 {
     int b;
