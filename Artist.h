@@ -1,5 +1,6 @@
 #include <iostream>
 #include "LeakedObjectDetector.h"
+#pragma once
 
 struct Artist
 {

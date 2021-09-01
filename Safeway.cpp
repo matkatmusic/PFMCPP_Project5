@@ -15,6 +15,10 @@ void Safeway::Customer::printMembership()
     std::cout << "patrick.membership: " << this->membership << std::endl << std::endl;
 }
 
+Safeway::Safeway() : b(2)
+{
+}
+
 Safeway::~Safeway()
 {
     std::cout<< "Artist is being deleted" << std::endl;
@@ -52,9 +56,6 @@ int Safeway::limitOfCoupons(int threshold, int couponsInUse = 0)//P5
     return -1;
 }
 
-Safeway::Safeway() : b(2)
-{
-}
 
 
 void Safeway::printThing()
