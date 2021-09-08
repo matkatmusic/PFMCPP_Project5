@@ -1,6 +1,7 @@
+#pragma once
 #include <iostream>
 #include "LeakedObjectDetector.h"
-#pragma once
+
 
 struct Safeway
 {

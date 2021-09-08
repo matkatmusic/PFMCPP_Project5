@@ -1,8 +1,9 @@
+#pragma once
 #include <iostream>
 #include "LeakedObjectDetector.h"
 #include "ShelterOfCats.h"
 #include "Safeway.h"
-#pragma once
+
 
 struct CommerceBureau
 {

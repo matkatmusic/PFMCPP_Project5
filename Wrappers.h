@@ -1,8 +1,10 @@
-#include "Safeway.h"
-#include "ShelterOfCats.h"
-#include "Artist.h"
-#include "CommerceBureau.h"
-#include "Map.h"
+#pragma once
+
+struct Artist;
+struct CommerceBureau;
+struct Map;
+struct Safeway;
+struct ShelterOfCats;
 
 
 struct CustomerWrapper
