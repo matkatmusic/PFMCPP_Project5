@@ -1,4 +1,10 @@
 #pragma once
+// #include "Safeway.h"
+// #include "ShelterOfCats.h"
+// #include "Artist.h"
+// #include "CommerceBureau.h"
+// #include "Map.h"
+
 
 struct Artist;
 struct CommerceBureau;

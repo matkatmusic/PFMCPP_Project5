@@ -39,12 +39,13 @@
 
 #include<iostream>
 
-#include "Wrappers.h"
+
 #include "Safeway.h"
 #include "ShelterOfCats.h"
 #include "Artist.h"
 #include "CommerceBureau.h"
 #include "Map.h"
+#include "Wrappers.h"
 
 
 

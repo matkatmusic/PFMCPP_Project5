@@ -5,6 +5,10 @@
 #include "Map.h"
 #include "Wrappers.h"
 
+// struct Map;
+// struct CommerceBureau;
+// struct ShelterOfCats;
+
 CustomerWrapper::CustomerWrapper( Safeway::Customer *ptr) : pointerToCustomer(ptr){}
 
 CustomerWrapper::~CustomerWrapper()
