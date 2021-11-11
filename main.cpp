@@ -37,6 +37,7 @@ Purpose:  This project continues developing Project3.
  9) After you finish, click the [run] button.  Clear up any errors or warnings as best you can.
 
  you can resolve any [-Wdeprecated] warnings by adding -Wno-deprecated to list of compiler arguments in the .replit file. all of the "-Wno" in that file are compiler arguments.
+ You can resolve any [-Wpadded] warnings by adding -Wno-padded to the list of compiler arguments in the .replit file. all of the "-Wno" in that file are compiler arguments.
 
  */
 
