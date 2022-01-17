@@ -39,6 +39,9 @@ Purpose:  This project continues developing Project3.
  you can resolve any [-Wdeprecated] warnings by adding -Wno-deprecated to list of compiler arguments in the .replit file. all of the "-Wno" in that file are compiler arguments.
  You can resolve any [-Wpadded] warnings by adding -Wno-padded to the list of compiler arguments in the .replit file. all of the "-Wno" in that file are compiler arguments.
 
+ Ignore the Atomic.h and LeakedObjectDetector.h files for now.
+ You will use those in Part 3 of this project.
+
  */
 
 /*
