@@ -112,14 +112,20 @@ maxCroquettes(7)
 
 Cat::~Cat() 
 {
-    std::cout << "Cat is gone to cat heaven" << std::endl;
+    if (cutenessLevel < 0)
+    {
+        std::cout << "Cat is gone to cat hell" << std::endl;
+    }
+    else
+    {
+        std::cout << "Cat is gone to cat heaven" << std::endl;
+    }
 }
 
 
 void Cat::meow(int loudnessDB)
 {
-    std::cout << "Meow!!!" << std::endl;
-    std::cout << "My current cuteness level is " << cutenessLevel << std::endl;
+    std::cout << "Meow!!! " << loudnessDB << " dB" << std::endl;
     if (loudnessDB < 30)
     {
         cutenessLevel += 10;
@@ -128,7 +134,7 @@ void Cat::meow(int loudnessDB)
     {
         cutenessLevel -= loudnessDB;        
     }
-   
+    std::cout << "My current cuteness level is " << cutenessLevel << std::endl;
 }
 
 bool Cat::catchAnimal(std::string animalSpecies)
@@ -390,10 +396,54 @@ struct CatCyberOverlord
     CatCyberOverlord();
     ~CatCyberOverlord();
 
-    void domintateWorld(int numDays);
+    void dominateWorld(int numHours);
 
     void createEvilMachine(int numWings, int numTentacles);
 };
+
+CatCyberOverlord::CatCyberOverlord()
+{
+    std::cout << "Aliens irradiate a cat sleeping in a discarded compter - A CatCyberOverlord is born!" << std::endl;
+    cat.cutenessLevel = -1000;
+    computer.powerNeededW = 0;
+    cat.meow(70);
+}
+
+CatCyberOverlord::~CatCyberOverlord()
+{
+    std::cout << "Superdog destructed the CatCyberOverlord! Hurray for Superdog!" << std::endl;
+}
+
+void CatCyberOverlord::dominateWorld(int numHours)
+{
+    std::cout << "Attempting to dominate the world for " << numHours << " hours\n";
+    cat.cutenessLevel -= numHours;
+    if (numHours > 3)
+    {
+        std::cout << "Failure: The cat cyberoverlord decides to take a nap instead" << std::endl;
+    }
+    else
+    {
+        std::cout << "After " << numHours << " hours of world domination, the cat cyberoverlord goes back to chasing flies and slightly redeems itself." << std::endl;
+        cat.catchAnimal("Fly");
+    }
+    return;
+}
+
+void CatCyberOverlord::createEvilMachine(int numWings, int numTentacles)
+{
+    std::cout << "Attempting to build an evil machine with " << numWings << " wings and " << numTentacles << " tentacles driven by a computer with " << computer.numCPUCores << " cores\n";
+    if ((numWings + numTentacles) > computer.numCPUCores)
+    {
+        std::cout << "The cat cyberoverlord overestimated its computer. The evil machine crashes." << std::endl;       
+    }
+    else
+    {
+        std::cout << "The cat cyberoverlord uses its evil machine to eat croquettes more efficiently." << std::endl;
+        cat.maxCroquettes *= 10;
+        cat.eatCroquettes(20, 1.0f);
+    }   
+}
 
 /*
  new UDT 5:
@@ -405,8 +455,8 @@ struct SelfSufficientCat
     Cat cat;
     VendingMachine vendingMachine;
 
-    SelfSufficientCat();
-    ~SelfSufficientCat();
+    // SelfSufficientCat();
+    // ~SelfSufficientCat();
 
     void selfAdministerCroquettes(int numCroquettes);
 
@@ -436,7 +486,7 @@ int main()
         << "Cat weight: " << cat.weightKg << "kg\n"
         << "Max croquettes eaten in one sitting: " << cat.maxCroquettes << "\n"
         << "--- ";
-    cat.meow(42);
+    cat.meow(25);
     std::cout
         << "--- "
         << "Did the cat catch a fly? " << (cat.catchAnimal("Fly") ? "Yes!" : "No :(") << "\n"
@@ -508,6 +558,24 @@ int main()
         << "Computer crashed: " << (computer.crash() ? "Yes :(" : "No") << "\n"
         << "--- ";
     computer.cDrive.parkHeads();
+    std::cout << std::endl;
+
+    
+    CatCyberOverlord catCyberOverlord;
+    catCyberOverlord.dominateWorld(5);
+    std::cout << "New cuteness level: " << catCyberOverlord.cat.cutenessLevel << std::endl;
+    catCyberOverlord.dominateWorld(2);
+    std::cout << "New cuteness level: " << catCyberOverlord.cat.cutenessLevel << std::endl;
+    catCyberOverlord.createEvilMachine(2, 6);
+    std::cout << "Who needs wings? 6 tentacles will do!\n";
+    catCyberOverlord.createEvilMachine(0, 6);
+    
+    
+
+    std::cout << std::endl;
+    
+    SelfSufficientCat selfSufficientCat;
+
     std::cout << std::endl;
     std::cout << "good to go!" << std::endl;
 }
