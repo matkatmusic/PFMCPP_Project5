@@ -427,7 +427,6 @@ void CatCyberOverlord::dominateWorld(int numHours)
         std::cout << "After " << numHours << " hours of world domination, the cat cyberoverlord goes back to chasing flies and slightly redeems itself." << std::endl;
         cat.catchAnimal("Fly");
     }
-    return;
 }
 
 void CatCyberOverlord::createEvilMachine(int numWings, int numTentacles)
