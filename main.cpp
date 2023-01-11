@@ -1,75 +1,80 @@
 /*
-Project 5: Part 1 / 4
- video Chapter 2 - Part 12
+Project 5: Part 2 / 4
+ video: Chapter 3 Part 1
 
- Create a branch named Part1
+Create a branch named Part2
 
-Purpose:  This project continues developing Project3.
-       you will learn how to take code from existing projects and migrate only what you need to new projects
-       you will learn how to write code that doesn't leak as well as how to refactor. 
-
-NOTE: there are 2 sets of instructions:
-       One for if you completed project 3
-       One for if you skipped project 3.
-
- Destructors
-
-===============================================================     
- If you completed Project 3:
+ The 'this' keyword
  
- 1) Copy 3 of your user-defined types (the ones with constructors and for()/while() loops from Project 3) here
-    Choose the classes that contained nested classes.  Include the nested classes when you copy them over.
+ The purpose of this project part is to show you how accessing member variables of objects INSIDE member functions is very similar to accessing member variables of objects OUTSIDE of member functions, via the 'this' keyword and arrow (->) operator and via the '.' operator.
+ This project part will break the D.R.Y. rule, but that is fine for the purpose of this project part.
+ 
+ Instructions:
+ 1) if you don't have any std::cout statements in main() that access member variables of your U.D.Ts
+         write some.
+    You can copy some from your Project3's main() if needed.
 
- 2) move all of your implementations of all functions to OUTSIDE of the class.
-
- 3) add destructors
-        make the destructors do something like print out the name of the class.
-===============================================================
-If you skipped Project 3:
-write 3 UDTs below that EACH have: 
-        5 member variables
-            the member variable names and types should be relevant to the work the UDT will perform.
-            pick properties that can be represented with 'int float double bool char std::string'
-        3 member functions with an arbitrary number of parameters
-            give some of those parameters default values.
-        constructors that initialize some of these member variables
-            the remaining member variables should be initialized in-class
-        for() or while() loops that modify member variables
- 1) 2 of your 3 UDTs need to have a nested UDT.
-    this nested UDT should fulfill the same requirements as above:
-        5 member variables  
-        3 member functions
-        constructors and loops.
+ 2) Do the following for EVERY std::cout statement in main() that uses the UDT member variables and functions:
+    a) write a member function that prints the same thing out, but uses the proper techniques inside the member functions to access the same member variables/functions.
+    b) be explicit with your use of 'this->' in those member functions so we see how you're accessing/calling those member variables and functions *inside*
+    c) call that member function AFTER your std::cout statement in main.
+    NOTE: if your member functions being called in main() use std::cout statements, you don't need to create duplicates of these functions.  you only need to create member functions for the std::cout statements that exist in main().
         
- 2) Define your implementations of all functions OUTSIDE of the class. 
- NO IN-CLASS IMPLEMENTATION ALLOWED
- 3) add destructors to all of your UDTs
-        make the destructors do something like print out the name of the class.
-===============================================================
-
- 4) add 2 new UDTs that use only the types you copied above as member variables.
-
- 5) add 2 member functions that use your member variables to each of these new UDTs
-
- 6) Add constructors and destructors to these 2 new types that do stuff.  
-        maybe print out the name of the class being destructed, or call a member function of one of the members.  be creative
+ 3) you should see 2 (almost) identical messages in the program output for each member function you add:
+    one for the std::cout line, and one for the member function's output
  
- 7) copy over your main() from the end of Project3 
-        get it to compile with the types you copied over.
-        remove any code in main() that uses types you didn't copy over.
- 
- 8) Instantiate your 2 UDT's from step 4) in the main() function at the bottom.
-       call their member functions.
- 
- 9) After you finish, click the [run] button.  Clear up any errors or warnings as best you can.
+ 4) After you finish, click the [run] button.  Clear up any errors or warnings as best you can.
+ */
 
- you can resolve any [-Wdeprecated] warnings by adding -Wno-deprecated to list of compiler arguments in the .replit file. all of the "-Wno" in that file are compiler arguments.
- You can resolve any [-Wpadded] warnings by adding -Wno-padded to the list of compiler arguments in the .replit file. all of the "-Wno" in that file are compiler arguments.
+/*
+ example:
+ */
+#include <iostream>
+namespace Example
+{
+    //a User-Defined Type
+    struct MyFoo
+    {
+        MyFoo();
+        ~MyFoo();
+        
+        void printDetailedMemberInfo();
+        
+        int returnValue() { return 3; }
+        float memberVariable = 3.14f;
+    };
+
+    MyFoo::MyFoo() { std::cout << "creating MyFoo" << std::endl; }
+    MyFoo::~MyFoo() { std::cout << "destroying MyFoo" << std::endl; }
+        
+	// 2a) the member function whose function body is almost identical to the std::cout statement in main.
+    //Remember to NAME FUNCTIONS WHAT THEY DO.
+    void MyFoo::printDetailedMemberInfo() //function name contains a verb!!!
+    { 
+        // 2b) explicitly using 'this' inside this member function.
+        std::cout << "MyFoo returnValue(): " << this->returnValue() << " and MyFoo memberVariable: " << this->memberVariable << std::endl; 
+    }  
+    
+    int main()
+    {
+        //an instance of the User-Defined Type named mf
+        MyFoo mf;
+        
+        // 1) a std::cout statement that uses mf's member variables
+        std::cout << "mf returnValue(): " << mf.returnValue() << " and mf memberVariable: " << mf.memberVariable << std::endl; 
+        
+        // 2c) calling mf's member function.  the member function's body is almost identical to the cout statement above.
+        mf.printDetailedMemberInfo();
+        return 0;
+    }
+}
+
+/*
 
  Ignore the Atomic.h and LeakedObjectDetector.h files for now.
  You will use those in Part 3 of this project.
+*/
 
- */
 
 #include <iostream>
 #include <iomanip>
