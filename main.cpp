@@ -101,6 +101,8 @@ struct Cat
     float throwUpFurBall(); 
 
     int eatCroquettes(int croquettesNum, float croquetteWeight);
+
+    void printCatDetailsAndMeow();
 };
 
 Cat::Cat() :
@@ -176,6 +178,16 @@ int Cat::eatCroquettes(int croquettesNum, float croquetteWeightG)
     return 0;
 }
 
+void Cat::printCatDetailsAndMeow()
+{
+    std::cout << std::fixed << std::setprecision(1)
+        << "The cat has " << this->numLimbs << " limb(s) and " << this->numTails << " tail(s). It is " << this->ageYears << " year(s) old. Its colour is " << this->colour << ". And its cuteness level is " << this->cutenessLevel << ".\n"
+        << "Cat weight: " << this->weightKg << "kg\n"
+        << "Max croquettes eaten in one sitting: " << this->maxCroquettes << std::endl;
+    std::cout  << "--- ";
+    this->meow(25);
+}
+
 /*
  copied UDT 2:
  */
@@ -214,6 +226,8 @@ struct VendingMachine
     bool dispenseKitkat(int numberOfItems); 
 
     void refrigerate();
+
+    void stockUpAndDispense();
 };
 
 VendingMachine::VendingMachine()
@@ -292,6 +306,19 @@ bool VendingMachine::dispenseKitkat(int numberOfItems)
 void VendingMachine::refrigerate()
 {
     std::cout << (interiorTemperatureCelsius > targetTemperatureCelsius ? "Refrigeration in progress..." : "No refrigeration needed") << std::endl;
+}
+
+void VendingMachine::stockUpAndDispense()
+{
+        this->kitkatDispenser.stockUp(3);
+    std::cout 
+        << "--- "
+        << "New item dispenser inventory: " << this->kitkatDispenser.inventory << "\n"
+        << "New item dispenser state: " << (this->kitkatDispenser.isDisabled ? "Disabled" : "Activated") << "\n"
+        << "--- "
+        << (this->dispenseKitkat(2) ? "Successfully" : "Unsuccessfully") << " dispensed\n"
+        << "--- "
+        << "New item dispenser inventory: " << this->kitkatDispenser.inventory << "\n";
 }
 
 /*
@@ -532,9 +559,13 @@ int main()
     std::cout << std::fixed << std::setprecision(1)
         << "The cat has " << cat.numLimbs << " limb(s) and " << cat.numTails << " tail(s). It is " << cat.ageYears << " year(s) old. Its colour is " << cat.colour << ". And its cuteness level is " << cat.cutenessLevel << ".\n"
         << "Cat weight: " << cat.weightKg << "kg\n"
-        << "Max croquettes eaten in one sitting: " << cat.maxCroquettes << "\n"
-        << "--- ";
+        << "Max croquettes eaten in one sitting: " << cat.maxCroquettes << "\n";
+    std::cout  << "--- ";
     cat.meow(25);
+    std::cout << "*** Repeat with this->\n";
+    cat.printCatDetailsAndMeow();
+    std::cout << "***\n";
+    
     std::cout
         << "--- "
         << "Did the cat catch a fly? " << (cat.catchAnimal("Fly") ? "Yes!" : "No :(") << "\n"
@@ -580,8 +611,11 @@ int main()
         << (vendingMachine.dispenseKitkat(2) ? "Successfully" : "Unsuccessfully") << " dispensed\n"
         << "--- "
         << "New item dispenser inventory: " << vendingMachine.kitkatDispenser.inventory << "\n";
-    std::cout << std::endl;
+    std::cout << "*** Repeat with this->\n";
+    vendingMachine.stockUpAndDispense();
+    std::cout << "***\n";
     
+    std::cout << std::endl;
     Computer computer;
     std::cout 
         << "--- "
