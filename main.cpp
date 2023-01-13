@@ -1,79 +1,83 @@
 /*
-Project 5: Part 2 / 4
- video: Chapter 3 Part 1
+ Project 5: Part 3 / 4
+ video: Chapter 3 Part 4: 
 
-Create a branch named Part2
+Create a branch named Part3
 
- The 'this' keyword
+ the 'new' keyword
+
+ 1) add #include "LeakedObjectDetector.h" to main
  
- The purpose of this project part is to show you how accessing member variables of objects INSIDE member functions is very similar to accessing member variables of objects OUTSIDE of member functions, via the 'this' keyword and arrow (->) operator and via the '.' operator.
- This project part will break the D.R.Y. rule, but that is fine for the purpose of this project part.
+ 2) Add 'JUCE_LEAK_DETECTOR(OwnerClass)' at the end of your UDTs.
  
- Instructions:
- 1) if you don't have any std::cout statements in main() that access member variables of your U.D.Ts
-         write some.
-    You can copy some from your Project3's main() if needed.
-
- 2) Do the following for EVERY std::cout statement in main() that uses the UDT member variables and functions:
-    a) write a member function that prints the same thing out, but uses the proper techniques inside the member functions to access the same member variables/functions.
-    b) be explicit with your use of 'this->' in those member functions so we see how you're accessing/calling those member variables and functions *inside*
-    c) call that member function AFTER your std::cout statement in main.
-    NOTE: if your member functions being called in main() use std::cout statements, you don't need to create duplicates of these functions.  you only need to create member functions for the std::cout statements that exist in main().
-        
- 3) you should see 2 (almost) identical messages in the program output for each member function you add:
-    one for the std::cout line, and one for the member function's output
+ 3) write the name of your class where it says "OwnerClass"
  
- 4) After you finish, click the [run] button.  Clear up any errors or warnings as best you can.
- */
-
-/*
- example:
- */
-#include <iostream>
-namespace Example
-{
-    //a User-Defined Type
-    struct MyFoo
-    {
-        MyFoo();
-        ~MyFoo();
-        
-        void printDetailedMemberInfo();
-        
-        int returnValue() { return 3; }
-        float memberVariable = 3.14f;
-    };
-
-    MyFoo::MyFoo() { std::cout << "creating MyFoo" << std::endl; }
-    MyFoo::~MyFoo() { std::cout << "destroying MyFoo" << std::endl; }
-        
-	// 2a) the member function whose function body is almost identical to the std::cout statement in main.
-    //Remember to NAME FUNCTIONS WHAT THEY DO.
-    void MyFoo::printDetailedMemberInfo() //function name contains a verb!!!
-    { 
-        // 2b) explicitly using 'this' inside this member function.
-        std::cout << "MyFoo returnValue(): " << this->returnValue() << " and MyFoo memberVariable: " << this->memberVariable << std::endl; 
-    }  
-    
-    int main()
-    {
-        //an instance of the User-Defined Type named mf
-        MyFoo mf;
-        
-        // 1) a std::cout statement that uses mf's member variables
-        std::cout << "mf returnValue(): " << mf.returnValue() << " and mf memberVariable: " << mf.memberVariable << std::endl; 
-        
-        // 2c) calling mf's member function.  the member function's body is almost identical to the cout statement above.
-        mf.printDetailedMemberInfo();
-        return 0;
-    }
-}
-
-/*
-
- Ignore the Atomic.h and LeakedObjectDetector.h files for now.
- You will use those in Part 3 of this project.
+ 4) write wrapper classes for each type similar to how it was shown in the video
+ 
+ 5) update main() 
+      replace your objects with your wrapper classes, which have your UDTs as pointer member variables.
+      
+    This means if you had something like the following in your main() previously: 
 */
+#if false
+ Axe axe;
+ std::cout << "axe sharpness: " << axe.sharpness << "\n";
+ #endif
+ /*
+    you would update that to use your wrappers:
+    
+ */
+
+#if false
+AxeWrapper axWrapper( new Axe() );
+std::cout << "axe sharpness: " << axWrapper.axPtr->sharpness << "\n";
+#endif
+/*
+notice that the object name has changed from 'axe' to 'axWrapper'
+You don't have to do this, you can keep your current object name and just change its type to your Wrapper class
+
+6) If you have a class that has a nested class in it, and an instantiation of that nested class as a member variable, 
+    - you do not need to write a Wrapper for that nested class
+    - you do not need to replace that nested instance with a wrapped instance.
+    If you want an explanation, message me in Slack
+
+7) If you were using any UDTs as function arguments like this:
+*/
+#if false
+void someMemberFunction(Axe axe);
+#endif
+/*
+  Pass those arguments by Reference now that you know what references are (Project 6 Part 2).
+*/
+#if false
+void someMemberFunction(Axe& axe);
+#endif
+/*
+If you aren't modifying the passed-in object inside the function, pass by 'const reference'.
+Marking a function parameter as 'const' means that you are promising that the parameter will not be modified.
+Additionally, you can mark class member functions as 'const'
+If you do this, you are promising that the member function will not modify any member variables.
+
+Mark every member function that is not modifying any member variables as 'const'
+*/
+#if false
+//a function where the argument is passed by const-ref
+void someMemberFunction(const Axe& axe);
+
+//a member function that is marked const, meaning it will not modify any member variables of the 'Axe' class.
+void Axe::aConstMemberFunction() const { }
+#endif
+/*
+ 8) After you finish, click the [run] button.  Clear up any errors or warnings as best you can.
+ 
+ see here for an example: https://repl.it/@matkatmusic/ch3p04example
+
+ Clear any warnings about exit-time-destructors.
+ Suppress them by adding -Wno-exit-time-destructors to the .replit file with the other warning suppression flags
+ */
+
+
+
 
 
 #include <iostream>
