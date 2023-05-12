@@ -186,12 +186,14 @@ void MassageChair::printMassageChairVars()
 struct PetCat
 {
     int numOfEyes {2};
+    int ageOfCat;
+    double weightOfCat = 13;
     double legnthOfTail {10.35};
     std::string furColor = "Grey & White";
-    int ageOfCat;
     std::string nameOfPetCat;
     bool maleGender;
     bool catHungry = true;
+    bool hasVaccines = false;
 
     struct CatCollar
     {
@@ -526,8 +528,21 @@ struct CatShelter
 
     int AdmitNewCat(PetCat newCat, PetCat::CatCollar newCollar)
     {
+        PetCat newCatFound = newCat;
+        int ageOfCat = newCat.ageOfCat;
+        double weightOfCat = newCat.weightOfCat;
+        std::string furColor = newCat.furColor;
+        bool maleGender = newCat.maleGender;
+
+        if(newCat.hasVaccines == false)
+        {
+            std::cout << "administering all vacines\n";
+            newCat.hasVaccines = true;
+        }
+        
+        
         /*
-        input cats information
+            int numOfEyes {2};
         put a new collar on the cat
         groom the cat
         assign it a space in the shelter
