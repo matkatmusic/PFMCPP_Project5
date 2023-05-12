@@ -505,11 +505,23 @@ void Human::printHumanVars()
  ===============================================================
  with 2 member functions
  */
-struct SocialClub
+struct CatShelter
 {
-    MassageChair massageChair;
     PetCat petCat;
-    Human human;
+    PerCat::CatCollar catCollar;
+
+    CatShelter();
+    ~CatShelter();
+
+    int AdmitNewCat()
+    {
+        
+    }
+
+    int getCatAdopted()
+    {
+        
+    }
 };
 
 /*
@@ -519,10 +531,22 @@ struct SocialClub
  */
 struct DatingApp
 {
-    MassageChair massageChair;
-    PetCat petCat;
     Human human;
-}
+    Human::HealthStatus healthStatus;
+
+    DatingApp();
+    ~DatingApp();
+
+    int findNewMatch()
+    {
+        
+    }
+
+    void upgradeMembership()
+    {
+        
+    }
+};
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
