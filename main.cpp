@@ -13,17 +13,22 @@ NOTE: there are 2 sets of instructions:
        One for if you skipped project 3.
 
  Destructors
-
+*/
+/*
 ===============================================================     
- If you completed Project 3:
- 
- 1) Copy 3 of your user-defined types (the ones with constructors and for()/while() loops from Project 3) here
-    Choose the classes that contained nested classes.  Include the nested classes when you copy them over.
-
- 2) move all of your implementations of all functions to OUTSIDE of the class.
-
- 3) add destructors
-        make the destructors do something like print out the name of the class.
+{
+    If you completed Project 3:
+     
+     1) Copy 3 of your user-defined types (the ones with constructors and for()/while() loops from Project 3) here
+        Choose the classes that contained nested classes.  Include the nested classes when you copy them over.
+    
+     2) move all of your implementations of all functions to OUTSIDE of the class.
+    
+     3) add destructors
+            make the destructors do something like print out the name of the class.
+}
+*/
+/*
 ===============================================================
 
 If you skipped Project 3:
@@ -46,7 +51,8 @@ write 3 UDTs below that EACH have:
  NO IN-CLASS IMPLEMENTATION ALLOWED
  3) add destructors to all of your UDTs
         make the destructors do something like print out the name of the class.
-
+*/
+/*
 ===============================================================
 
  4) add 2 new UDTs that use only the types you copied above as member variables.
