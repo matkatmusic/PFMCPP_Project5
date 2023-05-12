@@ -510,17 +510,34 @@ struct CatShelter
     PetCat petCat;
     PetCat::CatCollar catCollar;
 
-    CatShelter();
-    ~CatShelter();
-
-    int AdmitNewCat(PetCat newCat, PetCat::CatCollar newCollar)
+    CatShelter()
+    {
+        
+    }
+    ~CatShelter()
     {
         
     }
 
+    int AdmitNewCat(PetCat newCat, PetCat::CatCollar newCollar)
+    {
+        /*
+        input cats information
+        put a new collar on the cat
+        groom the cat
+        assign it a space in the shelter
+        update cat shots record
+        */
+    }
+
     int getCatAdopted(PetCat newCat, PetCat::CatCollar newCollar)
     {
-        
+        /*
+        unasign space for cat
+        register new owner
+        take manditory donation from new owner
+        give care information to new owner
+        */
     }
 };
 
@@ -534,17 +551,32 @@ struct DatingApp
     Human human;
     Human::HealthStatus healthStatus;
 
-    DatingApp();
-    ~DatingApp();
-
-    int findNewMatch(Human newUser)
+    DatingApp()
+    {
+        
+    }
+    ~DatingApp()
     {
         
     }
 
-    void updateProfile(Human currentUser, Human::HealthStatus currentStatus)
+
+    void createProfile(Human currentUser, Human::HealthStatus currentStatus)
     {
-        
+        /*
+        take in all information name, age, ethnicity, height, weight
+        any health issues an assign a profile to this human
+        assign a percentage of how complete the profile is i.e. is there pictures, is all info filled...
+        */
+    }
+
+    int findNewMatch(Human newUser)
+    {
+        /*
+        use if statment to create a match for your person
+        accept new match
+        send that person a DM
+        */
     }
 };
 /*
