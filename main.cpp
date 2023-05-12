@@ -91,6 +91,7 @@ struct MassageChair
     float footrestInclineAngle;
 
     MassageChair();
+    ~MassageChair();
 
     void giveMassage(bool startMassage);
     void playBackgroundSound(); 
@@ -114,6 +115,11 @@ massageDuration(30.00),
 footrestInclineAngle(90.f)
 {
     std::cout << "MassageChair is being constructed!" << std::endl;
+}
+
+MassageChair::~MassageChair()
+{
+    std::cout << "MassageChair is being destructed!" << std::endl; 
 }
 
 void MassageChair::giveMassage(bool startMassage)
@@ -195,6 +201,7 @@ struct PetCat
         int leashLength;
 
         CatCollar();
+        ~CatCollar();
 
         void repelFleas(int repellantStrength, std::string repellantExpiration);
         void attachLeash();
@@ -218,6 +225,7 @@ struct PetCat
     };
 
     PetCat();
+    ~PetCat();
 
     void takeOffCollar(CatCollar newCollar);
     void knockOverObjects();
@@ -251,6 +259,11 @@ numOfHolesForBuckle(4),
 leashLength(10)
 {
     std::cout << "CatCollar is being constructed!" << std::endl; 
+}
+
+PetCat::CatCollar::~CatCollar()
+{
+    std::cout << "CatCollar is being destructed!" << std::endl; 
 }
 
 void PetCat::CatCollar::repelFleas(int repellantStrength, std::string repellantExpiration)
@@ -298,6 +311,11 @@ nameOfPetCat("Doris"),
 maleGender(false)
 {
     std::cout << "PetCat is being constructed!" << std::endl;
+}
+
+PetCat::~PetCat()
+{
+    std::cout << "PetCat is being destructed!" << std::endl;
 }
 
 void PetCat::takeOffCollar(CatCollar newCollar)
@@ -350,6 +368,7 @@ struct Human
         std::string bloodPressureLevel;
 
         HealthStatus();
+        ~HealthStatus();
 
         void contractSTD(std::string whichSTD, std::string dateContracted);
         void developeHealthCondition(bool isHereditary, std::string knownSymptoms, std::string conditionName);
@@ -369,6 +388,7 @@ struct Human
     };
 
     Human();
+    ~Human();
 
     void visitDoctor(HealthStatus updateHealthStatus);
     void goToSleep(int howLong);
@@ -384,12 +404,22 @@ bloodPressureLevel("120/83 mmHg")
     std::cout << "HealthStatus is being constructed!" << std::endl;
 }
 
+Human::HealthStatus::HealthStatus() :
+{
+    std::cout << "HealthStatus is being destructed!" << std::endl;
+}
+
 Human::Human() :
 dateOfBirth(12181989),
 bloodType("O Negative"),
 amountOfBlood(5000) //mL
 {
     std::cout << "Human being constructed!" << std::endl;
+}
+
+Human::~Human()
+{
+    std::cout << "Human being destructed!" << std::endl;
 }
 
 void Human::HealthStatus::contractSTD(std::string whichSTD, std::string dateContracted)
