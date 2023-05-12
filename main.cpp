@@ -356,10 +356,13 @@ struct Human
     int ageInYears {33};
     std::string nameOfHuman {"First Last"};
     std::string ethnicity = "Black/African American";
-    int dateOfBirth;
     std::string bloodType;
+    std::string heightOfHuman;
     int amountOfBlood;
+    int dateOfBirth;
+    int weightOfHuman;
     bool isAngry = false;
+    bool genderMale = false;
 
     struct HealthStatus
     {
@@ -367,8 +370,8 @@ struct Human
         bool chronicDiseasesPresent {false};
         bool goToAppointment = false;
         std::string dateOfLastCheckup = "23 Feburary 2022";
-        float bodyMassIndex;
         std::string bloodPressureLevel;
+        float bodyMassIndex;
 
         HealthStatus();
         ~HealthStatus();
@@ -413,6 +416,8 @@ Human::HealthStatus::~HealthStatus()
 }
 
 Human::Human() :
+weightOfHuman(150),
+heightOfHuman("5'5"),
 dateOfBirth(12181989),
 bloodType("O Negative"),
 amountOfBlood(5000) //mL
