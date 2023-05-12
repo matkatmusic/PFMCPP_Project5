@@ -508,17 +508,17 @@ void Human::printHumanVars()
 struct CatShelter
 {
     PetCat petCat;
-    PerCat::CatCollar catCollar;
+    PetCat::CatCollar catCollar;
 
     CatShelter();
     ~CatShelter();
 
-    int AdmitNewCat()
+    int AdmitNewCat(PetCat newCat, PetCat::CatCollar newCollar)
     {
         
     }
 
-    int getCatAdopted()
+    int getCatAdopted(PetCat newCat, PetCat::CatCollar newCollar)
     {
         
     }
@@ -537,12 +537,12 @@ struct DatingApp
     DatingApp();
     ~DatingApp();
 
-    int findNewMatch()
+    int findNewMatch(Human newUser)
     {
         
     }
 
-    void upgradeMembership()
+    void updateProfile(Human currentUser, Human::HealthStatus currentStatus)
     {
         
     }
