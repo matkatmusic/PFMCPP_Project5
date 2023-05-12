@@ -517,7 +517,12 @@ struct SocialClub
  ===============================================================
  with 2 member functions
  */
-
+struct DatingApp
+{
+    MassageChair massageChair;
+    PetCat petCat;
+    Human human;
+}
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
