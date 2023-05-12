@@ -78,7 +78,8 @@ write 3 UDTs below that EACH have:
  */
 
 /*
- copied UDT 1: ===============================================================
+ copied UDT 1:
+ ===============================================================
  */
 #include <iostream>
 
@@ -119,7 +120,7 @@ footrestInclineAngle(90.f)
 
 MassageChair::~MassageChair()
 {
-    std::cout << "MassageChair is being destructed!" << std::endl; 
+    std::cout << "MassageChair destructed!" << std::endl; 
 }
 
 void MassageChair::giveMassage(bool startMassage)
@@ -178,7 +179,8 @@ void MassageChair::printMassageChairVars()
 }
 
 /*
- copied UDT 2: ===============================================================
+ copied UDT 2:
+ ===============================================================
  */
 
 struct PetCat
@@ -263,7 +265,7 @@ leashLength(10)
 
 PetCat::CatCollar::~CatCollar()
 {
-    std::cout << "CatCollar is being destructed!" << std::endl; 
+    std::cout << "CatCollar destructed!" << std::endl; 
 }
 
 void PetCat::CatCollar::repelFleas(int repellantStrength, std::string repellantExpiration)
@@ -315,7 +317,7 @@ maleGender(false)
 
 PetCat::~PetCat()
 {
-    std::cout << "PetCat is being destructed!" << std::endl;
+    std::cout << "PetCat destructed!" << std::endl;
 }
 
 void PetCat::takeOffCollar(CatCollar newCollar)
@@ -345,7 +347,8 @@ void PetCat::printPetCatVars()
 }
 
 /*
- copied UDT 3: ===============================================================
+ copied UDT 3:
+ ===============================================================
  */
 
 struct Human
@@ -404,9 +407,9 @@ bloodPressureLevel("120/83 mmHg")
     std::cout << "HealthStatus is being constructed!" << std::endl;
 }
 
-Human::HealthStatus::HealthStatus() :
+Human::HealthStatus::~HealthStatus()
 {
-    std::cout << "HealthStatus is being destructed!" << std::endl;
+    std::cout << "HealthStatu destructed!" << std::endl;
 }
 
 Human::Human() :
@@ -414,12 +417,12 @@ dateOfBirth(12181989),
 bloodType("O Negative"),
 amountOfBlood(5000) //mL
 {
-    std::cout << "Human being constructed!" << std::endl;
+    std::cout << "Human is being constructed!" << std::endl;
 }
 
 Human::~Human()
 {
-    std::cout << "Human being destructed!" << std::endl;
+    std::cout << "Human destructed!" << std::endl;
 }
 
 void Human::HealthStatus::contractSTD(std::string whichSTD, std::string dateContracted)
@@ -498,12 +501,20 @@ void Human::printHumanVars()
 }
 
 /*
- new UDT 4: ===============================================================
+ new UDT 4:
+ ===============================================================
  with 2 member functions
  */
+struct SocialClub
+{
+    MassageChair massageChair;
+    PetCat petCat;
+    Human human;
+};
 
 /*
- new UDT 5: ===============================================================
+ new UDT 5:
+ ===============================================================
  with 2 member functions
  */
 
