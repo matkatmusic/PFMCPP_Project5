@@ -16,7 +16,6 @@ NOTE: there are 2 sets of instructions:
 */
 /*
 ===============================================================     
-{
     If you completed Project 3:
      
      1) Copy 3 of your user-defined types (the ones with constructors and for()/while() loops from Project 3) here
@@ -26,7 +25,6 @@ NOTE: there are 2 sets of instructions:
     
      3) add destructors
             make the destructors do something like print out the name of the class.
-}
 */
 /*
 ===============================================================
@@ -80,8 +78,9 @@ write 3 UDTs below that EACH have:
  */
 
 /*
- copied UDT 1:
+ copied UDT 1: ===============================================================
  */
+#include <iostream>
 
 struct MassageChair
 {
@@ -173,7 +172,7 @@ void MassageChair::printMassageChairVars()
 }
 
 /*
- copied UDT 2:
+ copied UDT 2: ===============================================================
  */
 
 struct PetCat
@@ -328,7 +327,7 @@ void PetCat::printPetCatVars()
 }
 
 /*
- copied UDT 3:
+ copied UDT 3: ===============================================================
  */
 
 struct Human
@@ -468,15 +467,13 @@ void Human::printHumanVars()
     std::cout << "bloodType: " << bloodType << "\n\n"; 
 }
 
-
-
 /*
- new UDT 4:
+ new UDT 4: ===============================================================
  with 2 member functions
  */
 
 /*
- new UDT 5:
+ new UDT 5: ===============================================================
  with 2 member functions
  */
 
@@ -497,5 +494,40 @@ void Human::printHumanVars()
 #include <iostream>
 int main()
 {
+    MassageChair osakiOS4000T; //done
+    osakiOS4000T.giveMassage(true);
+    osakiOS4000T.displayTimer(1);
+    osakiOS4000T.playBackgroundSound();
+    osakiOS4000T.printMassageChairVars();
+
+    PetCat::CatCollar friscoBreakaway; //done
+    friscoBreakaway.repelFleas(10, "12/12/2012");
+    friscoBreakaway.attachLeash();
+    friscoBreakaway.tightenCollar(3);
+    friscoBreakaway.leashExtend(8);
+    friscoBreakaway.printCatCollarVars();
+    
+    PetCat doris; //done
+    doris.knockOverObjects();
+    doris.scratchVisitors();
+    doris.takeOffCollar(friscoBreakaway);
+    doris.catEatFood();
+    doris.printPetCatVars();
+    
+    Human::HealthStatus may5thUpdate; //done
+    may5thUpdate.contractSTD("Cold Sore", "10/28/2021");
+    may5thUpdate.developeHealthCondition(false, "small blisters around body", "chickenpox");
+    may5thUpdate.scheduleCheckUp("11/22/2024", true);
+    may5thUpdate.countdownNextVisit(355);
+    may5thUpdate.printHealthStatusVars();
+
+    Human julianneCabour; //done
+    julianneCabour.nameOfHuman = "Julianne Cabour";
+    julianneCabour.ageInYears = 13;
+    julianneCabour.goToSleep(10);
+    julianneCabour.donateBlood(julianneCabour, false);
+    julianneCabour.visitDoctor(may5thUpdate);
+    julianneCabour.printHumanVars();
+
     std::cout << "good to go!" << std::endl;
 }
