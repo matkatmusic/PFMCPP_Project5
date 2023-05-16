@@ -417,7 +417,7 @@ bodyMassIndex(23.8f)
 
 Human::HealthStatus::~HealthStatus()
 {
-    std::cout << "HealthStatu destructed!" << std::endl;
+    std::cout << "HealthStatus destructed!" << std::endl;
 }
 
 Human::Human() :
@@ -682,7 +682,13 @@ int main()
     julianneCabour.visitDoctor(may5thUpdate);
     julianneCabour.printHumanVars();
 
-    Cat
+    CatShelter stIves;
+    stIves.AdmitNewCat(doris, friscoBreakaway);
+    stIves.getCatAdopted(doris, julianneCabour);
+
+    Hospital stJames;
+    stJames.giveXray(julianneCabour, may5thUpdate);
+    stJames.recomendMedication(julianneCabour, may5thUpdate);
 
     std::cout << "good to go!" << std::endl;
 }
