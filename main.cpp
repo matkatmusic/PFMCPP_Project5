@@ -203,6 +203,7 @@ struct PetCat
         bool hasCollarBuckle;
         int numOfHolesForBuckle;
         int leashLength;
+        int idNumber = 1000;
 
         CatCollar();
         ~CatCollar();
@@ -406,8 +407,8 @@ struct Human
 };
 
 Human::HealthStatus::HealthStatus() :
-bodyMassIndex(23.8f),
-bloodPressureLevel("120/83 mmHg")
+bloodPressureLevel("120/83 mmHg"),
+bodyMassIndex(23.8f)
 {
     std::cout << "HealthStatus is being constructed!" << std::endl;
 }
@@ -418,11 +419,11 @@ Human::HealthStatus::~HealthStatus()
 }
 
 Human::Human() :
-weightOfHuman(150),
-heightOfHuman("5'5"),
-dateOfBirth(12181989),
 bloodType("O Negative"),
-amountOfBlood(5000) //mL
+heightOfHuman("5'5"),
+amountOfBlood(5000), //mL;
+dateOfBirth(12181989),
+weightOfHuman(150)
 {
     std::cout << "Human is being constructed!" << std::endl;
 }
@@ -516,50 +517,58 @@ struct CatShelter
 {
     PetCat petCat;
     PetCat::CatCollar catCollar;
+    int roomForCat {1000};
 
-    CatShelter()
-    {
-        
-    }
-    ~CatShelter()
-    {
-        
-    }
+    CatShelter();
+    ~CatShelter();
 
-    int AdmitNewCat(PetCat newCat, PetCat::CatCollar newCollar)
-    {
-        PetCat newCatFound = newCat;
-        int ageOfCat = newCat.ageOfCat;
-        double weightOfCat = newCat.weightOfCat;
-        std::string furColor = newCat.furColor;
-        bool maleGender = newCat.maleGender;
+    int AdmitNewCat(PetCat newCat, PetCat::CatCollar newCollar);
 
-        if(newCat.hasVaccines == false)
-        {
-            std::cout << "administering all vacines\n";
-            newCat.hasVaccines = true;
-        }
-        
-        
-        /*
-            int numOfEyes {2};
-        put a new collar on the cat
-        groom the cat
-        assign it a space in the shelter
-        update cat shots record
-        */
-    }
-
-    int getCatAdopted(PetCat newCat, PetCat::CatCollar newCollar)
-    {
-        /*
-        unasign space for cat
-        register new owner
-        take manditory donation from new owner
-        give care information to new owner
-        */
-    }
+    int getCatAdopted(PetCat newCat, Human catAdopter);
 };
+
+CatShelter::CatShelter()
+{
+    std::cout << "CatShelter is being constructed\n";
+}
+
+CatShelter::~CatShelter()
+{
+    std::cout << "CatShelter deconstructed\n";  
+}
+
+int CatShelter::AdmitNewCat(PetCat newCat, PetCat::CatCollar newCollar)
+{   
+    if(newCat.hasVaccines == false)
+    {
+        std::cout << "administering all vacines\n";
+        newCat.hasVaccines = true;
+    }
+
+    if(newCollar.idNumber == roomForCat)
+    {
+        roomForCat -= 1;
+    }
+    return roomForCat; 
+}
+
+int CatShelter::getCatAdopted(PetCat newCat, Human catAdopter)
+{
+    int ageRequirement = 18;
+    int newOwnersAge = catAdopter.ageInYears;
+    std::string catsNewOwner = catAdopter.nameOfHuman;
+        
+    if(newOwnersAge < ageRequirement)
+    {
+        std::cout << "you are too young to legally adopt this cat\n";
+    }
+    else
+    {
+        std::cout << catsNewOwner << "thank you for adopting " << newCat.nameOfPetCat << "\n";
+        roomForCat += 1; 
+    }
+    return roomForCat;
+}
 
 /*
  new UDT 5:
@@ -571,34 +580,41 @@ struct DatingApp
     Human human;
     Human::HealthStatus healthStatus;
 
-    DatingApp()
-    {
-        
-    }
-    ~DatingApp()
-    {
-        
-    }
+    DatingApp();
+    ~DatingApp();
 
+    void createProfile(Human currentUser, Human::HealthStatus currentStatus);
 
-    void createProfile(Human currentUser, Human::HealthStatus currentStatus)
-    {
-        /*
-        take in all information name, age, ethnicity, height, weight
-        any health issues an assign a profile to this human
-        assign a percentage of how complete the profile is i.e. is there pictures, is all info filled...
-        */
-    }
-
-    int findNewMatch(Human newUser)
-    {
-        /*
-        use if statment to create a match for your person
-        accept new match
-        send that person a DM
-        */
-    }
+    int findNewMatch(Human newUser);
 };
+
+DatingApp::DatingApp()
+{
+     std::cout << "DatingApp is being constructed\n";   
+}
+
+DatingApp::~DatingApp()
+{
+    std::cout << "DatingApp is being constructed\n";    
+}
+
+void DatingApp::createProfile(Human currentUser, Human::HealthStatus currentStatus)
+{
+    /*
+    take in all information name, age, ethnicity, height, weight
+    any health issues an assign a profile to this human
+    assign a percentage of how complete the profile is i.e. is there pictures, is all info filled...
+    */  
+}
+
+int DatingApp::findNewMatch(Human newUser)
+{
+    /*
+    use if statment to create a match for your person
+    accept new match
+    send that person a DM
+    */
+}
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
