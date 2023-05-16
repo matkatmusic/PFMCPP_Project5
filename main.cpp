@@ -371,6 +371,8 @@ struct Human
     {
         int numOfHealthComplications {0};
         bool chronicDiseasesPresent {false};
+        bool brokenBone {false};
+        bool experiencingPain {false};
         bool goToAppointment = false;
         std::string dateOfLastCheckup = "23 Feburary 2022";
         std::string bloodPressureLevel;
@@ -515,7 +517,7 @@ void Human::printHumanVars()
  */
 struct CatShelter
 {
-    PetCat petCat;
+    PetCat msDoris;
     PetCat::CatCollar catCollar;
     int roomForCat {1000};
 
@@ -534,7 +536,8 @@ CatShelter::CatShelter()
 
 CatShelter::~CatShelter()
 {
-    std::cout << "CatShelter deconstructed\n";  
+    std::cout << "CatShelter deconstructed\n";
+    msDoris.printPetCatVars();
 }
 
 int CatShelter::AdmitNewCat(PetCat newCat, PetCat::CatCollar newCollar)
@@ -575,45 +578,57 @@ int CatShelter::getCatAdopted(PetCat newCat, Human catAdopter)
  ===============================================================
  with 2 member functions
  */
-struct DatingApp
+struct Hospital
 {
-    Human human;
-    Human::HealthStatus healthStatus;
+    Human pateint;
+    Human::HealthStatus goodHealth;
+    int numOfPatients;
 
-    DatingApp();
-    ~DatingApp();
+    Hospital();
+    ~Hospital();
 
-    void createProfile(Human currentUser, Human::HealthStatus currentStatus);
+    bool giveXray(Human currentUser, Human::HealthStatus currentStatus);
 
-    int findNewMatch(Human newUser);
+    bool recomendMedication(Human injuredPatient, Human::HealthStatus injuredStatus);
 };
 
-DatingApp::DatingApp()
+Hospital::Hospital() :
+numOfPatients(1000)
 {
-     std::cout << "DatingApp is being constructed\n";   
+     std::cout << "Hospital is being constructed\n";  
 }
 
-DatingApp::~DatingApp()
+Hospital::~Hospital()
 {
-    std::cout << "DatingApp is being constructed\n";    
+    std::cout << "Hospital is being constructed\n";
+    pateint.printHumanVars();
 }
 
-void DatingApp::createProfile(Human currentUser, Human::HealthStatus currentStatus)
+bool Hospital::giveXray(Human currentPatient, Human::HealthStatus currentStatus)
 {
-    /*
-    take in all information name, age, ethnicity, height, weight
-    any health issues an assign a profile to this human
-    assign a percentage of how complete the profile is i.e. is there pictures, is all info filled...
-    */  
+    std::cout << currentPatient.nameOfHuman << " Are you experiencing any pain?\n";
+        
+    if (currentStatus.experiencingPain == true)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
-int DatingApp::findNewMatch(Human newUser)
+bool Hospital::recomendMedication(Human injuredPatient, Human::HealthStatus injuredStatus)
 {
-    /*
-    use if statment to create a match for your person
-    accept new match
-    send that person a DM
-    */
+    if (injuredStatus.brokenBone == true)
+    {
+        std::cout << injuredPatient.nameOfHuman << "I'm going to prescribe an anabolic medication for your broken bone.\n";
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
@@ -666,6 +681,8 @@ int main()
     julianneCabour.donateBlood(julianneCabour, false);
     julianneCabour.visitDoctor(may5thUpdate);
     julianneCabour.printHumanVars();
+
+    Cat
 
     std::cout << "good to go!" << std::endl;
 }
