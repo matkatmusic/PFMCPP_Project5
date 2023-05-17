@@ -104,7 +104,7 @@ struct MassageChair
         while(startMassage == true)
         {
             --massageDuration;
-            massageDuration < 0.1 ? startMassage = false : startMassage = true;
+            startMassage = (massageDuration < 0.1);
         }
         return startMassage;
     }  
@@ -612,10 +612,7 @@ bool Hospital::giveXray(Human currentPatient, Human::HealthStatus currentStatus)
     {
         return true;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 bool Hospital::recomendMedication(Human injuredPatient, Human::HealthStatus injuredStatus)
@@ -625,10 +622,7 @@ bool Hospital::recomendMedication(Human injuredPatient, Human::HealthStatus inju
         std::cout << injuredPatient.nameOfHuman << "I'm going to prescribe an anabolic medication for your broken bone.\n";
         return true;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
