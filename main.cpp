@@ -682,6 +682,7 @@ int main()
     Hospital stJames;
     stJames.giveXray(julianneCabour, may5thUpdate);
     stJames.recomendMedication(julianneCabour, may5thUpdate);
+    std::cout << " \n";
 
     std::cout << "good to go!" << std::endl;
 }
