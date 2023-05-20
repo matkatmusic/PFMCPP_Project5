@@ -513,13 +513,13 @@ void Human::printHumanVars()
     std::cout << "ageInYears: " << this->ageInYears << " \n";
     std::cout << "nameOfHuman: " << this->nameOfHuman << " \n";
     std::cout << "ethnicity: " << this->ethnicity << "\n";
-    std::cout << "bloodType: " << this->bloodType << "\n\n";
+    std::cout << "bloodType: " << this->bloodType << "\n";
     std::cout << "heightOfHuman: " << this->heightOfHuman << "\n";
     std::cout << "amountOfBlood: " << this->amountOfBlood << "\n";
     std::cout << "dateOfBirth: " << this->dateOfBirth << "\n";
     std::cout << "weightOfHuman: " << this->weightOfHuman << "\n";
     std::cout << "isAngry: " << this->isAngry << "\n";
-    std::cout << "genderMale: " << this->genderMale << "\n";
+    std::cout << "genderMale: " << this->genderMale << "\n\n";
 }
 
 /*
@@ -539,6 +539,8 @@ struct CatShelter
     int AdmitNewCat(PetCat newCat, PetCat::CatCollar newCollar);
 
     int getCatAdopted(PetCat newCat, Human catAdopter);
+
+    void printCatShelterVars();
 };
 
 CatShelter::CatShelter()
@@ -585,6 +587,11 @@ int CatShelter::getCatAdopted(PetCat newCat, Human catAdopter)
     return roomForCat;
 }
 
+void CatShelter::printCatShelterVars()
+{
+    std::cout << "roomForCat " << this->roomForCat << "\n\n";
+}
+
 /*
  new UDT 5:
  ===============================================================
@@ -602,6 +609,8 @@ struct Hospital
     bool giveXray(Human currentUser, Human::HealthStatus currentStatus);
 
     bool recomendMedication(Human injuredPatient, Human::HealthStatus injuredStatus);
+
+    void printHospitalVars();
 };
 
 Hospital::Hospital() :
@@ -636,6 +645,12 @@ bool Hospital::recomendMedication(Human injuredPatient, Human::HealthStatus inju
     }
     return false;
 }
+
+void Hospital::printHospitalVars()
+{
+    std::cout << "numOfPatients " << this->numOfPatients << "\n\n";
+}
+
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
@@ -735,12 +750,16 @@ int main()
     CatShelter stIves;
     stIves.AdmitNewCat(doris, friscoBreakaway);
     stIves.getCatAdopted(doris, julianneCabour);
-    std::cout << " \n";
+    std::cout << "roomForCat " << stIves.roomForCat << "\n\n";
+
+    stIves.printCatShelterVars();
 
     Hospital stJames;
     stJames.giveXray(julianneCabour, may5thUpdate);
     stJames.recomendMedication(julianneCabour, may5thUpdate);
-    std::cout << " \n";
+    std::cout << "numOfPatients " << stJames.numOfPatients << "\n\n";
+
+    stJames.printHospitalVars();
 
     std::cout << "good to go!" << std::endl;
 }
