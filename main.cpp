@@ -63,7 +63,7 @@ namespace Example
         // 1) a std::cout statement that uses mf's member variables
         std::cout << "mf returnValue(): " << mf.returnValue() << " and mf memberVariable: " << mf.memberVariable << std::endl; 
         
-        // 2c) calling mf's member function.  the member function's body is almost identical to the cout statement above.
+        // 2c) calling mf's member function. the member function's body is almost identical to the cout statement above.
         mf.printDetailedMemberInfo();
         return 0;
     }
@@ -170,11 +170,11 @@ int MassageChair::displayTimer(int msgDuration)
 
 void MassageChair::printMassageChairVars()
 {
-    std::cout << "numOfVibrationControls: " << numOfVibrationControls << " \n";
-    std::cout << "appliedPressure: " << appliedPressure << " \n";
-    std::cout << "backrestReclineAngle: " << backrestReclineAngle << "\n";
-    std::cout << "massageDuration:  " << massageDuration << "\n";
-    std::cout << "footrestInclineAngle: " << footrestInclineAngle << "\n\n";
+    std::cout << "MassageChair numOfVibrationControls: " << this->numOfVibrationControls << " \n";
+    std::cout << "MassageChair appliedPressure: " << this->appliedPressure << " \n";
+    std::cout << "MassageChair backrestReclineAngle: " << this->backrestReclineAngle << "\n";
+    std::cout << "MassageChair footrestInclineAngle: " << this->footrestInclineAngle << "\n";
+    std::cout << "MassageChair massageDuration:  " << this->massageDuration << "\n\n";
 }
 
 /*
@@ -302,11 +302,13 @@ int PetCat::CatCollar::tightenCollar(int bucklePosition)
 
 void PetCat::CatCollar::printCatCollarVars()
 {
-    std::cout << "materialOfCollar: " << materialOfCollar << " \n";
-    std::cout << "collarMeasurement: " << collarMeasurement << " \n";
-    std::cout << "isWaterProof: " << isWaterProof << "\n";
-    std::cout << "hasCollarBuckle:  " << hasCollarBuckle << "\n";
-    std::cout << "numOfHolesForBuckle: " << numOfHolesForBuckle << "\n\n";  
+    std::cout << "materialOfCollar: " << this->materialOfCollar << " \n";
+    std::cout << "collarMeasurement: " << this->collarMeasurement << " \n";
+    std::cout << "isWaterProof: " << this->isWaterProof << "\n";
+    std::cout << "hasCollarBuckle:  " << this->hasCollarBuckle << "\n";
+    std::cout << "numOfHolesForBuckle: " << this->numOfHolesForBuckle << "\n";
+    std::cout << "leashLegnth: " << this->leashLength << "\n";
+    std::cout << "idNumber: " << this->idNumber << "\n\n";
 }
 
 PetCat::PetCat() :
@@ -340,12 +342,15 @@ void PetCat::scratchVisitors()
 
 void PetCat::printPetCatVars()
 {
-    std::cout << "numOfEyes: " << numOfEyes << " \n";
-    std::cout << "legnthOfTail: " << legnthOfTail << " \n";
-    std::cout << "furColor: " << furColor << "\n";
-    std::cout << "ageOfCat:  " << ageOfCat << "\n";
-    std::cout << "maleGender:  " << maleGender << "\n";    
-    std::cout << "nameOfPetCat: " << nameOfPetCat << "\n\n"; 
+    std::cout << "numOfEyes: " << this->numOfEyes << " \n";
+    std::cout << "legnthOfTail: " << this->legnthOfTail << " \n";
+    std::cout << "furColor: " << this->furColor << "\n";
+    std::cout << "ageOfCat:  " << this->ageOfCat << "\n";
+    std::cout << "maleGender:  " << this->maleGender << "\n";    
+    std::cout << "nameOfPetCat: " << this->nameOfPetCat << "\n";
+    std::cout << "maleGender: " << this->maleGender << "\n";
+    std::cout << "catHungry: " << this->catHungry<< "\n";
+    std::cout << "hasVaccines: " << this->hasVaccines << "\n\n";
 }
 
 /*
@@ -455,11 +460,14 @@ void Human::HealthStatus::scheduleCheckUp(std::string returnDate, bool sameDocto
 
 void Human::HealthStatus::printHealthStatusVars()
 {
-    std::cout << "numOfHealthComplications: " << numOfHealthComplications << " \n";
-    std::cout << "chronicDiseasesPresent: " << chronicDiseasesPresent << " \n";
-    std::cout << "dateOfLastCheckup: " << dateOfLastCheckup << "\n";
-    std::cout << "bodyMassIndex:  " << bodyMassIndex << "\n";
-    std::cout << "bloodPressureLevel: " << bloodPressureLevel << "\n\n"; 
+    std::cout << "numOfHealthComplications: " << this->numOfHealthComplications << " \n";
+    std::cout << "chronicDiseasesPresent: " << this->chronicDiseasesPresent << " \n";
+    std::cout << "brokenBone: " << this->brokenBone << "\n";
+    std::cout << "experiencingPain: " << this->experiencingPain << "\n";
+    std::cout << "goToAppointment: " << this->goToAppointment << "\n";
+    std::cout << "dateOfLastCheckup: " << this->dateOfLastCheckup << "\n";
+    std::cout << "bloodPressureLevel: " << this->bloodPressureLevel << "\n";
+    std::cout << "bodyMassIndex:  " << this->bodyMassIndex << "\n\n";
 }
 
 void Human::visitDoctor(HealthStatus updateHealthStatus)
@@ -502,11 +510,16 @@ void Human::donateBlood(Human girlfriend, bool giveLeftArm)
 
 void Human::printHumanVars()
 {
-    std::cout << "ageInYears: " << ageInYears << " \n";
-    std::cout << "nameOfHuman: " << nameOfHuman << " \n";
-    std::cout << "ethnicity: " << ethnicity << "\n";
-    std::cout << "dateOfBirth:  " << dateOfBirth << "\n";
-    std::cout << "bloodType: " << bloodType << "\n\n"; 
+    std::cout << "ageInYears: " << this->ageInYears << " \n";
+    std::cout << "nameOfHuman: " << this->nameOfHuman << " \n";
+    std::cout << "ethnicity: " << this->ethnicity << "\n";
+    std::cout << "bloodType: " << this->bloodType << "\n\n";
+    std::cout << "heightOfHuman: " << this->heightOfHuman << "\n";
+    std::cout << "amountOfBlood: " << this->amountOfBlood << "\n";
+    std::cout << "dateOfBirth: " << this->dateOfBirth << "\n";
+    std::cout << "weightOfHuman: " << this->weightOfHuman << "\n";
+    std::cout << "isAngry: " << this->isAngry << "\n";
+    std::cout << "genderMale: " << this->genderMale << "\n";
 }
 
 /*
@@ -644,6 +657,12 @@ int main()
     osakiOS4000T.giveMassage(true);
     osakiOS4000T.displayTimer(1);
     osakiOS4000T.playBackgroundSound();
+    std::cout << "osaki0S4000T numOfVibrationControls: " << osakiOS4000T.numOfVibrationControls << " \n";
+    std::cout << "osaki0S4000T appliedPressure: " << osakiOS4000T.appliedPressure << " \n";
+    std::cout << "osaki0S4000T backrestReclineAngle: " << osakiOS4000T.backrestReclineAngle << " \n";
+    std::cout << "osaki0S4000T footrestInclineAngle: " << osakiOS4000T.footrestInclineAngle << " \n";
+    std::cout << "osaki0S4000T massageDuration: " << osakiOS4000T.massageDuration << " \n\n";
+
     osakiOS4000T.printMassageChairVars();
 
     PetCat::CatCollar friscoBreakaway; //done
@@ -651,6 +670,14 @@ int main()
     friscoBreakaway.attachLeash();
     friscoBreakaway.tightenCollar(3);
     friscoBreakaway.leashExtend(8);
+    std::cout << "materialOfCollar: " << friscoBreakaway.materialOfCollar << " \n";
+    std::cout << "collarMeasurement: " << friscoBreakaway.collarMeasurement << " \n";
+    std::cout << "isWaterProof: " << friscoBreakaway.isWaterProof << "\n";
+    std::cout << "hasCollarBuckle:  " << friscoBreakaway.hasCollarBuckle << "\n";
+    std::cout << "numOfHolesForBuckle: " << friscoBreakaway.numOfHolesForBuckle << "\n";
+    std::cout << "leashLegnth: " << friscoBreakaway.leashLength << "\n";
+    std::cout << "idNumber: " << friscoBreakaway.idNumber << "\n\n";
+
     friscoBreakaway.printCatCollarVars();
     
     PetCat doris; //done
@@ -658,6 +685,16 @@ int main()
     doris.scratchVisitors();
     doris.takeOffCollar(friscoBreakaway);
     doris.catEatFood();
+    std::cout << "numOfEyes: " << doris.numOfEyes << " \n";
+    std::cout << "legnthOfTail: " << doris.legnthOfTail << " \n";
+    std::cout << "furColor: " << doris.furColor << "\n";
+    std::cout << "ageOfCat:  " << doris.ageOfCat << "\n";
+    std::cout << "maleGender:  " << doris.maleGender << "\n";    
+    std::cout << "nameOfPetCat: " << doris.nameOfPetCat << "\n";
+    std::cout << "maleGender: " << doris.maleGender<< "\n";
+    std::cout << "catHungry: " << doris.catHungry << "\n";
+    std::cout << "hasVaccines: " << doris.hasVaccines << "\n\n";
+
     doris.printPetCatVars();
     
     Human::HealthStatus may5thUpdate; //done
@@ -665,6 +702,15 @@ int main()
     may5thUpdate.developeHealthCondition(false, "small blisters around body", "chickenpox");
     may5thUpdate.scheduleCheckUp("11/22/2024", true);
     may5thUpdate.countdownNextVisit(355);
+    std::cout << "numOfHealthComplications: " << may5thUpdate.numOfHealthComplications << " \n";
+    std::cout << "chronicDiseasesPresent: " << may5thUpdate.chronicDiseasesPresent << " \n";
+    std::cout << "brokenBone: " << may5thUpdate.brokenBone << "\n";
+    std::cout << "experiencingPain: " << may5thUpdate.experiencingPain << "\n";
+    std::cout << "goToAppointment: " << may5thUpdate.goToAppointment << "\n";
+    std::cout << "dateOfLastCheckup: " << may5thUpdate.dateOfLastCheckup << "\n";
+    std::cout << "bloodPressureLevel: " << may5thUpdate.bloodPressureLevel << "\n";
+    std::cout << "bodyMassIndex: " << may5thUpdate.bodyMassIndex << "\n\n";
+
     may5thUpdate.printHealthStatusVars();
 
     Human julianneCabour; //done
@@ -673,11 +719,23 @@ int main()
     julianneCabour.goToSleep(10);
     julianneCabour.donateBlood(julianneCabour, false);
     julianneCabour.visitDoctor(may5thUpdate);
+    std::cout << "ageInYears: " << julianneCabour.ageInYears << " \n";
+    std::cout << "nameOfHuman: " << julianneCabour.nameOfHuman << " \n";
+    std::cout << "ethnicity: " << julianneCabour.ethnicity << "\n";
+    std::cout << "bloodType: " << julianneCabour.bloodType << "\n\n";
+    std::cout << "heightOfHuman: " << julianneCabour.heightOfHuman << "\n";
+    std::cout << "amountOfBlood: " << julianneCabour.amountOfBlood << "\n";
+    std::cout << "dateOfBirth: " << julianneCabour.dateOfBirth << "\n";
+    std::cout << "weightOfHuman: " << julianneCabour.weightOfHuman << "\n";
+    std::cout << "isAngry: " << julianneCabour.isAngry << "\n";
+    std::cout << "genderMale: " << julianneCabour.genderMale << "\n";
+
     julianneCabour.printHumanVars();
 
     CatShelter stIves;
     stIves.AdmitNewCat(doris, friscoBreakaway);
     stIves.getCatAdopted(doris, julianneCabour);
+    std::cout << " \n";
 
     Hospital stJames;
     stJames.giveXray(julianneCabour, may5thUpdate);
