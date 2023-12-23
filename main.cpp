@@ -117,24 +117,32 @@ compiler arguments. You can resolve any [-Wpadded] warnings by adding
 #include <iostream>
 #include <stdlib.h>
 
-struct Student {
+struct Student 
+{
   int grade;
   std::string name;
   int courseID;
   int age;
   int studentID;
-  Student(std::string givenName) {
+
+  Student(std::string);
+  ~Student();
+
+  void printStudentID();
+  void printStudentName();
+  void printStudentGrade();
+};
+
+Student::Student(std::string givenName) 
+{
     grade = 100;
     name = givenName;
     courseID = 5;
     age = 18;
     studentID = 123456;
-  }
-  ~Student() {}
-  void printStudentID();
-  void printStudentName();
-  void printStudentGrade();
-};
+}
+
+Student::~Student() {}
 
 void Student::printStudentID() {
   std::cout << "Student ID: " << studentID << std::endl;
@@ -146,6 +154,104 @@ void Student::printStudentName() {
 
 void Student::printStudentGrade() {
   std::cout << "Student Grade: " << grade << std::endl;
+}
+
+struct Guitarist
+{
+    int age;
+    std::string favoriteStyle;
+    std::string name;
+    std::string favoriteGuitarBrand;
+    float height;
+
+    Guitarist();
+    ~Guitarist();
+
+    struct Guitar
+    {
+        std::string brand;
+        std::string model;
+        int numberOfStrings;
+        float volume;
+        bool isConnected;
+
+        Guitar();
+        ~Guitar();
+
+        void volumeUp(float);
+        void volumeDown(float);
+        void connect();
+        void disconnect();
+    };
+
+    Guitar myGuitar;
+
+    void connectGuitar();
+    void disconnectGuitar();
+    void turnVolumeUp(float);
+    void turnVolumeDown(float);
+};
+
+Guitarist::Guitarist()
+{
+    age = 35;
+    favoriteStyle = "Metal";
+    name = "John";
+    favoriteGuitarBrand = "Schecter";
+    height = 6.2f;
+}
+
+Guitarist::~Guitarist() {}
+
+Guitarist::Guitar::Guitar()
+{
+    brand = "Fender";
+    model = "Stratocaster";
+    numberOfStrings = 6;
+    volume = 5.0f;
+    isConnected = false;
+}
+
+Guitarist::Guitar::~Guitar() {}
+
+void Guitarist::Guitar::volumeUp(float value)
+{
+    volume += value;
+}
+
+void Guitarist::Guitar::volumeDown(float value)
+{
+    volume -= value;
+}
+
+void Guitarist::Guitar::connect()
+{
+    isConnected = true;
+}
+
+void Guitarist::Guitar::disconnect()
+{
+    isConnected = false;
+}
+
+void Guitarist::connectGuitar()
+{
+    myGuitar.connect();
+}
+
+void Guitarist::disconnectGuitar()
+{
+    myGuitar.disconnect();
+}
+
+void Guitarist::turnVolumeUp(float value = 0.1f)
+{
+    myGuitar.volumeUp(value);
+}
+
+void Guitarist::turnVolumeDown(float value = 0.1f)
+{
+    myGuitar.volumeDown(value);
 }
 
 int main() {
