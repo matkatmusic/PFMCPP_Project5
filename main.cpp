@@ -357,11 +357,82 @@ void Bassist::slapTheBass()
     std::cout << "Slapping the bass!" << std::endl;
 }
 
-int main() {
-  Student mario = Student("Mario");
-  mario.printStudentName();
-  mario.printStudentID();
-  mario.printStudentGrade();
+// new UDT 4:
+struct GuitarClass
+{
+    Student guitarStudent = Student("Joe");
+    Guitarist guitarTeacher;
 
-  std::cout << "good to go!" << std::endl;
+    GuitarClass();
+    ~GuitarClass();
+
+    std::string getStudentName();
+    std::string getTeacherFavoriteStyle();
+};
+
+GuitarClass::GuitarClass()
+{
+    std::cout << "Guitar class created!" << std::endl;
+}
+
+GuitarClass::~GuitarClass() 
+{
+    std::cout << "Guitar class was destructed!" << std::endl;
+}
+
+std::string GuitarClass::getStudentName()
+{
+    return guitarStudent.name;
+}
+
+std::string GuitarClass::getTeacherFavoriteStyle()
+{
+    return guitarTeacher.favoriteStyle;
+}
+
+// new UDT 5:
+struct JamSession
+{
+    Guitarist leadGuitarist;
+    Bassist bassPlayer = Bassist(21, 5.9f);
+
+    JamSession();
+    ~JamSession();
+
+    bool isGuitaristConnected();
+    bool isBassistConnected();
+};
+
+JamSession::JamSession()
+{
+    std::cout << "Jam Session Created!" << std::endl;
+}
+
+JamSession::~JamSession()
+{
+    std::cout << "Jam Session Destructed!" << std::endl;
+}
+
+bool JamSession::isGuitaristConnected()
+{
+    return leadGuitarist.myGuitar.isConnected;
+}
+
+bool JamSession::isBassistConnected()
+{
+    return bassPlayer.myBass.isConnected;
+}
+
+int main() {
+    GuitarClass firstClass = GuitarClass();
+    JamSession secondClass = JamSession();
+
+    std::string studentName = firstClass.getStudentName();
+    std::string teacherFavoriteStyle = firstClass.getTeacherFavoriteStyle();
+    
+    std::cout << "Student name is: " << studentName << std::endl;
+    std::cout << "Teacher favorite style is: " << teacherFavoriteStyle << std::endl;
+    std::cout << "The guitarist is : " << (secondClass.isGuitaristConnected() ? "connected" : "disconnected") << std::endl;
+    std::cout << "The bass player is : " << (secondClass.isBassistConnected() ? "connected" : "disconnected") << std::endl;
+    std::cout << "good to go!" << std::endl;
 }
