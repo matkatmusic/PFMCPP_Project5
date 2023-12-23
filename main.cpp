@@ -117,45 +117,53 @@ compiler arguments. You can resolve any [-Wpadded] warnings by adding
 #include <iostream>
 #include <stdlib.h>
 
+// UDT 1:
 struct Student 
 {
-  int grade;
-  std::string name;
-  int courseID;
-  int age;
-  int studentID;
+    int grade;
+    std::string name;
+    int courseID = 0;
+    int age;
+    int studentID;
 
-  Student(std::string);
-  ~Student();
+    Student(std::string);
+    ~Student();
 
-  void printStudentID();
-  void printStudentName();
-  void printStudentGrade();
+    void printStudentID();
+    void printStudentName();
+    void printStudentGrade();
 };
 
-Student::Student(std::string givenName) 
+Student::Student(std::string givenName)
 {
-    grade = 100;
+    grade = 50;
     name = givenName;
-    courseID = 5;
     age = 18;
     studentID = 123456;
 }
 
 Student::~Student() {}
 
-void Student::printStudentID() {
-  std::cout << "Student ID: " << studentID << std::endl;
+void Student::printStudentID() 
+{
+    std::cout << "Student ID: " << studentID << std::endl;
 }
 
-void Student::printStudentName() {
-  std::cout << "Student Name: " << name << std::endl;
+void Student::printStudentName() 
+{
+    std::cout << "Student Name: " << name << std::endl;
 }
 
-void Student::printStudentGrade() {
-  std::cout << "Student Grade: " << grade << std::endl;
+void Student::printStudentGrade() 
+{
+    for(int i = 0; i < 4; i++)
+    {
+        grade += 10; 
+    }
+    std::cout << "Student Grade: " << grade << std::endl;
 }
 
+// UDT 2:
 struct Guitarist
 {
     int age;
@@ -252,6 +260,101 @@ void Guitarist::turnVolumeUp(float value = 0.1f)
 void Guitarist::turnVolumeDown(float value = 0.1f)
 {
     myGuitar.volumeDown(value);
+}
+
+// UDT 3:
+struct Bassist
+{
+    int age;
+    std::string favoriteStyle = "Jazz";
+    std::string name;
+    std::string favoriteBassBrand;
+    float height;
+
+    Bassist(int, float);
+    ~Bassist();
+
+    struct Bass
+    {
+        std::string brand;
+        std::string model;
+        int numberOfStrings;
+        float volume;
+        bool isConnected;
+
+        Bass(int, std::string, std::string, bool);
+        ~Bass();
+
+        void volumeUp(float);
+        void volumeDown(float);
+        void connect();
+        void disconnect();
+    };
+
+    Bass myBass = Bass(5, "Fender", "Player", true);
+
+    void turnVolumeUp(float);
+    void turnVolumeDown(float);
+    void slapTheBass();
+};
+
+Bassist::Bassist(int givenAge, float givenHeight)
+{
+    age = givenAge;
+    height = givenHeight;
+    name = "Carol";
+    favoriteBassBrand = "Fender";
+}
+
+Bassist::~Bassist() {}
+
+Bassist::Bass::Bass(int givenNumberOfStrings, std::string givenBrand, std::string givenModel, bool givenIsConnected)
+{
+    numberOfStrings = givenNumberOfStrings;
+    brand = givenBrand;
+    model = givenModel;
+    isConnected = givenIsConnected;
+    volume = 0.0f;
+}
+
+Bassist::Bass::~Bass() {}
+
+void Bassist::Bass::volumeUp(float value)
+{
+    while (volume < 50.0f)
+    {
+        volume += value;
+    }
+}
+
+void Bassist::Bass::volumeDown(float value)
+{
+    volume -= value;
+}
+
+void Bassist::Bass::connect()
+{
+    isConnected = true;
+}
+
+void Bassist::Bass::disconnect()
+{
+    isConnected = false;
+}
+
+void Bassist::turnVolumeUp(float value)
+{
+    myBass.volumeUp(value);
+}
+
+void Bassist::turnVolumeDown(float value)
+{
+    myBass.volumeDown(value);
+}
+
+void Bassist::slapTheBass()
+{
+    std::cout << "Slapping the bass!" << std::endl;
 }
 
 int main() {
